@@ -1,0 +1,713 @@
+//PAGINATION
+
+.pagination > {
+
+	li {
+		@extend %clickable-opacity;
+
+		&:first-child > a, &:last-child > a {
+			/*border-radius: 0px;*/
+		}
+
+		> a {
+			font-family: $extraBoldFont;
+			color: $darkGray;
+			border-color: $darkGray;
+
+			&:hover {
+				color: $darkGray;
+				border-color: $darkGray;
+			}
+
+			&:focus, &.focus {
+				outline: 5px auto -webkit-focus-ring-color;
+			}
+
+			&.disabled, &[disabled], &.disabled:hover, &[disabled]:hover, &.disabled:focus, &[disabled]:focus, &.disabled.focus, &[disabled].focus, &.disabled:active, &[disabled]:active, &.disabled.active, &[disabled].active {
+				color: $darkGray;
+				border-color: $darkGray;
+				cursor: not-allowed !important;
+				pointer-events: visible !important;
+				opacity: 0.5 !important;
+			}
+		}
+
+		&.active {
+
+			> a {
+				color: #fff;
+				text-transform: uppercase;
+				z-index: 0 !important;
+				background-color: $buttonBackgroundSelected;
+
+				&, &:focus, &:hover {
+					background-color: $yellow;
+					border-color: $yellow;
+				}
+			}
+		}
+	}
+}
+
+//SLIDER
+
+.slider > .tooltip-min, .slider > .tooltip-max {
+    display: none;
+}
+
+.slider.slider-disabled .slider-track {
+	cursor: default;
+}
+
+.slider-selection {
+	background: $yellow !important;
+	border-radius: 0px !important;
+	box-shadow: none !important;
+}
+
+.red .slider-selection {
+	background: $red !important;
+}
+
+.slider-track-high, .slider-track-low {
+	border-radius: 0px !important;
+	border-top: 1px solid #aaa;
+	height: 50%;
+	max-height: 50%;
+	min-height: 50%;
+	margin-top: 5px;
+}
+
+//INPUT
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: $mediumBlack;
+    background-color: $lightGray;
+    background-image: none;
+    border: 0px solid #dfdfdf;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: border ease-in-out 0.3s !important;
+
+    &:focus { 
+        border: 1px solid rgba(254,183,55,0.8) !important;       
+    }
+}
+
+.form-control:disabled {
+    background-color: $darkGray;
+    cursor: not-allowed ;
+    pointer-events: visible ;
+    opacity: 0.85;
+}
+
+.form-control[disabled], {
+	cursor: not-allowed !important;
+	pointer-events: visible !important;
+    opacity: 0.85 !important;
+}
+
+.form-control:focus, textarea:focus {
+	box-shadow: none; /*0 0px 0px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(200, 200, 200, 0.6);*/
+	outline: 0 none;
+}
+
+.has-success .form-control {
+    border: 1px solid $green !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.has-error .form-control {
+    border: 1px solid $red !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+//BUTTON
+
+.btn {
+
+	&:hover {
+		@extend %clickable-opacity;
+	}
+
+	&:focus, &.focus {
+		outline: 5px auto -webkit-focus-ring-color;
+	}
+
+	&.selected, &:active, &.active {
+        background-color: $buttonBackgroundSelected;
+		border: 1px solid transparent;
+        color: #fff;
+	}
+
+	// &:focus, &.focus, &:hover {
+	// 	border: 1px solid transparent;
+    //     opacity: 0.85;
+	// }
+
+	&.disabled, &[disabled], &.disabled:hover, &[disabled]:hover, &.disabled:focus, &[disabled]:focus, &.disabled.focus, &[disabled].focus, &.disabled:active, &[disabled]:active, &.disabled.active, &[disabled].active {
+		background-color: $darkGray;
+		border: 1px solid transparent;
+		cursor: not-allowed !important;
+        pointer-events: visible !important;
+        opacity: 0.85 !important;
+
+		&.selected, &:active, &.active {
+			background-color: $buttonBackgroundSelected;
+			border: 1px solid transparent;
+			color: #fff;
+		}
+	}
+}
+
+.btn-default, .btn-danger, .btn-info, .btn-success, .btn-black {
+	color: #fff;
+	text-transform: uppercase;
+	font-family: $extraBoldFont;
+	border: 1px solid transparent;
+
+	&:hover, &:focus {
+		border: 1px solid transparent;
+        color: #fff;
+	}
+}
+
+.btn-default {
+	background-color: $yellow;
+
+	&:hover, &:focus {
+		background-color: $yellow;
+	}
+}
+
+.btn-danger {
+	background-color: $red;
+
+	&:hover, &:focus {
+		background-color: $red;
+	}
+}
+
+.btn-info {
+	background-color: $blue;
+
+	&:hover, &:focus {
+		background-color: $blue;
+	}
+}
+
+.btn-success {
+	background-color: $green;
+
+	&:hover, &:focus {
+		background-color: $green;
+	}
+}
+
+.btn-black {
+	background-color: #111;
+
+	&:hover, &:focus {
+		background-color: #111;
+	}
+}
+
+.btn-sm {
+	font-size: 80% !important;
+}
+
+.btn-xs {
+	font-size: 70% !important;
+}
+
+.btn-xs-block {
+
+	@media (max-width: #{$breakpointXxsMax}) {
+		display: block;
+		width: 100%;
+	}
+}
+
+// fieldset[disabled] .btn {
+// 	&, &:hover, &:focus, &.focus, &:active, &.active {
+// 		background-color: $darkGray;
+// 		border-color: $darkGray;
+// 		cursor: not-allowed !important;
+//         pointer-events: visible !important;
+//         opacity: 0.85 !important;
+// 	}
+// }
+
+//TODO ma è così che deve essere?
+// fieldset[disabled] {
+//     cursor: not-allowed !important;
+//     pointer-events: visible !important;
+//     opacity: 0.85 !important;
+// }
+
+// fieldset[disabled] .navbar-inverse .btn-link:hover, fieldset[disabled] .navbar-inverse .btn-link:focus, .navbar-inverse .btn-link[disabled]:focus {
+//     &:hover, &{
+//         color: #cccccc;
+//     }
+// }
+
+//DROPDOWN NAVBAR FIXMENU
+
+.open > .dropdown-toggle.btn-default {
+	background-image: none;
+
+	&, &:hover, &:focus, &.focus {
+		color: #ffffff;
+		background-color: #1a242f;
+		border-color: #161f29;
+	}
+}
+
+.open > .dropdown-menu {
+	display: none;
+
+	@media only screen and (max-width: $breakpointMdMin) {
+
+		display: block;
+	}
+}
+
+/* Default dropdown */
+.dropdown-menu > li.active > a, .dropdown-menu > li.active > a:hover {
+	background-color: $yellow;
+	color: #fff;
+}
+
+//NAVBAR
+
+/* Dropdown onhover */
+
+@media only screen and (min-width: #{$breakpointMdMin}) {
+
+	.dropdown:hover .dropdown-menu {
+		display: block;
+		margin-top: 0;
+	}
+}
+
+.nav {
+	
+	@media only screen and (max-width: 768px) {
+		overflow: hidden;
+	}
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #333;
+    font-weight: bold;
+}
+.nav-pills > li > a {
+    border-radius: 0px;
+}
+
+.nav-pills > li > a {
+	color: #333;
+	background-color: #f7f7f7;
+}
+
+//TABS
+
+/* Profile nav */
+ul.nav {
+	
+	> li {
+
+		> a {
+			border-radius: 0px;
+		}
+	}
+
+	/* Tab navigation */
+	&.nav-tabs {
+
+		> li {
+
+			> a {
+				text-transform: uppercase;
+				font-family: $boldFont;
+				color: $yellow;
+				font-size: 90%;
+				border-radius: 0;
+				padding: 5px 10px;
+			}
+		}
+	}
+
+}
+
+.tab-content {
+	padding: 15px;
+	border-left: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+
+//CONTAINER
+
+.container {
+	height: 100%;
+	min-height: 100%;
+	overflow: auto;
+	overflow-x: hidden;
+    
+    @media only screen and (max-width: #{$breakpointXsMax}) {
+        
+        // overflow: unset;
+        // height: auto !important;
+        // min-height: calc(100% - #{$headerHeight + $footerHeight}) !important;
+        // min-height: calc(100% - #{$headerHeight}) !important;
+    }
+
+	.paged {
+		background-color: #ffc265;
+	}
+}
+
+//MODAL
+
+.modal {
+	background-color: rgba(0,0,0,0.2);
+	overflow-y: auto;
+
+    .modal-dialog {
+        margin-top: 4em;
+		margin-left: auto;
+		margin-right: auto;
+		// min-height: calc(100% - 4em - 30px);
+		max-height: calc(100% - 4em - 30px);
+		height: calc(100% - 4em - 30px);
+		// overflow-y: auto;
+    
+        @media (max-width: #{$breakpointXxsMax}) {
+            margin-top: 5px;
+            margin-bottom: 5px;
+			min-height: calc(100% - 10px);
+			height: calc(100% - 10px);
+        }
+
+        .modal-content {
+            border-radius: 0px;
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+			margin-bottom: 66px;
+			overflow: auto;
+			max-height: inherit;
+        
+        
+            @media (max-width: #{$breakpointXxsMax}) {
+				width: calc(100% - 10px);
+				// min-height: 100%;
+				max-height: 100%;
+				margin-bottom: 0;
+
+				display: flex;
+				flex-direction: column;
+			}
+
+            .modal-header {
+                background-color: $yellow;
+                
+                .close {
+                    margin-top: 1px;
+                }
+
+                .modal-title {
+                    font-family: $boldFont;
+                    font-size: 18px;
+                    color: #fff;
+                }
+            }
+            
+            .modal-body {
+                font-family: $lightFont;
+				font-size: 16px;
+				
+				@media screen and (max-width: #{$breakpointXxsMax}) {
+					overflow-y: auto;
+					flex-grow: 1;
+				}
+            }
+
+            .modal-footer {
+				// margin-top: -12px;
+				margin-top: 0px;
+                padding: 10px 19px 10px;
+            }
+        }
+    }
+
+    @media screen and (min-width: #{$breakpointMdMin}) {
+
+        .modal-xl {
+			width: 85% !important;
+		}
+		
+        .modal-lg {
+            width: 65% !important;
+        }
+	}
+
+	@media screen and (max-width: #{$breakpointXsMax}) {
+	
+		overflow-y: auto;
+	}
+}
+
+.modalOverModal {
+	z-index: 1051 !important;
+}
+
+//LABEL
+
+.label {
+	font-size: 75% !important;
+	padding: 0.5em 0.75em !important;
+	text-transform: uppercase;
+	
+	a {
+		&, &:hover {
+			color: #fff;
+		}
+	}
+}
+
+.label-success {
+    background-color: $green;
+}
+
+.label-danger {
+    background-color: $red;
+}
+
+.label-warning {
+    background-color: $yellow;
+}
+
+.label-info {
+    background-color: $blue;
+}
+
+.label-container {
+	.label {
+		display: inline-block;
+		margin: 2.5px;
+	}
+}
+
+//TABLE
+
+.table {
+	table-layout: fixed;
+
+	> thead > tr > th, tbody > tr > th, tfoot > tr > th, thead > tr > td, tbody > tr > td, tfoot > tr > td {
+		border-top: 1px solid #e1e2e3;
+	}
+
+	> thead.separator > tr > td, thead.separator > tr > th {
+		&:after {
+			content: '';
+			width: 1px;
+			height: 17px;
+			background-color: #fff;
+			display: block;
+			float: right;
+			opacity: .5;
+			position: relative;
+			right: -8.5px;
+
+			@media screen and (max-width: #{$breakpointXsMax}){
+				display: none;
+			}
+		}
+
+		&:last-child:after {
+			display: none;
+		}
+	}
+
+	> tbody > tr > td {
+		vertical-align: middle;
+	}
+}
+
+//ALERT
+
+.alert {
+	border-radius: 0;
+	font-size: 100%;
+	text-align: center;
+	word-wrap: break-word;
+}
+
+//EVENT (component and directive) button donation that change on :hover
+.choose-donation {
+
+	&.btn-group {
+		width: 100%;
+
+		.btn + .btn {
+			margin-left: 0;
+		}
+
+		.single, .double {
+			border-top-right-radius:0;
+			border-top-left-radius: 0;
+		}
+
+		.single {
+			border-bottom-right-radius: 4px !important;
+		}
+
+		.double {
+			display: none;
+			width: 50%;
+
+			&:first-child {
+				border-bottom-left-radius: 4px !important;
+			}
+
+			&:last-child {
+				&:hover {
+					border-bottom-right-radius: 4px !important;
+				}
+			}
+		}
+
+		&:hover {
+
+			.single {
+				display: none;
+			}
+
+			.double {
+				display: block;
+			}
+		}
+
+	}
+}
+
+//PANEL (home.html, event.html (directive), project.html (directive) )
+
+.panel-container .panel-body {
+	padding: 0px 15px;
+	border-radius: 5px;
+
+	& .coverflow-image {
+		@extend .animation-opacity;
+
+		overflow: hidden;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		height: 11em;
+		width: 100%;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+
+	& > .home-item-info {
+		background-color: #f5f5f5;
+		height: 10.3em;
+		padding-top: 1em;
+
+		@media screen and (max-width: #{$breakpointXsMax}) {
+			height: auto;
+		}
+
+		& > h2 {
+			margin: 0;
+			font-family: $regularFont;
+			font-size: 80%;
+
+			.cat {
+				font-family: $boldFont;
+				text-transform: uppercase;
+				color: $yellow;
+				font-size: 90%;
+				font-weight: bold;
+				> a {
+					color: $yellow;
+				}
+			}
+		}
+
+		& > p {
+			//height: 100%;
+			font-size: 85%;
+			margin-top: 5px;
+			line-height: 1.5em;
+			height: 3.0em;
+			overflow: hidden;
+			white-space: pre-wrap;
+			text-overflow: ellipsis;
+			width: 100%;
+		}
+	}
+}
+
+//TOOLTIP
+
+.tooltip {
+    position: fixed !important; //to show hover all
+}
+
+.slider > .tooltip {
+    position: absolute !important; //to show the slider tooltip
+}
+
+.tooltip {
+	& > .tooltip-inner {
+		min-width: 9em;
+		background-color: rgba(0,0,0,0.9); 
+		color: #fff;
+		padding: 10px 15px;
+		font-size: 1em;
+		font-family: $boldFont;
+	}
+
+	/* Tooltip on top */
+	&.top > .tooltip-arrow {
+		border-top: 5px solid rgba(0,0,0,0.9);
+	}
+	/* Tooltip on bottom */
+	&.bottom > .tooltip-arrow {
+		border-bottom: 5px solid rgba(0,0,0,0.9);
+	}
+	/* Tooltip on right */
+	&.right > .tooltip-arrow {
+		border-right: 5px solid rgba(0,0,0,0.9);
+	}
+	/* Tooltip on left */
+	&.left > .tooltip-arrow {
+		border-left: 5px solid rgba(0,0,0,0.9);
+	}
+}
+
+
+// DISABLE BOOTSTRAP ICONS
+@font-face {
+	font-family: 'Glyphicons Halflings';
+	src: none;
+}
+
+.glyphicon {
+	font-family: 'Arial, Helvetica, sans-serif';
+}

@@ -1,0 +1,118 @@
+<!-- <div class="modal-header">
+	<button type="button" class="close" aria-label="Close" ng-click="$ctrl.close()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" translate>NPO</h4>
+</div>
+
+<div class="modal-body">
+	
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<response-messages [message]="$ctrl.responseMessage"></response-messages>
+		</div>
+	</div>
+
+	<wizard ng-if="$ctrl.user" name="wizardNpo" template="/shared/templates/angular-wizard/wizard.html" indicators-position="top"> 
+		<wz-step wz-title="{{ $ctrl.formNpo.step1.titles.main }}" wz-heading-title="{{ $ctrl.formNpo.step1.titles.heading }}">
+			<formly-form
+				form="$ctrl.formNpo.step1.form.value"
+				model="$ctrl.formNpo.step1.model"
+				fields="$ctrl.formNpo.step1.fields">
+				<div class="row margin-top-15">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+						<button
+							ng-click="$ctrl.formNpo.step1.submit()"
+							ng-disabled="$ctrl.formNpo.step1.submitDisable()"
+							class="btn btn-default"
+							translate>Next</button>
+					</div>
+				</div>
+			</formly-form>
+		</wz-step>
+		<wz-step wz-title="{{ $ctrl.formNpo.step2.titles.main }}" wz-heading-title="{{ $ctrl.formNpo.step2.titles.heading }}">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<p>
+							<span translate>Upload the documents requested below. The submitted documents must be in one of the following languages: Italian, English, Spanish, French or German.</span> <br>
+							<span translate>Otherwise please upload a certified translation in English</span>
+						</p>
+						<p>
+							<b translate>Act of Board</b>: <span translate>Please download and complete this form, then upload it in Act of Board area.</span> <a target="_blank" href="media/documents/HELPERBIT_List_of_admins.pdf" translate>Download form</a>
+						</p>
+				</div>
+			</div>
+			<formly-form
+				form="$ctrl.formNpo.step2.form.value"
+				model="$ctrl.formNpo.step2.model"
+				fields="$ctrl.formNpo.step2.fields">
+				<div class="row margin-top-15"> 
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+						<button
+							wz-previous
+							class="btn btn-default btn-xs-block"
+							translate>Previous</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+						<button
+							ng-click="$ctrl.formNpo.step2.submit()"
+							ng-disabled="$ctrl.formNpo.step2.submitDisable()"
+							class="btn btn-default btn-xs-block"
+							translate>Confirm</button>
+					</div>
+				</div>
+			</formly-form>
+		</wz-step>
+		<wz-step wz-title="{{ $ctrl.formNpo.step3.titles.main }}" wz-heading-title="{{ $ctrl.formNpo.step3.titles.heading }}">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> <h4 translate>Referent</h4> </div>
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> <b translate>Full Name</b>: </div> <div class="col-xs-9"> {{$ctrl.formNpo.step3.model.referentFullName}} </div>
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> <b translate>Email</b>: </div> <div class="col-xs-9"> {{$ctrl.formNpo.step3.model.referentPhoneNumber}} </div>
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> <b translate>Phone Number</b>: </div> <div class="col-xs-9"> {{$ctrl.formNpo.step3.model.referentEmail}} </div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> <h4 translate>Documents</h4> </div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<p class="text-center"> <b translate>Statute</b> </p>
+						<file-thumb [auth]="true" [media-id]="$ctrl.formNpo.step3.model.statuteMedia.mid"></file-thumb>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<p class="text-center"> <b translate>Memorandum</b> </p>
+					<file-thumb [auth]="true" [media-id]="$ctrl.formNpo.step3.model.memorandumMedia.mid"></file-thumb>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<p class="text-center"> <b translate>Act of Board</b> </p>
+					<file-thumb [auth]="true" [media-id]="$ctrl.formNpo.step3.model.actOfBoardMedia.mid"></file-thumb>
+				</div>
+			</div>
+			<div class="row margin-top-15"> 
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+					<button
+						wz-previous
+						class="btn btn-default btn-xs-block"
+						translate>Previous</button>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						ng-click="$ctrl.formNpo.step3.submit()"
+						class="btn btn-default btn-xs-block"
+						translate>Confirm</button>
+				</div>
+			</div>
+		</wz-step>
+		<wz-step wz-title="{{ $ctrl.formNpo.finish.titles.main }}">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p>
+						<span translate>Your request is now pending for review and approval.</span> <br>
+						<span translate>An Helperbit staff member will verify your documents soon.</span>
+					</p>
+				</div>
+			</div>
+		</wz-step>
+	</wizard>
+
+</div> -->

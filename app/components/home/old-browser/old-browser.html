@@ -1,0 +1,49 @@
+<div *ngIf="browserHelperService.oldBrowser.showMainAlert" class="container old-browser-container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-15">
+				<img src="/media/logo_white.svg" alt="Helperbit" height="75px" />
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-15">
+			<h3 translate>You are using an outdated browser and this website may not work correctly</h3>
+			<h4 class="margin-top-25" translate>To proceed and use this website we reccomend you to install a more recent browser</h4>
+		</div>
+	</div>
+	<div class="row margin-top-30">
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+			<span class="span-browser span-chrome"></span>
+			<h3>Google Chrome</h3>
+			<a class="btn btn-success" href="https://www.google.com/intl/it_ALL/chrome/" target="_blank"> <h5> <span translate>download</span> chrome</h5> </a>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center margin-xs-top-35">
+			<span class="span-browser span-firefox"></span>
+			<h3>Mozilla Firefox</h3>
+			<a class="btn btn-success" href="https://www.mozilla.org/it/firefox/" target="_blank"> <h5> <span translate>download</span> firefox</h5> </a>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center margin-xs-top-35">
+			<span class="span-browser span-opera"></span>
+			<h3>Opera</h3>
+			<a class="btn btn-success" href="https://www.opera.com/it" target="_blank"> <h5> <span translate>download</span> opera</h5> </a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-50">
+			<button class="btn btn-info" (click)="enterWebsite()"> <h5 translate>Enter anyway in the website</h5> </button> 
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-30">
+			&copy; Helperbit s.r.l. <span translate>All rights reserved</span> <span class="hidden-xs">-</span> <br class="hidden-lg hidden-md hidden-sm"> PI: 13844091002
+		</div>
+	</div>
+</div>
+
+<div *ngIf="browserHelperService.oldBrowser.showBannerAlert" class="old-browser-banner text-color-white">
+	<p class="padding-15">
+		<!-- <span translate>You're using an old browser.</span> <br> -->
+		<span translate>This website may not work correctly</span >
+		<a href="javascript:void(0)" (click)="exitWebsite()" translate>more info</a> 
+	</p>
+	<div class="image text-center">
+		<i class="fa fa-exclamation-triangle"></i>
+	</div>
+</div>

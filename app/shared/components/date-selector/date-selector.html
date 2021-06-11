@@ -1,0 +1,23 @@
+<div>
+    <div class="custom-select" style="float: left; margin-right: 2%; width: 32%;">
+        <select [formControl]="formControlYear" class="form-control">
+            <option *ngFor="let year of ranges.years" value="{{year}}">{{year}}</option>
+        </select>
+        <div class="arrow"></div>
+    </div>
+    <div class="custom-select" style="float: left; margin-right: 2%; width: 32%;">
+        <select [formControl]="formControlMonth" class="form-control">
+            <option *ngFor="let obj of ranges.months | keyvalue" value="{{obj.key}}">{{obj.value.name | slice:0:3}}</option>
+        </select>
+        <div class="arrow"></div>
+    </div>
+    <div class="custom-select" style="float: left; width: 32%;">
+        <select [formControl]="formControlDay" class="form-control">
+            <option *ngFor="let day of ranges.days" value="{{day}}">{{day}}</option>
+        </select>
+        <div class="arrow"></div>
+    </div>
+</div>
+<div style="clear: both;"></div>
+
+

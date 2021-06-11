@@ -1,0 +1,21 @@
+<h1 class="title border-bottom border-red margin-bottom-35" translate>contact us</h1>
+
+<div class="contact-box">
+    <!-- E' gia' migrato in master -->
+    <div class="row">
+        <div class="col-xs-12">
+            <response-messages [message]="form.responseMessage"></response-messages>
+        </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit(form.model)">
+        <formly-form [form]="form" [fields]="form.fields" [model]="form.model"></formly-form>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <button type="submit"
+                    [disabled]="!form.valid"
+                    class="btn btn-default btn-block"
+                    translate>Send</button>
+            </div>
+        </div>
+    </form>
+</div>

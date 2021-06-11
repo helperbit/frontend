@@ -1,0 +1,52 @@
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" translate>NPO Memorandum</h4>
+</div>
+
+<div class="modal-body">
+	<aw-wizard>
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+			<form [formGroup]="wizard.step1">
+				<formly-form [form]="wizard.step1" [fields]="wizard.step1.fields" [model]="wizard.step1.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+						<button
+							(click)="sendMemorandum()"
+							[disabled]="wizard.step1.invalid"
+							class="btn btn-default btn-xs-block" translate>Confirm</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step2.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p>
+						<span translate>Your request is now pending for review and approval.</span> <br>
+						<span translate>An Helperbit staff member will verify your documents soon.</span>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="activeModal.dismiss()"
+						class="btn btn-default btn-xs-block" translate>Done</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+
+</div>

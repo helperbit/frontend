@@ -1,0 +1,15 @@
+@import "../../sass/const.scss";
+
+:host {
+	display: flex;
+	flex-direction: column;
+
+	.error-alert {
+		background-color: $red;
+		color: #fff;
+		padding: 5px;
+		margin-left: 5px;
+		border-radius: 5px;
+		box-shadow: 0px 0px 4px 3px #999;
+	}
+}

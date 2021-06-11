@@ -1,0 +1,170 @@
+<modal-inner [config]="modals.badgeInfo">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center badge-Info">
+			<img [src]="modals.badgeInfo.selectedBadge.src">
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 badge-Info padding-top-15"
+			*ngIf="modals.badgeInfo.selectedBadge.showDescription" [ngSwitch]="modals.badgeInfo.selectedBadge.key">
+			<div *ngSwitchCase="'trust'">
+				<translated [lang]="'en'" [langs]="['en', 'it']">
+					To unlock this badge <a routerLink="/me/edit" target="_blank">fill the form</a> related to your personal
+					profile, <a routerLink="/me/verify" target="_blank">complete the ID and residency verification</a> and the
+					OTC procedure.
+				</translated>
+				<translated [lang]="'it'" [langs]="['en', 'it']">
+					Per sbloccare questo badge <a routerLink="/me/edit" target="_blank">inserisci le informazioni</a> relative
+					al tuo profilo personale, <a routerLink="/me/verify" target="_blank">completa la verifica</a> del
+					documento d’identità, di residenza e dell’OTC.
+				</translated>
+			</div>
+			<div *ngSwitchCase="'supporter'">
+				<translated [lang]="'en'" [langs]="['en', 'it']">
+					To unlock this badge <a routerLink="/charity/proposed/true" target="_blank">suggest</a> a non-profit
+					organization that operates in your country, we will do our best to help it to accept crypto
+					donations. Put also 'like' to your best <a routerLink="/charity/proposed" target="_blank">5 organizations
+						proposed by others</a>.
+				</translated>
+				<translated [lang]="'it'" [langs]="['en', 'it']">
+					Per sbloccare questo badge <a routerLink="/charity/proposed" target="_blank">suggerisci</a> una Organizzazione
+					non profit che lavora nel tuo Paese, faremo del nostro meglio per aiutarla ad accettare donazioni in
+					criptovaluta. Metti anche ‘like’ alle <a routerLink="/charity/proposed" target="_blank">5 Organizzazioni
+						proposte da altri che più ti piacciono</a>.
+				</translated>
+			</div>
+			<div *ngSwitchCase="'donor'">
+				<translated [lang]="'en'" [langs]="['en', 'it']">
+					To unlock this badge <a routerLink="/me/wallet" target="_blank">create your bitcoin wallet</a>, top it up
+					and donate this money to active charitable projects that you like the most!
+					<hr>
+					Unlock the following levels: <br>
+					<ul class="check-list">
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.donor.earned['donor-bronze'] }">
+							<b><i>Bronze</i></b>: you have donated at least 5€</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.donor.earned['donor-silver'] }">
+							<b><i>Silver</i></b>: the total donated amount is greater than 50€</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.donor.earned['donor-gold'] }">
+							<b><i>Gold</i></b>: you have donated more than 500€</li>
+					</ul>
+				</translated>
+				<translated [lang]="'it'" [langs]="['en', 'it']">
+					Per sbloccare questo badge <a routerLink="/me/wallet" target="_blank">crea il tuo portafoglio bitcoin</a>,
+					ricaricalo e dona alle raccolte fondi attive che ti piacciono di più!
+					<hr>
+					Sblocca i seguenti livelli: <br>
+					<ul class="check-list">
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.donor.earned['donor-bronze'] }">
+							<b><i>Bronzo</i></b>: hai donato almeno 5€</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.donor.earned['donor-silver'] }">
+							<b><i>Argento</i></b>: la somma delle tue donazioni è superiore a 50€</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.donor.earned['donor-gold'] }">
+							<b><i>Oro</i></b>: hai donato più di 500€</li>
+					</ul>
+				</translated>
+			</div>
+			<div *ngSwitchCase="'fundraiser'">
+				<translated [lang]="'en'" [langs]="['en', 'it']">
+					Unlock this badge by celebrating an important occasion like a birthday, a festivity or a personal
+					milestone and promoting it through a <a routerLink="/campaign/create" target="_blank">Fundraising
+						campaign</a>. <br>
+					Choose the non-profit and support a charitable cause.
+					<hr>
+					Unlock the following levels: <br>
+					<ul class="check-list margin-top-5">
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.fundraiser.earned['fundraiser-bronze'] }">
+							<b><i>Bronze</i></b>: you have collected at least 21€ through Fundraising campaigns</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.fundraiser.earned['fundraiser-silver'] }">
+							<b><i>Silver</i></b>: you have collected at least 210€ through Fundraising campaigns</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.fundraiser.earned['fundraiser-gold'] }">
+							<b><i>Gold</i></b>: you have collected at least 2100€ through Fundraising campaigns</li>
+					</ul>
+				</translated>
+				<translated [lang]="'it'" [langs]="['en', 'it']">
+					Sblocca questo badge celebrando un'occasione importante come un compleanno una festa o un risultato
+					personale e promuovila attraverso una <a routerLink="/campaign/create" target="_blank">Campagna
+						Fundraising</a>. <br>
+					Scegli la non-profit e sostieni una causa solidale.
+					<hr>
+					Sblocca i seguenti livelli: <br>
+					<ul class="check-list margin-top-5">
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.fundraiser.earned['fundraiser-bronze'] }">
+							<b><i>Bronzo</i></b>: hai raccolto almeno 21€ tramite campagne Fundraising</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.fundraiser.earned['fundraiser-silver'] }">
+							<b><i>Argento</i></b>: hai raccolto almeno 210€ tramite campagne Fundraising</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.fundraiser.earned['fundraiser-gold'] }">
+							<b><i>Oro</i></b>: hai raccolto almeno 2100€ tramite campagne Fundraising</li>
+					</ul>
+				</translated>
+			</div>
+			<div *ngSwitchCase="'ambassador'">
+				<translated [lang]="'en'" [langs]="['en', 'it']">
+					Everyone can become an Helperbit Ambassador by promoting the platform through its own invitation
+					link and helping friends to sign up. Join our mission, visit the <a routerLink="/i/ambassador"
+						target="_blank">Ambassador Program page</a>
+					<hr>
+					Unlock the following levels: <br>
+					<ul class="check-list margin-top-5">
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.ambassador.earned['ambassador-bronze'] }">
+							<b><i>Bronze</i></b>: at least 2 Users signed up with your invitation link</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.ambassador.earned['ambassador-silver'] }">
+							<b><i>Silver</i></b>: you receive this prize when you reach 20 referred Users</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.ambassador.earned['ambassador-gold'] }">
+							<b><i>Gold</i></b>: this badge is unlocked when you reach 50 referred Users</li>
+					</ul>
+				</translated>
+				<translated [lang]="'it'" [langs]="['en', 'it']">
+					Everyone can become an Helperbit Ambassador by promoting the platform through its own invitation
+					link and helping friends to sign up. Join our mission, visit the <a routerLink="/i/ambassador"
+						target="_blank">Ambassador Program page</a>
+					<hr>
+					Sblocca i seguenti livelli: <br>
+					<ul class="check-list margin-top-5">
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.ambassador.earned['ambassador-bronze'] }">
+							<b><i>Bronzo</i></b>: almeno 2 amici si sono iscritti con il tuo link d’invito</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.ambassador.earned['ambassador-silver'] }">
+							<b><i>Argento</i></b>: ricevi questo premio quando raggiungi i 20 iscritti</li>
+						<li
+							[ngClass]="{ 'success':  !modals.badgeInfo.alwaysDescription && badges.ambassador.earned['ambassador-gold'] }">
+							<b><i>Oro</i></b>: questo badge si sblocca quando raggiungi i 50 iscritti</li>
+					</ul>
+				</translated>
+			</div>
+			<div *ngSwitchCase="'friend'">
+				<translated [lang]="'en'" [langs]="['en', 'it']">
+					To unlock this badge invite at least one friend or sign up for Helperbit using an invitation link
+				</translated>
+				<translated [lang]="'it'" [langs]="['en', 'it']">
+					Per sbloccare questo badge invita almeno un amico o iscriviti ad Helperbit utilizzando un link
+					d’invito
+				</translated>
+			</div>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center badge-Info padding-top-15"
+			*ngIf="!modals.badgeInfo.selectedBadge.showDescription">
+			<p translate>You got this badge. Great!</p>
+		</div>
+	</div>
+</modal-inner>
+
+<div class="row">
+	<div class="text-center helperbit-badge" [ngClass]="badgeClass" *ngFor="let item of badges | keyvalue">
+		<img [height]="badgeHeight" [src]="item.value.src" [ngClass]="{ 'locked': !item.value.unlock }"
+			(click)="showBagdeInfo(item.key, item.value);">
+	</div>
+</div>

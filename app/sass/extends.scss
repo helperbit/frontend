@@ -1,0 +1,64 @@
+@import 'const.scss';
+
+/* EXTENDS */
+
+/*
+
+    this file contain all sass extends
+
+*/
+
+%clickable-default {
+    cursor: pointer;
+}
+
+%not-clickable-default {
+
+    &:hover {
+        cursor: default;
+    }
+}
+
+%clickable-opacity {
+    @extend %clickable-default;
+
+    opacity: 1;
+    transition: opacity linear 0.3s;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+%clickable-opacity-inverse {
+    @extend %clickable-default;
+
+    opacity: 0.5;
+    transition: opacity linear 0.3s;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+%clickable-text {
+    @extend %clickable-default;
+
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+%clickable-text-link {
+    @extend %clickable-default;
+
+    color: $link;
+    text-decoration: none;
+
+    &:hover {
+        color: $linkHover;
+        text-decoration: underline !important;
+    }
+}

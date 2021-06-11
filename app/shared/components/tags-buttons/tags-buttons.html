@@ -1,0 +1,27 @@
+<!-- divide in two case to manage tooltip that not work with button disabled-->
+<div class="tags-buttons-container" *ngIf="config.tagsAvailable && config.tagsAvailableKeys">
+    <span *ngIf="!config.disabled">
+        <div
+            class="tag"
+            *ngFor="let tag of config.tagsAvailableKeys"
+            [ngClass]="{ 'active': selection[tag] }"
+            (click)="selection[tag] = !selection[tag]; click(tag);">
+                <div *ngIf="config.tagsAvailable[tag]" class="image" [tooltip]="config.tagsAvailable[tag].name | translate">
+                    <svg-icon [iconId]="config.tagsAvailable[tag].iconId" [iconSrc]="config.tagsAvailable[tag].src"></svg-icon>
+                </div>
+        </div>
+    </span>
+
+    <span *ngIf="config.disabled">
+        <div
+            class="tag tag-disabled"
+            *ngFor="let tag of config.tagsAvailableKeys"
+            [ngClass]="{ 'active': selection[tag] }">
+                <div *ngIf="config.tagsAvailable[tag]" class="image" [tooltip]="config.tagsAvailable[tag].name | translate">
+                    <svg-icon [iconId]="config.tagsAvailable[tag].iconId" [iconSrc]="config.tagsAvailable[tag].src"></svg-icon>
+                </div>
+        </div>
+    </span>
+        
+    <input type="hidden" [formControl]="formControl">
+</div>

@@ -1,0 +1,23 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="static-page-image">
+    <img [src]="image.url" [alt]="image.alt">
+</div>
+
+<div class="page page-medium margin-top-0">
+	<h1>Current Version (May 24, 2018)</h1>
+	<br>
+	<div style="border: 1px solid #eee; overflow-y: scroll; height: 250px; padding-right: 1em;">
+		<privacy-content-component></privacy-content-component>
+	</div>
+	<br>
+	<hr>
+	<br>
+	<h1>Previous Version (September 9, 2016)</h1>
+	<br>
+	<div style="border: 1px solid #eee; overflow-y: scroll; height: 250px; padding-right: 1em;">
+		<privacy-content-history2-component></privacy-content-history2-component>
+	</div>
+</div>
+
+<seo-footer-component></seo-footer-component>

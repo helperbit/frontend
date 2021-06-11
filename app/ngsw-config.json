@@ -1,0 +1,70 @@
+{
+	"$schema": "../node_modules/@angular/service-worker/config/schema.json",
+	"index": "/index.html",
+	"TRIGGER_UPDATE_2": true,
+	"dataGroups": [
+		{
+			"name": "api-performance",
+			"urls": [
+				"/api/v1/media/*",
+				"/api/v1/m/**",
+				"/api/v1/user/*/avatar"
+			],
+			"cacheConfig": {
+				"strategy": "performance",
+				"maxSize": 100,
+				"maxAge": "3d"
+			}
+		},
+		{
+			"name": "api-freshness",
+			"urls": [
+				"/api/v1/**",
+				"/api/v1/wallet/**",
+				"/api/v1/me/**",
+				"/api/v1/user/*/donations",
+				"/api/v1/project/*/donations",
+				"/api/v1/project/**"
+			],
+			"cacheConfig": {
+				"strategy": "freshness",
+				"maxSize": 100,
+				"maxAge": "3d",
+				"timeout": "4s"
+			}
+		}
+	],
+	"assetGroups": [
+		{
+			"name": "app",
+			"installMode": "prefetch",
+			"resources": {
+				"files": [
+					"/media/icons/favicon.ico",
+					"/index.html",
+					"/helperbit.webmanifest",
+					"/media/logo/*.png",
+					"/*.css",
+					"/*.js"
+				]
+			}
+		},
+		{
+			"name": "assets",
+			"installMode": "lazy",
+			"updateMode": "prefetch",
+			"resources": {
+				"exclude": [
+					"/data/**/*.(json|geojson)"
+				],
+				"files": [
+					"/lang/*.(json)",
+					"/static/**/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani|html)",
+					"/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
+					"/media/**/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
+					"/fonts/**/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+				]
+			}
+		}
+	]
+}

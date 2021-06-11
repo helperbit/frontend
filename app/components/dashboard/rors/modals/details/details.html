@@ -1,0 +1,213 @@
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" *ngIf="viewType == 'details'" translate>Refund claim details</h4>
+	<h4 class="modal-title" id="myModalLabel" *ngIf="viewType == 'reject'" translate>Refund claim - Reject</h4>
+	<h4 class="modal-title" id="myModalLabel" *ngIf="viewType == 'approve'" translate>Refund claim - Send Funds</h4>
+</div>
+
+<div class="modal-body" *ngIf="viewType == 'details'">
+	<table class="table table-striped tabel-responsive table-bordered">
+		<tr>
+			<td translate>Status</td>
+			<td>
+				<span *ngIf="config.ror.status == 'pending'" [tooltip]="'The refund claim is pending for approval' | translate" class="label label-warning" translate>Pending</span>
+				<span *ngIf="config.ror.status == 'rejected'" [tooltip]="'The refund claim was rejected' | translate" class="label label-danger" translate>Rejected</span>
+				<span *ngIf="config.ror.status == 'accepted'" [tooltip]="'The refund claim was accepted and waiting for admin signatures' | translate" class="label label-success" translate>Accepted</span>
+				<span *ngIf="config.ror.status == 'sent'" [tooltip]="'The refund claim was accepted and the money has sent' | translate" class="label label-success" translate>Sent</span>
+			</td>
+		</tr>
+		<tr *ngIf="config.ror.status == 'rejected'">
+			<td translate>Reject reason</td>
+			<td>{{config.ror.rejectreason}}</td>
+		</tr>
+		<tr>
+			<td translate>Date</td>
+			<td>{{config.ror.time|date:'medium'}}</td>
+		</tr>
+		<tr>
+			<td translate>From</td>
+			<td>{{config.ror.from}}</td>
+		</tr>
+		<tr>
+			<td translate>To</td>
+			<td>{{config.ror.to}}</td>
+		</tr>
+		<tr>
+			<td translate>Value</td>
+			<td>{{config.ror.value}} <i class="fa fa-{{config.ror.currency.toLowerCase ()}}"></i></td>
+		</tr>
+		<tr *ngIf="config.ror.status == 'pending' || config.ror.status == 'rejected'">
+			<td translate>Actual Bitcoin value</td>
+			<td>{{rorParsedValue}} <i class="fa fa-bitcoin"></i></td>
+		</tr>
+		<tr *ngIf="config.ror.status != 'pending' && config.ror.status != 'rejected'">
+			<td translate>Bitcoin value</td>
+			<td>{{config.ror.valuebtc}} <i class="fa fa-bitcoin"></i></td>
+		</tr>
+		<tr>
+			<td translate>Description</td>
+			<td class="text-ellipsis">{{config.ror.description}}</td>
+		</tr>
+		<tr>
+			<td translate>Invoicing company VAT</td>
+			<td class="text-ellipsis">{{config.ror.invvat}}</td>
+		</tr>
+		<tr>
+			<td translate>Invoice date</td>
+			<td>{{config.ror.invdate|date}}</td>
+		</tr>
+		<tr>
+			<td translate>Document hash</td>
+			<td class="text-ellipsis">
+				<a
+					href="javascript:void(0)"
+					[tooltip]="'Click to copy' | translate"
+					[copyToClipboard]="config.ror.hash">{{config.ror.hash}}</a>
+			</td>
+		</tr>
+		<tr>
+			<td translate>Document</td>
+			<td class="text-ellipsis"><a href="{{config.ror.documents[0]|media}}" target="_blank">Link</a></td>
+		</tr>
+		<tr *ngIf="config.ror.status == 'accepted' && config.ror.to == username">
+			<td translate>Temp transaction</td>
+			<td class="text-ellipsis">
+				<a routerLink="/transaction/{{config.ror.txid}}" target="_blank" style="font-size: 65%">{{config.ror.txid}}</a>
+			</td>
+		</tr>
+		<tr *ngIf="config.ror.status == 'sent'">
+			<td translate>Transaction</td>
+			<td class="text-ellipsis">
+				<a routerLink="/transaction/{{config.ror.txid}}" target="_blank" style="font-size: 65%">{{config.ror.txid}}</a>
+			</td>
+		</tr>
+	</table>
+
+	<div *ngIf="config.ror.status == 'pending' && config.ror.to == username">
+		<p class="text-center margin-bottom-20" translate>You can reject this request, or approve it and send the requested funds:</p>
+
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-lg-left text-md-left">
+				<button type="button" (click)="goToRorReject()" class="btn btn-danger btn-sm-block btn-xs-block" translate>Reject</button>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-lg-right text-md-right margin-sm-top-15 margin-xs-top-15">
+				<button type="button" (click)="goToRorApprove()" class="btn btn-success btn-sm-block btn-xs-block" translate>Send funds</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal-body" *ngIf="viewType == 'reject'">
+	<aw-wizard>
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizardReject.step1.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizardReject.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h3 class="text-center">{{ wizardReject.step1.titles.heading }}</h3>
+				</div>
+			</div>
+			<form [formGroup]="wizardReject.step1">
+				<formly-form [form]="wizardReject.step1" [fields]="wizardReject.step1.fields" [model]="wizardReject.step1.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-lg-left text-md-left text-sm-center text-xs-center">
+						<button
+							(click)="cancelRorReject()"
+							[disabled]="wizardReject.step1.invalid"
+							class="btn btn-default btn-xs-block" translate>Cancel</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-center text-xs-center margin-sm-top-15 margin-xs-top-15">
+						<button
+							(click)="rorReject()"
+							[disabled]="wizardReject.step1.invalid"
+							class="btn btn-default btn-xs-block" translate>Send</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizardReject.step2.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p translate>Refund claim successfull sent.</p>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+</div>
+
+<div class="modal-body" *ngIf="viewType == 'approve'">
+	<aw-wizard>
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizardApprove.step1.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizardApprove.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h3 class="text-center">{{ wizardApprove.step1.titles.heading }}</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h5 class="text-center">{{ wizardApprove.step1.titles.description }}</h5>
+				</div>
+			</div>
+
+			<form [formGroup]="wizardApprove.step1">
+				<formly-form [form]="wizardApprove.step1" [fields]="wizardApprove.step1.fields" [model]="wizardApprove.step1.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-lg-left text-md-left">
+						<button
+							(click)="cancelRorApprove()"
+							class="btn btn-info btn-sm-block btn-xs-block"
+							translate>Cancel</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-lg-right text-md-right margin-sm-top-15 margin-xs-top-15">
+						<button
+							(click)="rorApprove()"
+							[disabled]="wizardApprove.step1.model.wallet == null"
+							class="btn btn-default btn-sm-block btn-xs-block"
+							translate>Proceed</button>
+					</div>
+				</div>
+			</form>
+
+			<!-- <wallet-list [config]="$ctrl.walletList" (selected)="wizardApprove.step1.model.wallet = $event;"></wallet-list>
+
+			<div class="row margin-top-15">
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-lg-left text-md-left">
+					<button
+						(click)="cancelRorApprove()"
+						class="btn btn-info btn-sm-block btn-xs-block"
+						translate>Cancel</button>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-lg-right text-md-right margin-sm-top-15 margin-xs-top-15">
+					<button
+						(click)="rorApprove()"
+						[disabled]="wizardApprove.step1.model.wallet == null"
+						class="btn btn-default btn-sm-block btn-xs-block"
+						translate>Proceed</button>
+				</div>
+			</div> -->
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizardApprove.step2.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p translate>Refund claim successfull sent.</p>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+</div>

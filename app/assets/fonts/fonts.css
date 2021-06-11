@@ -1,0 +1,83 @@
+/* GOBOLD */
+
+@font-face {
+    font-family: 'Gobold Regular';
+    src: url('/fonts/gobold/Gobold.eot'); /* IE9 Compat Modes */
+    src: url('/fonts/gobold/Gobold.eot#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/fonts/gobold/Gobold.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/fonts/gobold/Gobold.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/gobold/Gobold.woff') format('woff'), /* Pretty Modern Browsers */
+    url('/fonts/gobold/Gobold.svg#Gobold') format('svg'); /* Legacy iOS */
+    font-weight: normal;
+}
+
+/* CIRCE */
+
+@font-face {
+    font-family: 'Circe Light';
+    src: url('/fonts/circe/cr35/CRC35.eot');
+    src: url('/fonts/circe/cr35/CRC35.eot') format('embedded-opentype'),
+    url('/fonts/circe/cr35/CRC35.woff2') format('woff2'),
+    url('/fonts/circe/cr35/CRC35.woff') format('woff'),
+    url('/fonts/circe/cr35/CRC35.ttf') format('truetype'),
+    url('/fonts/circe/cr35/CRC35.svg#CRC35') format('svg');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Circe Book';
+    src: url('/fonts/circe/cr55/CRC55.eot');
+    src: url('/fonts/circe/cr55/CRC55.eot') format('embedded-opentype'),
+    url('/fonts/circe/cr55/CRC55.woff2') format('woff2'),
+    url('/fonts/circe/cr55/CRC55.woff') format('woff'),
+    url('/fonts/circe/cr55/CRC55.ttf') format('truetype'),
+    url('/fonts/circe/cr55/CRC55.svg#CRC55') format('svg');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Circe Bold';
+    src: url('/fonts/circe/cr65/CRC65.eot');
+    src: url('/fonts/circe/cr65/CRC65.eot') format('embedded-opentype'),
+    url('/fonts/circe/cr65/CRC65.woff2') format('woff2'),
+    url('/fonts/circe/cr65/CRC65.woff') format('woff'),
+    url('/fonts/circe/cr65/CRC65.ttf') format('truetype'),
+    url('/fonts/circe/cr65/CRC65.svg#CRC65') format('svg');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Circe Extrabold';
+    src: url('/fonts/circe/cr75/CRC75.eot');
+    src: url('/fonts/circe/cr75/CRC75.eot') format('embedded-opentype'),
+    url('/fonts/circe/cr75/CRC75.woff2') format('woff2'),
+    url('/fonts/circe/cr75/CRC75.woff') format('woff'),
+    url('/fonts/circe/cr75/CRC75.ttf') format('truetype'),
+    url('/fonts/circe/cr75/CRC75.svg#CRC75') format('svg');
+    font-weight: bold;
+}
+
+/* ROBOTO */
+
+/* @font-face {
+    font-family: 'Roboto Light';
+    src: url('/fonts/roboto/Roboto-Light.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Regular';
+    src: url('/fonts/roboto/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Bold';
+    src: url('/fonts/roboto/Roboto-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Roboto ExtraBold';
+    src: url('/fonts/roboto/Roboto-Black.ttf') format('truetype');
+    font-weight: bold;
+} */

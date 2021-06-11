@@ -1,0 +1,134 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-medium">
+	<div align="center">
+		<span class="fa-stack fa-1x icon icon-green icon-nohover" style="font-size: 500%">
+			<i class="fa fa-circle fa-stack-2x icon-background"></i>
+			<i class="fa fa-gift fa-stack-1x"></i>
+		</span>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="infobox alert alert-info">
+				<p class="info-description text-center font-120" role="alert">
+					<span translate>You received a gift donation from</span> <i>{{donation.gift.name}}</i><br>
+					<span translate>Message</span>: <i>{{donation.gift.message}}</i>
+				</p>
+			</div>
+
+			<h4 translate>The donation contributed to this project:</h4>
+			<div class="row referenced-project">
+				<div class="col-sm-3 col-xs-12">
+					<div class="image" [ngStyle]="{ 'background-image': 'url(\'' + projectImage + '\'' }"></div>
+				</div>
+				<div class="col-sm-9 col-xs-12">
+					<p class="title"> {{project.title | stranslate | textLimit : 60 }} </p>
+					<p class="text-justify"> {{project.description | stranslate | textLimit : 500 }} </p>
+					<p class="text-left"> <a class="project-link" target="_blank" [routerLink]="project | seourl:'project'" translate>Go to project</a> </p>
+				</div>
+			</div>
+			<hr>
+			<br>
+			<span>
+				<span class="field-title" translate>Transaction ID</span>
+				<span style="float: right;">
+					<span *ngIf="donation.fiatdonation != null" class="label label-default" style="cursor: pointer" [tooltip]="'Donation via credit/debit card'|translate"><i class="fa fa-credit-card"></i>
+						<span translate>Credit/Debit card</span>
+					</span>
+					<span *ngIf="donation.altdonation != null" class="label label-default" style="cursor: pointer" [tooltip]="'Donation via ' + donation.fromcurrency + ' crypto-currency'|translate"><i class="cc {{donation.fromcurrency}}-alt"></i> {{donation.fromcurrency}} <span translate>donation</span></span>
+					<span *ngIf="donation.campaign != null" class="label label-info" style="cursor: pointer" [tooltip]="'Donation to a fundraising campaign'|translate"><i class="fa fa-birthday-cake"></i>
+						<span translate>Campaign Donation</span>
+					</span>
+
+					<span *ngIf="donation.status == 'signing'" class="label label-info" translate>Waiting</span>
+					<span *ngIf="donation.status != 'confirmed' && donation.status != 'signing'" class="label label-danger" translate>Unconfirmed</span>
+					<span *ngIf="donation.status == 'confirmed'" class="label label-success" translate>Confirmed</span>
+				</span>
+				<br>
+				<p>
+					<a target="_blank" routerLink="{{donation.txid|explorer}}"><i class="fa fa-external-link"></i> {{donation.txid}}</a>
+				</p>
+			</span>
+		</div>
+	</div>
+	<div class="row" *ngIf="donation.fromcountry != null && donation.tocountry != null">
+		<br>
+		<div class="col-md-5 country" align="center">
+			<span *ngIf="donation.fromcountry">
+				{{donation.fromcountry|country}}<br>
+				<img [imgAttrs]="{ 'alt': (donation.fromcountry | country) }" [imgSrc]="'/media/country/'+donation.fromcountry+'.svg'" />
+			</span>
+			<span *ngIf="!donation.fromcountry" class="fa-stack fa-1x" style="font-size: 400%;">
+				<i class="fa fa-globe fa-stack-2x icon-background text-color-red"></i>
+				<i class="fa fa-question fa-stack-1x text-color-yellow"></i>
+			</span>
+		</div>
+		<div class="col-md-2 country" align="center">
+			<br><br>
+			<i class="fa fa-arrow-right" style="font-size: 400%"></i>
+		</div>
+		<div class="col-md-5 country" align="center">
+			{{donation.tocountry|country}}<br>
+			<img [imgAttrs]="{ 'alt': (donation.tocountry | country) }" [imgSrc]="'/media/country/'+donation.tocountry+'.svg'" />
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-6">
+			<span><span class="field-title" translate>Donation ID</span><br>
+				<p>{{donation._id}}</p>
+			</span>
+			<span>
+				<span class="field-title" translate>From user</span><br>
+				<p>
+					<a target="_blank" *ngIf="donation.from != null" [routerLink]="'/user/'+donation.from">{{donation.from}}</a>
+					<span *ngIf="donation.from == null" translate>anonymous user</span>
+				</p>
+			</span>
+		</div>
+		<div class="col-md-6" align="right">
+			<span><span class="field-title" translate>Value</span><br>
+				<p>{{donation.value|money:'full'}}</p>
+			</span>
+			<span *ngIf="donation.value_historic.usd">
+				<span class="field-title" translate>Historical value</span>
+				<a style="cursor: pointer" [tooltip]="'Value at time of transaction'|translate"><i class="fa fa-question-circle"></i></a>
+				<br>
+				<p>{{donation.value_historic.usd|moneyUSD}}</p>
+			</span>
+		</div>
+		<div class="col-md-6">
+			<span><span class="field-title" translate>Date</span><br>
+				<p>{{donation.time|date:'medium'}}</p>
+			</span>
+		</div>
+		<div class="col-md-12">
+			<br>
+			<table class="table compressed">
+				<thead class="separator">
+					<tr>
+						<th translate>User recipient</th>
+						<th>
+							<span translate>Value</span> [<span style="font-size:70%">{{null|money}}</span>]
+						</th>
+						<th>Project</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let to of donation.to">
+						<td>
+							<a target="_blank" [routerLink]="'/user/'+to.user">{{to.user}}</a>
+						</td>
+						<td>{{to.value|money:'full'}}</td>
+						<td>
+							<a target="_blank" *ngIf="to.project != null" [routerLink]="projects[to.project]|seourl:'project'">
+								<span *ngIf="projects[to.project]"><i>{{projects[to.project].title|stranslate|crop:32}}</i></span>
+								<span *ngIf="!projects[to.project]" translate>Project</span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

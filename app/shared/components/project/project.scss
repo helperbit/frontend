@@ -1,0 +1,94 @@
+@import "~app/sass/const.scss";
+
+:host {
+	h2 {
+		font-family: $boldFont;
+		text-transform: uppercase;
+		color: $yellow;
+		font-size: 95%;
+	}
+
+	.panel {
+		margin: 10px 0px !important;
+		border-radius: 5px !important;
+	}
+
+	.panel-default {
+		box-shadow: 4px 0 13px rgba(51, 51, 51, 0.5);
+		border: 0px !important;
+
+		.panel-body {
+			.coverflow-image {
+				img {
+					width: 100%;
+					min-height: 11em;
+
+					&.empty {
+						height: 100%;
+					}
+				}
+			}
+
+			.home-item-info {
+				height: 12em !important;
+				padding-top: 1.3em !important;
+
+				.user-image {
+					position: absolute;
+					top: -2.5em;
+					right: 0.8em;
+
+					img {
+						background-color: #fff;
+						width: 5em;
+						height: 5em;
+						box-shadow: 2px 2px 8px gray;
+					}
+				}
+
+				a.title {
+					color: #000;
+				}
+
+				p {
+					height: 3.5em !important;
+					margin: 0 !important;
+				}
+
+				.count-donations {
+					color: #000;
+					border-radius: 5px;
+					padding: 4px;
+					font-size: 0.8em;
+					cursor: default;
+				}
+
+				.project-link {
+					color: $yellow !important;
+					font: {
+						size: 10px;
+						weight: bold;
+					}
+					text: {
+						transform: uppercase;
+					}
+
+					&:hover {
+						color: $yellow !important;
+					}
+				}
+			}
+
+			.donate-box {
+				padding-top: 5px;
+
+				a {
+					width: 100%;
+					border-radius: 5px;
+					border-top-left-radius: 0;
+					border-top-right-radius: 0;
+				}
+			}
+		}
+	}
+}

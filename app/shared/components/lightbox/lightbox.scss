@@ -1,0 +1,70 @@
+:host {
+	
+	.lightbox {
+		/** Position and style */
+		position: fixed;
+		z-index: 999;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		top: 0;
+		right: 0;
+		left: 0;
+		background: rgba(0,0,0,0.8);
+		z-index: 999999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	
+		.img {
+			/** Pad the lightbox image */
+			max-width: 90%;
+			max-height: 90%;
+		}
+	
+		.close {
+			position: absolute;
+			top: 2%;
+			right: 2%;
+			font-size: 3em;
+			color: #fff;
+			opacity: 0.8;
+			text-shadow: none;
+		}
+	
+		/* Next & previous buttons */
+		.prev, .next {
+	
+			cursor: pointer;
+			position: absolute;
+			top: 40%;
+			width: auto;
+			padding: 15px;
+			color: #fff;
+			opacity: 0.8;
+			font-weight: bold;
+			font-size: 3em;
+			line-height: 20px;
+			user-select: none;
+			-webkit-user-select: none;
+			visibility: visible;
+		
+			/* On hover, add a black background color with a little bit see-through */
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.8);
+				text-decoration: none;
+			}
+		}
+	
+		.prev {
+			left: 5%;
+			border-radius: 0 3px 3px 0;
+		}
+		
+		/* Position the "next button" to the right */
+		.next {
+			right: 5%;
+			border-radius: 3px 0 0 3px;
+		}
+	}
+}

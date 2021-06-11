@@ -1,0 +1,18 @@
+<span style="font-size: 80%">
+    <span translate>You can modify the fee amount for statistically decrease the confirmation delay</span>:
+</span>
+<select class="form-control" [(ngModel)]="profile" (change)="changedFeeProfile()">
+    <option value="fastest">
+        <span translate>Fastest</span> ({{fees.fastest|money:'full'}})
+    </option>
+    <option value="halfhour">
+        <span translate>Half hour</span> ({{fees.halfhour|money:'full'}})
+    </option>
+    <option value="hour">
+        <span translate>Hour</span> ({{fees.hour|money:'full'}})
+    </option>
+    <option *ngIf="fees.slowest" value="slowest"
+        [tooltip]="'This is a super economic fee, transaction can take over 3 or 4 days to be confirmed'|translate">
+        <span translate>Slowest</span> ({{fees.slowest|money:'full'}})
+    </option>
+</select>

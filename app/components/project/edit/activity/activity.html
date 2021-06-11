@@ -1,0 +1,73 @@
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" translate>Activity</h4>
+</div>
+
+<div class="modal-body">
+	<aw-wizard>
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+			<form [formGroup]="wizard.step1">
+				<formly-form [form]="wizard.step1" [fields]="wizard.step1.fields" [model]="wizard.step1.model"></formly-form>
+				<!-- TODO quando si è ad una risoluzione oltre i 1400 px la row sminchia -->
+				<div class="row margin-top-15">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+						<button
+							(click)="sendActivityInformation()"
+							[disabled]="wizard.step1.invalid"
+							class="btn btn-default">
+								<span *ngIf="!editMode" translate>Send Information</span>
+								<span *ngIf="editMode" translate>Update Information</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step2.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step2.responseMessage"></response-messages>
+				</div>
+			</div>
+			<form [formGroup]="wizard.step2">
+				<formly-form [form]="wizard.step2" [fields]="wizard.step2.fields" [model]="wizard.step2.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+						<button
+							awPreviousStep
+							class="btn btn-default btn-xs-block"
+							translate>Previous</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+						<button
+							(click)="sendActivityMedia()"
+							[disabled]="wizard.step2.invalid"
+							class="btn btn-default btn-xs-block">
+								<span *ngIf="!editMode" translate>Send Media</span>
+								<span *ngIf="editMode" translate>Update Media</span>
+							</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="3" [stepTitle]="wizard.step3.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p>
+						<span translate>Your request is now pending for review and approval.</span> <br>
+						<span translate>An Helperbit staff member will verify your documents soon.</span>
+					</p>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+</div>

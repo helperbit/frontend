@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+	<div class="panel-body row">
+		<!-- PROJECT IMAGE -->
+		<div class="coverflow-image" (click)="go()">
+			<img [imgAttrs]="project" [imgType]="project" [imgSrc]="(project.media && project.media.length != 0) ? (project.media[0]|media:'media':400) : 'media/avatar_empty_org.png'" [ngClass]="{ 'empty': project.media && project.media.length == 0 }">
+		</div>
+
+		<!-- DESCRIPTION -->
+		<div class="col-md-12 home-item-info">
+			<div class="user-image" [tooltip]="project.ownerdetails.fullname || project.owner">
+				<a [routerLink]="'/user/' + project.owner">
+					<img [imgAttrs]="project.ownerdetails" [imgType]="'user'" class="img-circle" [imgSrc]="project.owner|media:'avatar'" />
+				</a>
+			</div>
+
+			<h2>{{ project.start|date }}</h2>
+			<a class="title" [routerLink]="project | seourl:'project'"> <h1>{{ project.title | stranslate | textLimit : 24 }}</h1> </a>
+			
+			<tags-info [tags]="project.tags"></tags-info>
+
+			<p>{{ project.description | stranslate | textLimit : 80 }}</p>
+
+			<div class="row">
+				<div class="col-xs-6 text-left">
+					<span class="count-donations" [tooltip]="'Number of supporters' | translate ">
+						<span class="fa fa-handshake-o"></span> {{ project.receiveddonations }}
+					</span>
+				</div>
+		
+				<div class="col-xs-6 text-right">
+					<a class="project-link" [routerLink]="project | seourl:'project'"> <span translate>go to project</span> </a>
+				</div>
+			</div>
+		</div>
+
+		<!-- PROGRESS BAR MONEY COLLECTED -->
+		<div class="col-xs-12 padding-top-bottom-10">
+			<progress-bar [config]="progressBarConfig"></progress-bar>
+		</div>
+
+		<!-- DONATE BUTTON -->
+		<div class="donate-box" *ngIf="donate">
+			<!-- TODO: enable again -->
+			<a [routerLink]="project|seourl:'project':'?donate=1'" class="btn btn-info" translate>donate</a>
+			<!-- <a *ngIf="project.end === null" [routerLink]="project|seourl:'project':'?donate=1'" class="btn btn-info" translate>donate</a>
+			<a *ngIf="project.end !== null" href="javascript:void(0)" class="btn btn-info disabled" translate>donate</a>	 -->
+		</div>
+	</div>
+</div>
+	

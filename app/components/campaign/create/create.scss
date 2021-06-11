@@ -1,0 +1,63 @@
+@import "~app/sass/const.scss";
+
+#modalCampaign .modal-dialog {
+
+    @media (max-width: 1024px) {
+        width: 85% !important;
+    }
+}
+
+.campaign-create-button {
+    width: 50%;
+    font-size: 1.25em;
+
+    @media screen and (max-width: #{$breakpointXsMax}) {
+        font-size: 100%;
+    }
+
+    @media screen and (max-width: #{$breakpointXxsMax}) {
+        width: 100%;
+    }
+}
+
+table {
+
+    background-color: #000;
+    
+    thead, tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }    
+    
+    thead {
+        //width: calc(100% - 1em);
+
+        tr {
+
+            th {
+                border-bottom: 0 !important;
+                //border-right: 1px solid;
+                vertical-align: middle;
+                text-transform: uppercase;
+                font-size: 12px;
+
+                &:last-child {
+                    border-right: 0px;
+                }
+            }
+        }
+    }
+
+    tbody {
+        display: block;
+        //overflow-y: scroll;
+        //max-height: calc(100vh - 35px - #{$headerHeight} - #{$footerHeight} - #{$filtersBoxHeight} - #{$paginationBoxHeight});
+        //height: calc(100vh - 35px - #{$headerHeight} - #{$footerHeight} - #{$filtersBoxHeight} - #{$paginationBoxHeight});
+        background-color: #fff;
+
+        .status {
+            // display: block;
+        }
+    }
+}

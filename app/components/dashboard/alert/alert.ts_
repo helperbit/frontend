@@ -1,0 +1,64 @@
+import * as $ from 'jquery';
+import { ResponseMessageConfig, buildErrorResponseMessage } from '../../../shared/components/response-messages/response-messages';
+import { AlertService } from '../../../models/alert';
+import { ModalsConfig } from 'app/shared/components/modal/oldModal/modal';
+import { Component } from '@angular/core';
+
+@Component({
+	selector: 'alert',
+	templateUrl: 'alert.html'
+})
+export class AlertComponent {
+	alert: {
+		description: string;
+		type: string;
+		typetext: string;
+	};
+	modals: ModalsConfig;
+	responseMessage: ResponseMessageConfig;
+	phase: number;
+	aid?: string;
+
+	constructor(private alertService: AlertService) {
+		this.responseMessage = {};
+		this.modals = {
+			alert: {
+				id: 'modalAlert',
+				modalClass: 'modal-md',
+				hideCloseButton: true
+			}
+		};
+		this.alert = {
+			description: '',
+			type: 'earthquake',
+			typetext: ''
+		};
+		this.phase = 0;
+		this.aid = null;
+	}
+
+	modalAlert() {
+		this.phase = 0;
+		this.aid = null;
+		this.alert = { description: '', type: 'earthquake', typetext: '' };
+		$('#modalAlert').modal('show');
+	}
+
+	sendAlert() {
+		this.responseMessage = null;
+
+		if (this.alert.type == 'other')
+			this.alert.type = this.alert.typetext;
+
+		this.alertService.create(this.alert).subscribe((data) => {
+			this.phase = 1;
+			this.aid = data.id;
+		}, (res) => {
+			this.responseMessage = buildErrorResponseMessage(res.error);
+		});
+	}
+
+	uploadAlertMedia(file) {
+		this.alertService.updateMedia(this.aid, file).subscribe(_ => { this.phase = 2; });
+	}
+}

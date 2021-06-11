@@ -1,0 +1,64 @@
+@import "~app/sass/const.scss";
+@import "~app/sass/extends.scss";
+
+.panel {
+  margin-bottom: 7px !important;
+  a {
+    &,
+    &:hover {
+      text-decoration: none !important;
+    }
+
+    .panel-heading {
+      background-color: #eee !important;
+      color: #000 !important;
+      overflow: auto;
+
+      &:hover {
+        @extend %clickable-opacity;
+      }
+
+      .panel-title {
+        float: left;
+        width: 80%;
+
+        & > span {
+          text-transform: capitalize;
+        }
+	  }
+	  
+	  .label {
+		  float: right;
+	  }
+
+      .state {
+        border-radius: 50%;
+        height: 15px;
+        width: 15px;
+        margin: 0;
+        float: right;
+        background-color: #b0b0b0;
+      }
+
+      .state-verified {
+        background-color: $green;
+      }
+
+      .state-signed {
+        background-color: $yellow;
+      }
+
+      .state-none {
+        background-color: $red;
+      }
+
+      .label:empty {
+        display: block;
+      }
+    }
+  }
+
+  .panel-collapse {
+    padding: 10px !important;
+  }
+}

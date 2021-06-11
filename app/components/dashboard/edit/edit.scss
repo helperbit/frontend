@@ -1,0 +1,81 @@
+@import '../../../sass/const.scss';
+
+:host {
+
+	.user-avatar-upload {
+		position: absolute;
+		top: 0px;
+		left: 125px;
+		z-index: 1;
+	}
+
+	.user-avatar-delete {
+		position: absolute;
+		top: 0px;
+		left: 25px;
+		z-index: 1;
+	}
+	
+	.user-avatar {
+		width: 150px;
+		height: 150px;
+		position: relative;
+		border: 3px solid $yellow;
+	}
+
+	.photo-change input.upload {
+		visibility: hidden;
+	}
+
+	dropzone {
+
+		.dropzone {
+			width: 100%;
+			height: auto;
+			padding: 25px;
+
+			.text-area {
+				height: auto;
+
+				.title {
+					margin-bottom: 15px;
+				}
+
+				.description {
+					margin-top: 0;
+				}
+			}
+
+			.choose-file-button {
+				height: auto;
+				margin-top: 15px;
+			}
+
+			.thumb-area {
+
+				height: auto;
+
+
+			}
+
+			.thumb {
+				display: block;
+				height: calc(100% - 25px);
+
+				.img {
+					width: 100%;
+				}
+
+				button {
+
+					@media screen and (min-width: #{$breakpointSmMin}) {
+						width: 25%;
+						display: inline-block;
+					}
+				}
+			}
+
+		}
+	}
+	
+}

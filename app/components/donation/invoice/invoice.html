@@ -1,0 +1,61 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-medium">
+    <div align="center">
+        <i class="fa fa-print" style="font-size: 400%"></i>
+    </div>
+    <br>
+    <p>Print this file, sign and post a mark and send to the company who requested it.</p>
+</div>
+
+<div id="printSectionInvoice"> 
+    <div align="center">
+        <h2>RICEVUTA PER EROGAZIONE LIBERALE (DONAZIONE)</h2>
+    </div>
+    <div align="right">
+        Ricevuta del _______________
+    </div>
+    <br>
+    <div>L’ORGANIZZAZIONE <b>{{user.fullname}}</b> con sede legale
+    in {{user.city}}, {{user.street}} ({{user.zipcode}}), di diritto per effetto dell’art.10 ottavo comma del
+    D.Lgs. 460/97 in quanto iscritta all'apposito Registro Regionale del Volontariato dal {{user.birthdate|date}},</div>
+
+    <br>
+    <div align="center"><b>DICHIARA</b></div>
+    <br>
+    di aver ricevuto, quale erogazione liberale, Euro {{donation.value_historic.eur|number:'1.2-2'}} ({{donation.value_historic.eur|number:'1.2-2'}}$) 
+    <br>
+    da <b>{{from.fullname}}</b> con sede legale in {{from.city}}, {{from.street}} ({{from.zipcode}})<br>
+    Partita IVA: {{from.vat}}
+    <br><br>
+    a mezzo di: Donazione con transazione Bitcoin tramite servizio 'Helperbit':
+    <ul>
+        <li>Id transazione: {{donation.txid}}</li>
+        <li>Quantitativo in Bitcoin: {{donation.value}} Bitcoin</li>
+        <li>Data: {{donation.time|date}}</li>
+    </ul>
+
+    <br>
+    a sostegno <b>della propria attività istituzionale</b>.
+    <br><br>
+
+    <div> 
+        L’erogazione, come introdotto dall’art. 13 D. Lgs. 460/97,:
+        <ul>
+            <li>è detraibile dall ’imposta sulle persone fisiche (IRPEF) per un importo pari al 19% dell’erogazione da calcolarsi su un
+massimo di € 2.065,83 (art. 15, comma 1, lettera i-bis) del D.P.R. 917/1986);</li>
+            <li>è deducibile dal reddito di impresa per un importo non superiore a € 2.065,83 o al 2% del reddito di impresa dichiarato
+(art. 100, comma 2, lettere a) e h) del D.P.R. 917/1986).</li>
+        </ul>
+        In alternativa, sia per per le persone fisiche che per le imprese:
+        <ul>
+            <li>è deducibile dal reddito complessivo nel limite del 10% del reddito complessivamente dichiarato e comunque nella
+misura massima di € 70.000,00 annui.</li>
+        </ul>
+    </div>
+
+    <br><br>
+    <div style="font-size: 120%" align="right">
+        Il presidente (FIRMA e TIMBRO)
+    </div>
+</div>

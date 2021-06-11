@@ -1,0 +1,193 @@
+<modal-inner [config]="modals.singleUserProject">
+	<p translate>As single user you cannot create a project. At the moment only companies, organizations and
+		municipalities can create it</p>
+</modal-inner>
+
+<div class="home">
+	<home-top *ngIf="!logged"></home-top>
+	<!-- <div *ngIf="!logged"><home-news-ambassador></home-news-ambassador></div> -->
+
+	<div class="padding-top-15"> </div>
+
+
+	<div class="fluid-container">
+		<div
+			class="row home-list margin-lg-right-left-35 margin-md-right-left-35 margin-sm-right-left-0 margin-xs-right-left-0">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 home-list-head">
+				<h1 class="border-bottom border-yellow" translate>Latest projects</h1>
+				<a type="button" routerLink="/project/list" class="btn btn-default">
+					<i class="fa fa-list hidden-xs"></i>
+					<span translate>View all</span>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 panel-container"
+				*ngFor="let project of projects?.latest">
+				<project [project]="project"></project>
+			</div>
+		</div>
+	</div>
+
+	<hr
+		class="margin-top-bottom-15 margin-lg-right-left-50 margin-md-right-left-50 margin-sm-right-left-15 margin-xs-right-left-15">
+
+	<div class="fluid-container">
+		<div
+			class="row home-list margin-lg-right-left-35 margin-md-right-left-35 margin-sm-right-left-0 margin-xs-right-left-0">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 home-list-head">
+				<h1 class="border-bottom border-yellow" translate>Trending projects</h1>
+				<a type="button" routerLink="/project/list" class="btn btn-default">
+					<i class="fa fa-list hidden-xs"></i>
+					<span translate>View all</span>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 panel-container"
+				*ngFor="let project of projects?.trending">
+				<project [project]="project"></project>
+			</div>
+		</div>
+	</div>
+	
+	<!-- TODO: INVERTED-->
+	<!-- <hr
+		class="margin-top-bottom-15 margin-lg-right-left-50 margin-md-right-left-50 margin-sm-right-left-15 margin-xs-right-left-15">
+
+	<div class="fluid-container">
+		<div
+			class="row home-list margin-lg-right-left-35 margin-md-right-left-35 margin-sm-right-left-0 margin-xs-right-left-0">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 home-list-head">
+				<h1 class="border-bottom border-yellow" translate>Trending projects</h1>
+				<a type="button" routerLink="/project/list" class="btn btn-default">
+					<i class="fa fa-list hidden-xs"></i>
+					<span translate>View all</span>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 panel-container"
+				*ngFor="let project of projects?.trending">
+				<project [project]="project"></project>
+			</div>
+		</div>
+	</div> -->
+
+
+	<hr
+		class="margin-top-bottom-15 margin-lg-right-left-50 margin-md-right-left-50 margin-sm-right-left-15 margin-xs-right-left-15">
+
+	<div class="fluid-container">
+		<div
+			class="row home-list margin-lg-right-left-35 margin-md-right-left-35 margin-sm-right-left-0 margin-xs-right-left-0">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 home-list-head">
+				<h1 class="border-bottom border-yellow" translate>Main events</h1>
+				<a type="button" routerLink="/event/list" class="btn btn-default">
+					<i class="fa fa-list hidden-xs"></i>
+					<span translate>View all</span>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 panel-container" *ngFor="let event of events">
+				<event [event]="event"></event>
+			</div>
+		<!-- 
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 panel-container fake-event">
+				<div class="panel panel-default">
+					<div class="panel-body row">
+						<div class="coverflow-image" style="background-image: url('media/wip.png');"></div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 home-item-info">
+							<h2>
+								<span class="cat" translate>work in progress</span>
+							</h2>
+							<h1>
+								<a routerLink="/" translate>do you want to donate to a specific entity or organization?</a>
+							</h1>
+							<p translate>You can suggest a specific entity or organization to join the platform.</p>
+						</div>
+						<button (click)="proposeNPO()" class="btn btn-default btn-block" translate>Suggest an NPO</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 panel-container fake-event">
+				<div class="panel panel-default">
+					<div class="panel-body row">
+						<div class="coverflow-image" style="background-image: url('media/wip.png');"></div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 home-item-info">
+							<h2>
+								<span class="cat" translate>work in progress</span>
+							</h2>
+							<h1>
+								<a routerLink="/project/create" translate>are you an NPO?</a>
+							</h1>
+							<p translate>Are you an NPO and want to raise funds for a particular project? Signup now and
+								create a new project.</p>
+						</div>
+						<button (click)="createProject ()" class="btn btn-default btn-block" translate>Create a project</button>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+
+	<hr
+		class="margin-top-bottom-15 margin-lg-right-left-50 margin-md-right-left-50 margin-sm-right-left-15 margin-xs-right-left-15">
+
+	<div class="fluid-container">
+		<div
+			class="row home-list home-separated display-flex display-flex-row display-flex-wrap margin-lg-right-left-35 margin-md-right-left-35 margin-sm-right-left-0 margin-xs-right-left-0">
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 column-donations display-flex display-flex-column">
+				<div class="home-list-head">
+					<h1 class="border-bottom border-yellow" translate>Donations</h1>
+					<a type="button" routerLink="/donation/list" class="btn btn-default">
+						<i class="fa fa-list hidden-xs"></i>
+						<span translate>View all</span>
+					</a>
+				</div>
+				<donation-list [config]="listConfig"></donation-list>
+			</div>
+			<div
+				class="col-lg-6 col-md-6 col-sm-12 col-xs-12 column-news display-flex display-flex-column margin-sm-top-15 margin-xs-top-15">
+				<div class="home-list-head">
+					<h1 class="border-bottom border-yellow">Blog news</h1>
+					<a type="button" href="http://blog.helperbit.com" target="_blank" class="btn btn-default">
+						<i class="fa fa-list hidden-xs"></i>
+						<span translate>View all</span>
+					</a>
+				</div>
+				<div class="panel panel-default blog" *ngFor="let feed of feeds">
+					<div class="panel-heading">
+						<a [href]="feed.link" target="_blank">{{feed.title}}</a>
+					</div>
+					<div class="panel-body">
+						<p class="description">{{feed.summary|crop:256}}</p>
+						<p class="date text-bold text-italic width-percentage-50 float-left">{{feed.date|date}}</p>
+						<p class="read-more text-right width-percentage-50 float-left">
+							<a [href]="feed.link" target="_blank" translate>Read More</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<hr
+		class="margin-top-bottom-15 margin-lg-right-left-50 margin-md-right-left-50 margin-sm-right-left-15 margin-xs-right-left-15">
+
+	<div class="fluid-container">
+		<div
+			class="row home-list home-separated margin-lg-right-left-35 margin-md-right-left-35 margin-sm-right-left-0 margin-xs-right-left-0">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="home-list-head">
+					<h1 class="border-bottom border-yellow" translate>Last Badges</h1>
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<carousel [config]="lastBadges"></carousel>
+			</div>
+		</div>
+	</div>
+
+	<div class="padding-bottom-15"> </div>
+</div>
+
+<seo-footer-component></seo-footer-component>

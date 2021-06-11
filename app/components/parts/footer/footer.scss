@@ -1,0 +1,89 @@
+@import "~app/sass/const.scss";
+
+.footer {
+	box-shadow: 0px 0px 5px #000;
+	position: absolute;
+	bottom: 0;
+	height: #{$footerHeight};
+	background-color: #000;
+	padding-top: 11px;
+	width: 100%;
+	color: #fff;
+	font-size: 90%;
+	min-height: 45px;
+	padding-left: 22px;
+	padding-right: 5px;
+	z-index: 99999;
+	overflow: hidden;
+
+	@media only screen and (max-width: #{$breakpointXsMax}) {
+		position: unset;
+		bottom: unset;
+		height: auto;
+		z-index: 1;
+	}
+
+	.btn-feedback {
+		background-color: $green !important;
+		border-color: $green !important;
+
+		&:hover {
+			background-color: $red !important;
+			border-color: $red !important;
+		}
+	}
+
+	.icon-inverse {
+		color: #000;
+
+		.icon-background {
+			color: $yellow;
+		}
+
+		&:not(.icon-nohover):hover > .icon-background {
+			color: #fff;
+		}
+	}
+
+	.info {
+		line-height: 26px;
+
+		@media only screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+			font-size: 12px;
+		}
+
+		@media only screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+			font-size: 13px;
+		}
+
+		@media only screen and (max-width: #{$breakpointXxsMax}) {
+			font-size: 10px;
+		}
+	}
+
+	.title {
+		font-family: $boldFont;
+		text-transform: uppercase;
+		color: $yellow;
+	}
+
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+
+	.price {
+		padding: 5px;
+		border-radius: 5px;
+		font-family: monospace;
+		font-size: 130%;
+		margin-right: 1em;
+		color: #fff;
+		font-weight: bold;
+	}
+
+	.social {
+		margin-right: 10px;
+		font-size: 100%;
+	}
+}

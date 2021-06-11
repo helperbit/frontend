@@ -1,0 +1,24 @@
+body{background:rgba(0,0,0,0)}.modal{overflow-y:auto !important}.modal .by{color:#fff;font-family:"Circe Light"}
+.modal .by>a{font-family:"Circe Bold";color:#fff}.modal .by>a:hover{color:#fff}
+@media(max-width:500px){.modal-dialog{width:90% !important}}.modal-header{border-bottom:0}
+.modal-dialog{margin-bottom:10px;width:430px}.modal-dialog .modal-content{border-radius:5px}
+.modal-dialog .modal-content .donation-share{color:#d01f2f;text-decoration:none}.modal-dialog .modal-content .donation-share:hover,.modal-dialog .modal-content .donation-share:focus,.modal-dialog .modal-content .donation-share:active{color:#feb737;text-decoration:none}
+.modal-dialog .modal-header{border-top-left-radius:5px;border-top-right-radius:5px;padding:0}
+.modal-dialog .modal-header .image{border-top-left-radius:5px;border-top-right-radius:5px;width:100%;overflow:hidden;background-repeat:no-repeat;background-size:cover;background-position:center;height:8em}
+.modal-dialog .modal-header .overlay{border-top-left-radius:5px;border-top-right-radius:5px;position:absolute;width:100%;height:8em;transition:background-color 1s .3s;background:#feb737;top:0;left:0}
+.modal-dialog .modal-header .overlay.active{background-color:rgba(54,83,55,0.8)}.modal-dialog .modal-header .info{border-top-left-radius:5px;border-top-right-radius:5px;position:absolute;width:100%;height:8em;top:0;left:0;padding-top:10px;padding-left:30px;padding-right:30px}
+.modal-dialog .modal-header .info #project-percentage{font-family:"Circe Bold";font-size:14px;font-weight:bold;position:absolute;bottom:.5em;right:.5em;color:white}
+.modal-dialog .modal-header .info .progress{height:6px;position:absolute;bottom:0;left:0;width:100%;margin-bottom:0;border-radius:0;box-shadow:none}
+.modal-dialog .modal-header .info .progress .progress-bar{background-color:#feb737}
+.modal-dialog .modal-header .info h4{font-family:"Circe Light";font-weight:bold;color:#fff;font-size:150%;overflow:hidden;white-space:nowrap;width:100%}
+.modal-dialog .modal-header .back-button{transition:opacity .5s;opacity:0;position:absolute;top:-0.8em;left:-0.8em;cursor:pointer}
+.modal-dialog .modal-header .back-button.show{opacity:1}.modal-dialog .modal-header .back-button .fa{transition:color .5s}
+.modal-dialog .modal-header .back-button:hover .fa-circle{color:#fff}.modal-dialog .modal-header .back-button:hover .fa-chevron-left{color:#333}
+.modal-dialog .modal-header .close-button{position:absolute;top:-0.8em;right:-0.8em;cursor:pointer}
+.modal-dialog .modal-header .close-button:hover .fa-circle{color:#fff}.modal-dialog .modal-header .close-button:hover .fa-times{color:#333}
+.modal-dialog .modal-header .close-button .fa{transition:color .5s}.modal-dialog .modal-header .close-button .fa-circle{text-shadow:0 0 5px #333;color:#333}
+.modal-dialog .modal-header .close-button .fa-times{color:#fff}@font-face{font-family:'Gobold Regular';src:url("/fonts/gobold/Gobold.eot");src:url("/fonts/gobold/Gobold.eot#iefix") format("embedded-opentype"),url("/fonts/gobold/Gobold.ttf") format("truetype"),url("/fonts/gobold/Gobold.woff2") format("woff2"),url("/fonts/gobold/Gobold.woff") format("woff"),url("/fonts/gobold/Gobold.svg#Gobold") format("svg");font-weight:normal}
+@font-face{font-family:'Circe Light';src:url("/fonts/circe/cr35/CRC35.eot");src:url("/fonts/circe/cr35/CRC35.eot") format("embedded-opentype"),url("/fonts/circe/cr35/CRC35.woff2") format("woff2"),url("/fonts/circe/cr35/CRC35.woff") format("woff"),url("/fonts/circe/cr35/CRC35.ttf") format("truetype"),url("/fonts/circe/cr35/CRC35.svg#CRC35") format("svg");font-weight:normal}
+@font-face{font-family:'Circe Book';src:url("/fonts/circe/cr55/CRC55.eot");src:url("/fonts/circe/cr55/CRC55.eot") format("embedded-opentype"),url("/fonts/circe/cr55/CRC55.woff2") format("woff2"),url("/fonts/circe/cr55/CRC55.woff") format("woff"),url("/fonts/circe/cr55/CRC55.ttf") format("truetype"),url("/fonts/circe/cr55/CRC55.svg#CRC55") format("svg");font-weight:normal}
+@font-face{font-family:'Circe Bold';src:url("/fonts/circe/cr65/CRC65.eot");src:url("/fonts/circe/cr65/CRC65.eot") format("embedded-opentype"),url("/fonts/circe/cr65/CRC65.woff2") format("woff2"),url("/fonts/circe/cr65/CRC65.woff") format("woff"),url("/fonts/circe/cr65/CRC65.ttf") format("truetype"),url("/fonts/circe/cr65/CRC65.svg#CRC65") format("svg");font-weight:bold}
+@font-face{font-family:'Circe Extrabold';src:url("/fonts/circe/cr75/CRC75.eot");src:url("/fonts/circe/cr75/CRC75.eot") format("embedded-opentype"),url("/fonts/circe/cr75/CRC75.woff2") format("woff2"),url("/fonts/circe/cr75/CRC75.woff") format("woff"),url("/fonts/circe/cr75/CRC75.ttf") format("truetype"),url("/fonts/circe/cr75/CRC75.svg#CRC75") format("svg");font-weight:bold}

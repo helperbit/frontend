@@ -1,0 +1,61 @@
+@import "../../../sass/const.scss";
+
+:host {
+
+    .stats-bar {
+        background-color: rgba(0,0,0,0.15);
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-top: 2em;
+        padding-bottom: 3em;
+        
+        .metric {
+            color: #fff;
+            // height: 100px;
+            font-family: "Gobold Regular";
+    
+            .icon {
+                font-size: 2.2em;
+    
+                @media screen and (max-width: #{$breakpointXsMax}) {
+                    & {
+                        font-size: 1.8em;
+                    }
+                }
+            }
+    
+            .description {
+                font-size: 1.2em;
+                padding-bottom: 0.5em;
+    
+                @media screen and (max-width: #{$breakpointXsMax}) {
+                    & {
+                        font-size: 1em;
+                    }
+                }
+            }
+    
+            .divisor {
+                width: 50%;
+                height: 1px;
+                background-color: rgba(255,255,255,0.5);
+                margin: 0 auto;
+            }
+    
+            .count {
+                font-size: 1.7em;
+                padding-top: 0.5em;
+    
+                @media screen and (max-width: #{$breakpointXsMax}) {
+                    & {
+                        font-size: 1.4em;
+                    }
+                }
+            }
+    
+            .small, .small.count {
+                font-size: 1.2em !important;
+            }   
+        }
+    }
+}

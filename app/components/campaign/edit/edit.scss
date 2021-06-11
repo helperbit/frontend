@@ -1,0 +1,25 @@
+@import '../../../sass/const.scss';
+
+
+//TODO non funziona il css perché forse c'è qualcosa che ho dimenticato tra
+//dichiarare il css senza :host e dentro :host,
+//forse con :host il css da fuori non può essere cambiato
+tags-buttons {
+
+	.tags-buttons-container {
+		// margin: 0 auto;
+		// display: inline-block;
+
+		.tag {
+			margin: 2.5px 7.5px !important;
+			border: 2px solid $yellow !important;
+			line-height: 5em !important;
+
+			.image {
+				height: 5em !important;
+				width: 5em !important;
+			}
+		}
+	}
+	
+}

@@ -1,0 +1,31 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-large">
+    <div *ngFor="let s of sections">
+        <h1 class="text-center margin-top-bottom-15 text-uppercase text-color-yellow">{{s.title}}</h1>
+        <div class="row">
+            <div class="col-md-20 col-sm-4 col-xs-6" *ngFor="let b of s.buttons">
+                <div class="button-container" (mouseleave)="mouseLeave($event, b)" (mouseenter)="mouseEnter($event, b)" (click)="browseTo(b)" [position]="s.tooltipPosition" [tooltip]="b.description">
+                    <div class="badge-container text-center">
+                        <span class="fa-stack icon icon-red icon-nohover" *ngIf="b.tasks && b.tasks.total > b.tasks.completed">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <span class="fa-stack icon icon-green icon-nohover" *ngIf="b.tasks && b.tasks.total == b.tasks.completed">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                        </span>
+
+                        <span class="badge background-red" *ngIf="b.new" translate>new</span>
+                    </div>
+                    <div class="text-center">
+                        <img class="img-responsive" [src]="b.icon" />
+                    </div>
+                    <div class="button-title">
+                        <h1>{{b.title}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>

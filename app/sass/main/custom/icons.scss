@@ -1,0 +1,42 @@
+@import "~app/sass/const.scss";
+
+.icon {
+	color: #fff;
+}
+
+.icon-background {
+	color: #000;
+}
+
+.icon:not(.icon-nohover):hover {
+	cursor: pointer;
+
+	> .icon-background {
+		color: $yellow;
+	}
+}
+
+
+.icon-green {
+	color: #fff;
+
+	.icon-background {
+		color: $green;
+	}
+
+	&:not(.icon-nohover):hover > .icon-background {
+		color: $yellow;
+	}
+}
+
+.icon-red {
+	color: #fff;
+
+	.icon-background {
+		color: $red;
+	}
+
+	&:not(.icon-nohover):hover > .icon-background {
+		color: $yellow;
+	}
+}

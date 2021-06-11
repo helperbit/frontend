@@ -1,0 +1,123 @@
+<modal-inner [config]="modals.friends">
+	<p>{{modals.friends.description}}</p>
+	<table class="table table-striped table-responsive margin-bottom-0">
+		<thead class="separator">
+			<tr>
+				<th class="text-center text-uppercase" translate>Registration</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let friend of modals.friends.friends">
+				<td class="text-center"> {{friend.regdate | date}} </td>
+			</tr>
+		</tbody>
+	</table>
+</modal-inner>
+
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col" style="top: 0px; position: sticky;">
+		<div class="page page-composable">
+			<sidebar-component></sidebar-component>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 page-composable-col">
+		<div class="page page-composable" style="padding: 2em;">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<info-box [config]="infoBox"></info-box>
+				</div>
+			</div>
+			<div class="row" *ngIf="goalsBarConfig">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h3 class="border-bottom border-yellow" translate>Friends on board</h3>
+					<p>
+						<span translate>Each time that a new referred friend completes the ID verification procedure, your score is increased by 1 point.</span> <br>
+						<span translate>Visit</span> <a routerLink="/stats/top-ambassadors" target="_blank">Top Ambassador</a> <span translate>and check you're ranking</span> <br>
+						<!-- <translated [lang]="'en'" [langs]="['en', 'it']" class="text-bold">First 3 hardware wallet are available at only 50 Referred Users, hurry up and don’t miss this opportunity!</translated>
+						<translated [lang]="'it'" [langs]="['en', 'it']" class="text-bold">I primi 3 hardware wallet sono disponibili al raggiungimento di solo 50 iscritti, affrettati per non perdere questa occasione!</translated> -->
+					</p>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-xs">
+					<goals-bar [config]="goalsBarConfig"></goals-bar>
+				</div>
+				<div class="col-xs-12 hidden-lg hidden-md hidden-sm">
+					<div class="friends-score">{{ goalsBarConfig.value }}</div>
+				</div>
+				<div class="col-xs-12 hidden-lg hidden-md hidden-sm">
+					<h3 class="border-bottom border-yellow" translate>Badges</h3>
+					<div class="panel panel-default padding-10 margin-bottom-10 prize" [ngClass]="{ 'unlock': goalsBarConfig.value >= goal.value && goal.available, 'terminated': !goal.available }" *ngFor="let goal of goalsBarConfig.goals">
+						<svg-icon (click)="goalClick(goal)" class="text-green" [iconId]="goal.iconId" [iconSrc]="goal.src"></svg-icon>
+						
+						<h4 class="text-center">{{goal.name}}</h4>
+
+						<div class="text-center" *ngIf="!goal.unlock">
+							<span class="text-bold" translate>Users requested</span>: {{goal.value}} <br>
+						</div>
+						<div class="text-center" *ngIf="!goal.unlock">
+							<span class="text-bold" translate>Available</span>: <i *ngIf="goal.available" class="fa fa-check text-color-green"></i> <i *ngIf="!goal.available" class="fa fa-times text-color-red"></i> <span *ngIf="goal.available && goal.availableTotal">({{goal.availableTotal}})</span> <br>
+						</div>
+						<!-- <div class="text-center" *ngIf="goal.available">
+							<span class="text-bold" translate>Earned</span>: <i *ngIf="goal.unlock" class="fa fa-check text-color-green"></i> <i *ngIf="!goal.unlock" class="fa fa-times text-color-red"></i> <br>
+						</div> -->
+						<div class="text-center" *ngIf="goal.description && goal.description.tooltip && goal.description.tooltip.text">
+							<span class="text-bold"  translate>Status</span>: {{goal.description.tooltip.text}} <br>
+						</div>
+
+						<h3 *ngIf="goal.available && goal.unlock" class="text-center text-uppercase" translate>Got it</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row margin-top-15">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h3 class="border-bottom border-yellow" translate>Invited Friends</h3>
+					<p translate>This is the amount of people that joined Helperbit thanks to your invite link; here you can check how many referred friends completed the ID verification process.</p>
+					<p *ngIf="ambassador.usersInvited.length == 0" class="padding-top-10 text-center"><i translate>There are no invited users</i></p>
+				</div>
+				<div *ngIf="ambassador.usersInvited.length > 0" class="col-lg-3 col-md-2 hidden-sm hidden-xs"></div>
+				<div *ngIf="ambassador.usersInvited.length > 0" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 display-flex display-flex-grow-1 display-flex-row display-flex-vertical-center">
+					<div class="verified">
+						<h4 class="text-center text-uppercase" translate>Verified</h4>
+						<div (click)="showFriendsTable('verified')">{{ambassador.verified.length}}</div>
+					</div>
+				</div>
+				<div *ngIf="ambassador.usersInvited.length > 0" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 display-flex display-flex-grow-1 display-flex-row display-flex-vertical-center">
+					<div class="not-verified">
+						<h4 class="text-center text-uppercase" translate>Not Verified</h4>
+						<div (click)="showFriendsTable('notVerified')">{{ambassador.notVerified.length}}</div>
+					</div>
+				</div>
+				<div *ngIf="ambassador.usersInvited.length > 0" class="col-lg-3 col-md-2 hidden-sm hidden-xs"></div>
+			</div>
+			<div class="row margin-top-15">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="user">
+					<h3 class="border-bottom border-yellow" translate>Invitation link</h3>
+					<p translate>Copy your invite link and share it on social networks. Record a video or write an article to explain the features of the platform; in this way many more people will be interested to join our project!</p>
+					<button class="button-invitation-code btn btn-default btn-block width-lg-percentage-30 width-md-percentage-50 width-sm-percentage-50 width-xs-percentage-100" style="margin: 0 auto;" [copyToClipboard]="reflink" [copiedText]="'Copied! Now share it with your friends.' | translate">
+						<span translate class="button-text">Copy your Invitation Link</span>
+						<span class="invitation-code">{{user.refcode}}</span>
+					</button>
+					<div class="padding-top-10 text-center width-lg-percentage-30 width-md-percentage-50 width-sm-percentage-50 width-xs-percentage-100" style="margin: 0 auto;">
+						<social-share [socialConfig]="socialShare.config" [socialStyle]="socialShare.style" [hideLink]="true"></social-share>
+					</div>
+				</div>
+			</div>
+			<div class="row margin-top-15">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="ambassador.refBy">
+					<h3 class="border-bottom border-yellow" translate>You have been invited by</h3>
+					<div class="invited-by padding-top-15">
+						<div class="avatar text-center">
+							<a [routerLink]="profileBaseUrl + userReference.username">
+								<img [imgAttrs]="userReference" [imgType]="'user'" [imgSrc]="userReference | avatar">
+							</a>
+						</div>
+						<div class="description text-center">
+							<span translate>Username:</span> <a [routerLink]="profileBaseUrl + userReference.username">{{userReference.username}}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

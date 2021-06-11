@@ -1,0 +1,17 @@
+<span [ngSwitch]="mode">
+	<span *ngSwitchCase="'balance'">
+		<span *ngIf="balance !== null">
+			<span *ngIf="balance.unconfirmed != 0">
+				<a href="javascript:void(0)" [tooltip]="(balance.unconfirmed|money:'full') + ('pending'|translate)">
+					{{balance.balance|money:'full'}}
+				</a>
+			</span>
+			<span *ngIf="balance.unconfirmed==0">{{balance.balance|money:'full'}}</span>
+		</span>
+		<span *ngIf="balance === null"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></span>
+	</span>
+	<span *ngSwitchCase="'received'">
+		<span *ngIf="balance !== null">{{balance.received|money:'full'}}</span>
+		<span *ngIf="balance === null"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></span>
+	</span>
+</span>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="256px" height="256px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve">
+<g>
+	<defs>
+		<circle id="SVGID_1_" cx="128.029" cy="128.029" r="128.029"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	<rect x="-44.99" y="-53.647" clip-path="url(#SVGID_2_)" fill="#FBB430" width="340.571" height="370.844"/>
+	<circle clip-path="url(#SVGID_2_)" fill="#E41E41" cx="187.593" cy="37.671" r="9.238"/>
+	<g clip-path="url(#SVGID_2_)">
+		<g>
+			<path fill="#4A4E58" d="M132.217,37.768c0-2.367-1.919-4.285-4.285-4.285c-2.367,0-4.285,1.919-4.285,4.285H132.217z"/>
+			<rect x="137.477" y="16.245" fill="#4A4E58" width="1.948" height="21.426"/>
+			<rect x="99.396" y="36.112" fill="#626973" width="57.266" height="27.27"/>
+			<g>
+				<defs>
+					<rect id="SVGID_3_" x="80.502" y="55.59" width="95.054" height="156.605"/>
+				</defs>
+				<clipPath id="SVGID_4_">
+					<use xlink:href="#SVGID_3_"  overflow="visible"/>
+				</clipPath>
+				<rect x="71.412" y="51.694" clip-path="url(#SVGID_4_)" fill="#D8DADB" width="113.234" height="166.734"/>
+				<rect x="104.461" y="195.152" clip-path="url(#SVGID_4_)" fill="#4D4E4F" width="9.447" height="17.044"/>
+				<g clip-path="url(#SVGID_4_)">
+					<rect x="77.386" y="63.64" fill="#96AFD6" width="101.807" height="10.129"/>
+					<rect x="77.386" y="82.858" fill="#96AFD6" width="101.807" height="10.129"/>
+					<rect x="77.386" y="102.077" fill="#96AFD6" width="101.807" height="10.129"/>
+					<rect x="77.386" y="121.296" fill="#96AFD6" width="101.807" height="10.129"/>
+					<rect x="77.386" y="140.514" fill="#96AFD6" width="101.807" height="10.129"/>
+					<rect x="77.386" y="159.733" fill="#96AFD6" width="101.807" height="10.129"/>
+					<rect x="77.386" y="178.951" fill="#96AFD6" width="101.807" height="10.129"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<path fill="#4D6F52" d="M53.736,166.585c3.603,0,4.285,2.63,4.285,2.63s8.083,20.257,9.057,22.79
+				c0.974,2.532,2.045,4.967,0.877,6.915c-1.169,1.948-3.409,2.143-3.409,2.143h-8.668v8.083h-2.143h-0.519h-2.143v-8.083h-8.668
+				c0,0-2.24-0.195-3.409-2.143s-0.097-4.383,0.877-6.915s9.057-22.79,9.057-22.79s0.682-2.63,4.285-2.63H53.736z"/>
+			<path fill="#4D6F52" d="M202.323,166.585c-3.603,0-4.285,2.63-4.285,2.63s-8.083,20.257-9.057,22.79
+				c-0.974,2.532-2.045,4.967-0.877,6.915c1.169,1.948,3.409,2.143,3.409,2.143h8.668v8.083h2.143h0.519h2.143v-8.083h8.668
+				c0,0,2.24-0.195,3.409-2.143c1.169-1.948,0.097-4.383-0.877-6.915c-0.974-2.532-9.057-22.79-9.057-22.79s-0.682-2.63-4.285-2.63
+				H202.323z"/>
+			<polygon fill="#3D533C" points="128.63,207.586 230.858,207.586 230.858,261.606 128.63,261.606 127.428,261.606 25.201,261.606 
+				25.201,207.586 127.428,207.586 			"/>
+		</g>
+	</g>
+</g>
+</svg>

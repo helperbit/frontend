@@ -1,0 +1,315 @@
+/*
+	@-moz-keyframes			Firefox < 16
+	@-webkit-keyframes		Safari, Chrome and Opera > 12.1
+	@-ms-keyframes			Opera < 12.1
+	@-o-keyframes			Internet Explorer
+
+	@keyframes TRANSITION_NAME {
+
+	}
+
+	@-moz-keyframes TRANSITION_NAME {
+
+	}
+
+	@-webkit-keyframes TRANSITION_NAME {
+
+	}
+
+	@-o-keyframes TRANSITION_NAME {
+
+	}
+
+	@-ms-keyframes TRANSITION_NAME {
+
+	}
+
+*/
+
+// SLIDE UP
+
+@keyframes slideup {
+    0% { -webkit-transform: translateY(40px); }
+    100% { -webkit-transform: translateY(0); }
+}
+
+@-moz-keyframes slideup {
+    0% { -webkit-transform: translateY(40px); }
+    100% { -webkit-transform: translateY(0); }
+}
+
+@-webkit-keyframes slideup {
+    0% { -webkit-transform: translateY(40px); }
+    100% { -webkit-transform: translateY(0); }
+}
+
+// FADE IN
+
+@keyframes fadein {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@-o-keyframes fadein {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@-ms-keyframes fadein {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+// FADE IN BOTTOM
+
+@keyframes fadein-bottom {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadein-bottom {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes fadein-bottom {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+// FADE OUT BOTTOM
+
+@keyframes fadeout-bottom {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes fadeout-bottom {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+@-moz-keyframes fadeout-bottom {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+// ROTATE 180
+	
+@keyframes rotate-180 {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(180deg); }
+}
+
+@-moz-keyframes rotate-180 {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(180deg); }
+}
+
+@-webkit-keyframes rotate-180 {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(180deg); }
+}
+
+// ROTATE 180 REVERSE
+
+@keyframes rotate-180-reverse {
+	from { transform: rotate(180deg); }
+	to { transform: rotate(0deg); }
+}
+
+@-moz-keyframes rotate-180-reverse {
+	from { transform: rotate(180deg); }
+	to { transform: rotate(0deg); }
+}
+
+@-webkit-keyframes rotate-180-reverse {
+	from { transform: rotate(180deg); }
+	to { transform: rotate(0deg); }
+}
+
+// ROTATE 360
+
+@keyframes rotate-360 {
+	from { }
+	to { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes rotate-360 {
+	from { }
+	to { transform: rotate(360deg); }
+}
+
+@-moz-keyframes rotate-360 {
+	from { }
+	to { transform: rotate(360deg); }
+}
+
+// PROGRESS SVG
+
+@keyframes progress-svg {
+	0% { stroke-dasharray: 0 100; }
+}
+
+@-moz-keyframes progress-svg {
+	0% { stroke-dasharray: 0 100; }
+}
+
+@-webkit-keyframes progress-svg {
+	0% { stroke-dasharray: 0 100; }
+}
+
+// COMPLETE IMAGE SCALE
+
+@keyframes complete-img-scale {
+	from { padding: 100px 0px; }
+	to { padding: 0px 0px; }
+}
+
+@-webkit-keyframes complete-img-scale {
+	from { padding: 100px 0px; }
+	to { padding: 0px 0px; }
+}
+
+@-moz-keyframes complete-img-scale {
+	from { padding: 100px 0px; }
+	to { padding: 0px 0px; }
+}
+
+// LEAFLET USERMARKER PULSATE
+
+@keyframes leaflet-usermarker-pulsate {
+    from {
+        transform: scale(0.5);
+        opacity: 1.0;
+	}
+    95% {
+        transform: scale(1.3);
+        opacity: 0;
+	}
+    to {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes leaflet-usermarker-pulsate {
+    from {
+        -webkit-transform: scale(0.5);
+        opacity: 1.0;
+	}
+    95% {
+        -webkit-transform: scale(1.3);
+        opacity: 0;
+	}
+    to {
+        -webkit-transform: scale(0.7);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes leaflet-usermarker-pulsate {
+    from {
+        -moz-transform: scale(0.5);
+        opacity: 1.0;
+	}
+    95% {
+		-moz-transform: scale(1.3);
+		opacity: 0;
+	}
+    to {
+        -moz-transform: scale(0.7);
+        opacity: 0;
+    }
+}
+
+// LEFT TO RIGHT
+
+@keyframes left-to-right {
+	from { left: 0; }
+}
+
+@-webkit-keyframes left-to-right {
+	from { left: 0; }
+}
+
+@-moz-keyframes left-to-right {
+	from { left: 0; }
+}
+
+// WIDTH EXPANSION
+
+@keyframes width-expansion {
+	from { width: 0; }
+}
+
+@-webkit-keyframes width-expansion {
+	from { width: 0; }
+}
+
+@-moz-keyframes width-expansion {
+	from { width: 0; }
+}
+
+// WIDTH EXPANSION FULL
+
+@keyframes width-expansion-full {
+	from { width: 0; }
+	to { width: 100%; }
+}
+
+@-webkit-keyframes width-expansion-full {
+	from { width: 0; }
+	to { width: 100%; }
+}
+
+@-moz-keyframes width-expansion-full {
+	from { width: 0; }
+	to { width: 100%; }
+}

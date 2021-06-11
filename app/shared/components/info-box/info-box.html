@@ -1,0 +1,27 @@
+<div class="infobox alert alert-info padding-0 margin-bottom-0">
+	<div class="open-button" (click)="openBox()">
+		<i class="fa" [ngClass]="{ 'fa-plus': !infoBoxOpen, 'fa-minus': infoBoxOpen }"></i>
+	</div>
+
+	<div class="infobox-header padding-15 padding-right-45">
+		<h4 class="text-uppercase text-bold text-center margin-bottom-0">{{config.title}}</h4>
+	</div>
+	<div class="infobox-content" [ngClass]="{ 'infobox-open': infoBoxOpen }">
+		<div *ngIf="config.transclude; then thenBlock; else elseBlock"></div>
+		<ng-template #thenBlock>
+			<p #thenBlock
+				class="text-lg-justify text-md-justify text-sm-center text-xs-center description-info font-size-percentage-100"
+				role="alert">
+				<ng-content></ng-content>
+			</p>
+		</ng-template>
+		<ng-template #elseBlock>
+			<p class="text-lg-justify text-md-justify text-sm-center text-xs-center description-info font-size-percentage-100"
+				role="alert">
+				<span>{{config.description}}</span> <br>
+				<span *ngIf="config.link" translate>Do you want to know more?</span> <a *ngIf="config.link"
+					class="alert-link" href="{{config.link}}" target="_blank" translate>More Info</a>
+			</p>
+		</ng-template>
+	</div>
+</div>

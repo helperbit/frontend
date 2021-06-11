@@ -1,0 +1,13 @@
+@import "~app/sass/const.scss";
+
+.alert {
+	z-index: 999999;
+	position: fixed;
+	bottom: #{$footerHeight};
+	width: 100%;
+	margin-bottom: 0;
+
+	@media screen and (max-width: #{$breakpointXsMax}) {
+		bottom: 0;
+	}
+}

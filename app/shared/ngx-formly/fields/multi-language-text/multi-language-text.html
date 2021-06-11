@@ -1,0 +1,5 @@
+<multi-language-text [formControl]="formControl" [field]="field" [config]="field.templateOptions.config"></multi-language-text>
+<div *ngIf="showErrorMessages()" class="invalid-feedback" [style.display]="'block'">
+	<formly-validation-message class="tooltip-formly tooltip-formly-error" [field]="field"></formly-validation-message>
+</div>
+<small *ngIf="field.templateOptions.description" class="form-text text-muted">{{ field.templateOptions.description }}</small>

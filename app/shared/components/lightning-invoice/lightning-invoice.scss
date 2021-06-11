@@ -1,0 +1,23 @@
+@import '~app/sass/const.scss';
+@import '~app/sass/extends.scss';
+
+:host {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+
+	.description {
+		display: flex;
+		flex-grow: 1;
+		align-items: center;
+		justify-content: center;
+		padding-bottom: 7.5px;
+	}
+
+	.pay-button {
+		@media screen and (min-width: $breakpointSmMin) {
+			width: 50%;
+		}
+	}
+
+}

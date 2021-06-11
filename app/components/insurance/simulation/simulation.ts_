@@ -1,0 +1,168 @@
+import * as $ from 'jquery';
+import { DashboardService, UserPrivate } from '../../../models/dashboard';
+import AppSettings from '../../../app.settings';
+import { ModalsConfig } from 'app/shared/components/modal/oldModal/modal';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+/* Event simulation tool */
+@Component({
+	selector: 'insurance-simulation-component',
+	templateUrl: 'simulation.html',
+	// styleUrls: ['simulation.scss']
+})
+export class InsuranceSimulationComponent implements OnInit {
+	map: {
+		defaults: any;
+		center: any;
+		layers: any;
+		bounds: any;
+		events: any;
+	};
+	simulation: any;
+	user: UserPrivate;
+	modals: ModalsConfig;
+
+	constructor(private dashboardService: DashboardService, private translate: TranslateService) {
+		this.modals = {
+			notLogged: {
+				id: 'modalNotLogged',
+				title: translate.instant('')
+			},
+			notGeolocalized: {
+				id: 'modalNotGeolocalized',
+				title: translate.instant('Not geolocalized')
+			}
+		};
+
+		this.map = {
+			center: AppSettings.defaultMapCenter,
+			layers: AppSettings.layers,
+			defaults: {
+				maxZoom: 10,
+				minZoom: 2,
+				keyboard: false,
+				attributionControl: true,
+			},
+			bounds: {
+				southWest: { lat: -55, lng: -50 },
+				northEast: { lat: 75, lng: 50 }
+			},
+			events: {
+				markers: { enable: ['dragend'] },
+				map: { enable: ['click'] }
+			}
+		};
+
+		this.simulation = {
+			deposit: 0.1,
+			affected: 200,
+			magnitude: 7.5,
+			users: 10000,
+			depth: 10,
+			pool: 100,
+			gain: 0.0,
+			gainyear: 0.0,
+
+			paths: {
+				circle: {
+					type: 'circle',
+					fillColor: '#feb737',
+					color: '#fa4444',
+					weight: 0,
+					opacity: 1,
+					fillOpacity: 0.5,
+					stroke: false,
+					clickable: false,
+					latlngs: [43.06, 11.95],
+					radius: 7.5 * 1000
+				}
+			},
+
+			markers: {
+				event: {
+					lat: 43.06,
+					lng: 11.95,
+					draggable: true,
+					message: 'Earthquake position',
+					icon: {
+						type: 'div',
+						iconSize: [8, 8],
+						popupAnchor: [0, 0],
+						className: 'leaflet-usermarker',
+						html: '<i class="pulse"></i>'
+					}
+				},
+				user: {
+					lat: 33,
+					lng: 55,
+					draggable: false,
+					message: 'Your position',
+					icon: { iconUrl: '/media/marker/singleuser.png', iconSize: [10, 10], iconAnchor: [5, 5], popupAnchor: [0, 0] }
+				}
+			},
+		};
+	}
+
+
+	private distance(lat1, lat2, lon1, lon2) {
+		const toRad = (n) => n * Math.PI / 180;
+
+		const R = 6371000; // meter
+		const Phi1 = toRad(lat1);
+		const Phi2 = toRad(lat2);
+		const DeltaPhi = toRad(lat2 - lat1);
+		const DeltaLambda = toRad(lon2 - lon1);
+
+		const a = Math.sin(DeltaPhi / 2) * Math.sin(DeltaPhi / 2) +
+			Math.cos(Phi1) * Math.cos(Phi2) * Math.sin(DeltaLambda / 2) *
+			Math.sin(DeltaLambda / 2);
+		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		const d = R * c;
+
+		return d;
+	}
+
+
+	updateGain() {
+		this.simulation.paths.circle.radius = this.simulation.magnitude * this.simulation.magnitude * 1000;
+
+		const dist = this.distance(this.simulation.markers.event.lat, this.simulation.markers.user.lat,
+			this.simulation.markers.event.lng, this.simulation.markers.user.lng) / 1000;
+		if (dist > this.simulation.magnitude * this.simulation.magnitude) {
+			this.simulation.gain = 0.0;
+			this.simulation.gainyear = 0.0;
+			return;
+		}
+
+		this.simulation.gain = this.simulation.pool / this.simulation.affected / dist;
+		this.simulation.gainyear = this.simulation.pool / this.simulation.affected / 3;
+	}
+
+
+	ngOnInit() {
+		// this.$scope.$on("leafletDirectiveMarker.dragend", (event, args) => {
+		// 	this.simulation.markers.event.lat = Math.floor(args.model.lat * 10000) / 10000;
+		// 	this.simulation.markers.event.lng = Math.floor(args.model.lng * 10000) / 10000;
+		// 	this.simulation.paths.circle.latlngs = [
+		// 		this.simulation.markers.event.lat,
+		// 		this.simulation.markers.event.lng
+		// 	];
+		// 	this.updateGain();
+		// });
+
+		this.dashboardService.get().subscribe((user: UserPrivate) => {
+			this.user = user;
+
+			if (this.user.location.coordinates.length < 2) {
+				$('#modalNotGeolocalized').modal('show');
+			} else {
+				this.simulation.markers.user.lat = this.user.location.coordinates[1];
+				this.simulation.markers.user.lng = this.user.location.coordinates[0];
+				this.updateGain();
+			}
+		}, (res) => {
+			$('#modalNotLogged').modal('show');
+		});
+	}
+}

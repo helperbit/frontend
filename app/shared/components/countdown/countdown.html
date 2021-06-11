@@ -1,0 +1,12 @@
+<div class="prefixes">
+	<div *ngIf="show.days" translate>Days</div>
+	<div *ngIf="show.hours" translate>Hours</div>
+	<div *ngIf="show.minutes" translate>Minutes</div>
+	<div *ngIf="show.seconds" translate>Seconds</div>
+</div>
+<div class="numbers">
+	<div *ngIf="show.days">{{countdown.days}}</div>
+	<div *ngIf="show.hours">{{countdown.hours}}</div>
+	<div *ngIf="show.minutes">{{countdown.minutes}}</div>
+	<div *ngIf="show.seconds">{{countdown.seconds}}</div>
+</div>

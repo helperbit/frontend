@@ -1,0 +1,12 @@
+{
+    "expires": "expires in {0}",
+    "MISTRAL_RECAP": "You are donating {price}€ to {resid}: {amountbtc} BTC, {fixedcost}€ (fixedcost) +{fee}% (fee) +{withdrawcost}BTC (withdraw fee)",
+    "WAITING_FOR_DEPOSIT": "Awaiting deposit",
+    "DEPOSIT_RECEIVED": "Your transaction has successfully been received, we are waiting for some confirmations. This process will be completed in few minutes.",
+    "DEPOSIT_CONFIRMED": "Deposit confirmed",
+    "EXECUTED": "Your transaction has been confirmed. Your altcoin amount is going to be exchanged in bitcoin and sent to the selected beneficiaries.",
+    "CANCELED": "Canceled",
+    "EXPIRED": "Expired",
+    "GIFT_DESCRIPTION": "Write a message that will be sent to the receiver of this gift",
+    "GIFT_CAMPAIGN_DESCRIPTION": "Write a message that will be sent to the campaign owner"
+}

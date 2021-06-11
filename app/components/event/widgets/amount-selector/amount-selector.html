@@ -1,0 +1,16 @@
+<p class="amount" translate>Select an amount:<p>
+<div align="center">
+	<a href="javascript:void(0)" (click)="updateValue (formatValue(0.01))" class="btn btn-default"
+		[ngClass]="{'btn-danger': amount == formatValue(0.01)}">{{0.01|money:-1}}</a>
+	<a href="javascript:void(0)" (click)="updateValue (formatValue(0.05))" class="btn btn-default"
+		[ngClass]="{'btn-danger': amount == formatValue(0.05)}">{{0.05|money:-1}}</a>
+	<a href="javascript:void(0)" (click)="updateValue (formatValue(0.1))" class="btn btn-default"
+		[ngClass]="{'btn-danger': amount == formatValue(0.1)}">{{0.1|money:-1}}</a>
+	<a href="javascript:void(0)" (click)="updateValue (formatValue(1.0))"
+		class="btn btn-default hidden-xs hidden-sm hidden-md hidden-lg"
+		[ngClass]="{'btn-danger': amount == formatValue(1.0)}">{{1|money:-1}}</a>
+	<a *ngIf="!manual.enabled" href="javascript:void(0)" (click)="updateValue (null)" class="btn btn-default"
+		[ngClass]="{'btn-danger': manual.enabled }">Other</a>
+	<input class="form-control" moneyInput *ngIf="manual.enabled" (change)="updateValue (null)" type="text"
+		[(ngModel)]="manual.amount" [value]="manual.amount">
+</div>

@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <button *ngIf="method != 'login'" type="button" class="close" aria-label="Close" (click)="dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h1 class="modal-title" id="myModalLabel" translate>Privacy and Terms</h1>
+</div>
+
+<div class="modal-body">
+    <p *ngIf="method == 'login'">The Helperbit policy has been updated; please read and accept the new policy, or proceed to delete your account.<br></p>
+
+    <div *ngIf="outdated.terms">
+        <h1>Terms of service</h1>
+        <br>
+        <div (scroll)="scrolling('terms', $event)" id="terms-of-service" style="border: 1px solid #eee; overflow-y: scroll; height: 250px; padding-right: 1em;">
+            <terms-content-component></terms-content-component>
+        </div>
+
+        <br>
+        <div style="font-size:110%" (click)="checkAlertLabel('terms')">
+            <input type="checkbox" id="sigterms" [(ngModel)]="accept.terms" [disabled]="!scrolled.terms.clickable">
+            <label for="sigterms">
+                <span translate>I accept the Helperbit Terms of Service</span>
+                <span [hidden]="scrolled.terms.clickable" [ngClass]="{ 'error-alert': scrolled.terms.addClass }" translate>(scroll and read the terms of service to accept)</span>
+            </label>
+        </div>
+    </div>
+
+    <hr *ngIf="outdated.privacy && outdated.terms">
+
+    <br>
+
+    <div *ngIf="outdated.privacy">
+        <h1>Privacy policy</h1>
+        <br>
+        <div (scroll)="scrolling('privacy', $event)" id="privacy-policy" style="border: 1px solid #eee; overflow-y: scroll; height: 250px; padding-right: 1em;">
+            <privacy-content-component></privacy-content-component>
+        </div>
+
+        <br>
+        <div style="font-size:110%" (click)="checkAlertLabel('privacy')">
+            <input type="checkbox" id="sigprivacy" [(ngModel)]="accept.privacy" [disabled]="!scrolled.privacy.clickable">
+            <label for="sigprivacy">
+                <span translate>I accept the Helperbit Privacy Policy</span>
+                <span [hidden]="scrolled.privacy.clickable" [ngClass]="{ 'error-alert': scrolled.privacy.addClass }" translate>(scroll and read the privacy policy to accept)</span>
+            </label>
+        </div>
+    </div>
+
+    <br>
+</div>
+
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <button *ngIf="method=='login'" type="button" class="btn btn-danger btn-block" (click)="dismiss()" translate>Delete account</button>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <button *ngIf="!loading && !isAccepted()" class="btn btn-default btn-block" translate disabled>Done</button>
+            <button type="button" *ngIf="isAccepted()" loading="loading" class="btn btn-success btn-block" (click)="done()" translate>Done</button>
+        </div>
+    </div>
+</div>

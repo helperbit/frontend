@@ -1,0 +1,95 @@
+
+element(by.css('a[ng-reflect-router-link="/login"]')).click();
+element(by.css('input[id="formly_2_input_username_0"]')).clear().sendKeys('redcross@redcross.it');
+element(by.css('input[id="formly_2_password_nolabel_password_1"]')).clear().sendKeys('redcross1');
+element(by.css('login-component')).click();
+element(by.css('input[id="formly_2_input_username_0"]')).clear().sendKeys('cioco3');
+element(by.css('input[id="formly_2_password_nolabel_password_1"]')).clear().sendKeys('Prova1234!');
+element(by.css('form>div:nth-of-type(3)>div>button')).click();
+element(by.css('div:nth-of-type(28)>div:nth-of-type(1)>div:nth-of-type(1)>div:nth-of-type(1)>div:nth-of-type(2)')).click();
+expect(element(by.css('formly-field:nth-of-type(5)>formly-group')).getText()).toContain(['pinopippo']);
+element(by.css('input[id="formly_17_input_firstName_1"]')).clear().sendKeys('ciaomondo');
+element(by.css('input[id="formly_17_input_lastName_2"]')).clear().sendKeys('pirapicchio');
+element(by.css('date-selector-component>div:nth-of-type(1)>div:nth-of-type(1)>select')).click();
+element(by.css('date-selector-component>div:nth-of-type(1)>div:nth-of-type(3)>select')).click();
+element(by.css('div:nth-of-type(5)>select')).click();
+element(by.css('select[id="formly_17_select_gender_4"]')).click();
+expect(element(by.css('formly-field:nth-of-type(6)>formly-wrapper-form-field>div:nth-of-type(1)')).getText()).toContain(['347 121 7796']);
+element(by.css('formly-field-phone-number>div:nth-of-type(1)>input')).clear().sendKeys('+393471217796');
+expect(element(by.css('input[id="formly_17_url_website_6"]')).getText()).toContain(['https://www.google.com']);
+element(by.css('input[id="formly_17_url_website_6"]')).clear().sendKeys('https://www.google.com/it');
+element(by.css('select[id="formly_17_select_emailLanguage_7"]')).click();
+element(by.css('select[id="formly_17_select_country_8"]')).click();
+element(by.css('textarea[id="formly_17_textarea_biography_9"]')).click();
+element(by.css('textarea[id="formly_17_textarea_biography_9"]')).click();
+element(by.css('div:nth-of-type(515)>div')).click();
+element(by.css('textarea[id="formly_17_textarea_biography_9"]')).click();
+element(by.css('div:nth-of-type(515)')).click();
+element(by.css('div:nth-of-type(515)>div>button')).click();
+element(by.css('a[aria-label="close"]')).click();
+element(by.css('sidebar-component>nav>ul>li:nth-of-type(3)>a[ng-reflect-router-link="/me/geoloc"]')).click();
+element(by.css('div:nth-of-type(25)>div>button')).click();
+element(by.css('select[id="formly_23_select_country_0"]')).click();
+element(by.css('select[id="formly_23_select_region_1"]')).click();
+element(by.css('select[id="formly_23_select_region_1"]')).click();
+element(by.css('formly-field:nth-of-type(2)')).click();
+element(by.css('input[id="formly_23_input_city_2"]')).click();
+element(by.css('input[id="formly_23_input_city_2"]')).clear().sendKeys('Cagliari');
+element(by.css('input[id="formly_23_input_street_3"]')).clear().sendKeys('via dei conversi');
+element(by.css('input[id="formly_23_input_streetNumber_4"]')).clear().sendKeys('128');
+element(by.css('input[id="formly_23_input_zipCode_5"]')).clear().sendKeys('09129');
+element(by.css('div:nth-of-type(7)>div>button>span')).click();
+element(by.css('div:nth-of-type(25)>div:nth-of-type(2)>button')).click();
+element(by.css('button[aria-label="Close"]>span')).click();
+element(by.css('sidebar-component>nav>ul>li:nth-of-type(4)>a[ng-reflect-router-link="/me/verify"]')).click();
+element(by.css('sidebar-component>nav>ul>li:nth-of-type(8)>a[ng-reflect-router-link="/campaign/create"]')).click();
+element(by.css('div:nth-of-type(20)>div>button')).click();
+element(by.css('input[id="formly_36_input_title_0"]')).click();
+element(by.css('input[id="formly_36_input_title_0"]')).clear().sendKeys('c'era una volta un tonto');
+element(by.css('textarea[id="formly_36_textarea_description_1"]')).click();
+element(by.css('textarea[id="formly_36_textarea_description_1"]')).clear().sendKeys('come stiamo eeeeh');
+expect(element(by.css('input[id="formly_36_input_target_2"]')).getText()).toContain(['1000']);
+element(by.css('input[id="formly_36_input_target_2"]')).clear().sendKeys('1500');
+element(by.css('buttons-group>div:nth-of-type(1)>button:nth-of-type(2)>span')).click();
+element(by.css('date-selector-component>div:nth-of-type(1)>div:nth-of-type(1)>select')).click();
+element(by.css('date-selector-component>div:nth-of-type(1)>div:nth-of-type(3)>select')).click();
+expect(element(by.css('div:nth-of-type(5)>select')).getText()).toContain(['
+CHOOSE A PROJECT
+SEND INFORMATION
+']);
+expect(element(by.css('div:nth-of-type(5)>select')).getText()).toContain(['
+CHOOSE A PROJECT
+SEND INFORMATION
+']);
+expect(element(by.css('formly-field-choose-elements>div>button')).getText()).toContain(['
+CHOOSE A PROJECT
+SEND INFORMATION
+']);
+expect(element(by.css('choose-elements>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(1)>div:nth-of-type(1)>div:nth-of-type(1)>img[src="/media/avatar_empty_org.png"]')).getText()).toContain(['
+CHOOSE A PROJECT
+SEND INFORMATION
+']);
+expect(element(by.css('div:nth-of-type(164)>div:nth-of-type(1)>div>button')).getText()).toContain(['
+CHOOSE A PROJECT
+SEND INFORMATION
+']);
+expect(element(by.css('div:nth-of-type(17)>div')).getText()).toContain(['
+(cancel) Project selected: Nepal Earthquake Recovery
+SEND INFORMATION
+']);
+element(by.css('div:nth-of-type(17)>div>button')).click();
+element(by.css('div:nth-of-type(16)>div:nth-of-type(2)>button>span')).click();
+element(by.css('div:nth-of-type(7)>div:nth-of-type(2)>button')).click();
+element(by.css('div:nth-of-type(8)>div:nth-of-type(3)>div:nth-of-type(1)>div:nth-of-type(1)>div>a[ng-reflect-router-link="/campaign/create"]')).click();
+element(by.css('social-share>span:nth-of-type(4)>span>a[href="javascript:void(0)"]')).click();
+element(by.css('a[href="javascript:void(0)"]:nth-of-type(3)>i')).click();
+element(by.css('div:nth-of-type(5)>div:nth-of-type(1)>div:nth-of-type(2)>button')).click();
+element(by.css('a[ng-reflect-router-link="/me/privacy"]')).click();
+element(by.css('formly-field:nth-of-type(1)>formly-wrapper-form-field>div:nth-of-type(1)>formly-field-toggle-switch>div:nth-of-type(1)>label>span')).click();
+element(by.css('input[id="formly_46_toggleSwitch_firstname_0"]')).click();
+element(by.css('formly-field:nth-of-type(5)>formly-wrapper-form-field>div:nth-of-type(1)>formly-field-toggle-switch>div:nth-of-type(1)>label>span')).click();
+element(by.css('input[id="formly_46_toggleSwitch_website_4"]')).click();
+element(by.css('sidebar-component>nav>ul>li:nth-of-type(6)>a[ng-reflect-router-link="/me/ambassador"]')).click();
+element(by.css('a[ng-reflect-router-link="/me/badges"]')).click();
+element(by.css('div:nth-of-type(10)>div:nth-of-type(1)>img[src="/media/badges/large/png/ambassador/locked_512x393.png"]')).click();
+element(by.css('button[aria-label="Close"]>span')).click();

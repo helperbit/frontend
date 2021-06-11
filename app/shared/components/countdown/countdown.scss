@@ -1,0 +1,37 @@
+:host {
+	display: flex;
+	flex-grow: 2;
+	flex-basis: 0;
+	flex-direction: column;
+
+	.prefixes {
+		display: flex;
+		flex-grow: 1;
+		flex-basis: 0;
+		flex-direction: row;
+
+		div {
+			display: flex;
+			flex-grow: 1;
+			flex-basis: 0;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	.numbers {
+		display: flex;
+		flex-grow: 2;
+		flex-basis: 0;
+		font-size: 60px;
+		flex-direction: row;
+
+		div {
+			display: flex;
+			flex-grow: 1;
+			flex-basis: 0;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+}

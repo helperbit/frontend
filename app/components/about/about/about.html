@@ -1,0 +1,61 @@
+<div class="" id="aboutPage" class="about-page" data-spy="scroll" data-target="#myNavbar">
+
+	<div class="about-page">
+
+		<div class="menu-button" (click)="isHiddenMenuOpen = true"> <i class="fa fa-list-ul"></i> </div>
+
+		<nav class="navbar navbar-inverse" id="myNavbar" [ngClass]="{ 'open': isHiddenMenuOpen }">
+			<div class="menu-close" (click)="isHiddenMenuOpen = false"> <i class="fa fa-close"></i> </div>
+			<ul class="nav nav-pills nav-stacked">
+				<li> <a href="javascript:void(0)" (click)="scrollTo(homeTarget)" translate>About</a> </li>
+				<li> <a href="javascript:void(0)" (click)="scrollTo(whysignupTarget)" translate>Why signup</a> </li>
+				<li> <a href="javascript:void(0)" (click)="scrollTo(whyhelperbitTarget)" translate>Why Helperbit</a> </li>
+				<li> <a href="javascript:void(0)" (click)="scrollTo(benefitTarget)" translate>Benefits</a> </li>
+				<li> <a href="javascript:void(0)" (click)="scrollTo(teamTarget)" translate>Team</a> </li>
+				<li> <a href="javascript:void(0)" (click)="scrollTo(pressTarget)" translate>Press</a> </li>
+				<li> <a href="javascript:void(0)" (click)="scrollTo(awardTarget)" translate>Awards</a> </li>
+				<li> <a href="javascript:void(0)" (click)="scrollTo(partnersTarget)" translate>Partners</a> </li>
+				<li> <a href="javascript:void(0)" (click)="scrollTo(contactTarget)" translate>Contact</a> </li>
+			</ul>
+		</nav>
+
+		<div id="home" #homeTarget class="section top-section">
+			<about-section-top-component></about-section-top-component>
+		</div>
+
+		<div id="whysignup" #whysignupTarget class="section whysignup-section">
+			<about-section-whysignup-component></about-section-whysignup-component>
+		</div>
+
+		<div id="whyhelperbit" #whyhelperbitTarget class="section whyhelperbit-section">
+			<about-section-whyhelperbit-component></about-section-whyhelperbit-component>
+		</div>
+
+		<div id="benefit" #benefitTarget class="section benefit-section">
+			<about-section-benefit-component></about-section-benefit-component>
+		</div>
+
+		<div id="team" #teamTarget class="section team-section">
+			<about-section-team-component></about-section-team-component>
+		</div>
+
+		<div id="press" #pressTarget class="section press-section">
+			<about-section-press-component></about-section-press-component>
+		</div>
+
+		<div id="award" #awardTarget class="section award-section">
+			<about-section-award-component></about-section-award-component>
+		</div>
+
+		<div id="partners" #partnersTarget class="section partners-section">
+			<about-section-partners-component></about-section-partners-component>
+		</div>
+
+		<div id="contact" #contactTarget class="section contact-section">
+			<about-section-contact-component></about-section-contact-component>
+		</div>
+	</div>
+
+	<seo-footer-component></seo-footer-component>
+
+</div>

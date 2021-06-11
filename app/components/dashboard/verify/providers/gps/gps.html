@@ -1,0 +1,50 @@
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" translate>Device Geoverification</h4>
+</div>
+
+<div class="modal-body">
+	<aw-wizard>
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+			<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+						<button
+							*ngIf="geolocation"
+							(click)="geolocalize()"
+							[loading]="loading"
+							class="btn btn-default btn-xs-block  gps-button">
+							<i class="fa fa-map-marker" aria-hidden="true"></i> <span translate>Geolocalize Now!</span></button>
+						<h4 *ngIf="!geolocation" translate>Geolocalization not supported by your browser</h4>
+					</div>
+				</div>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step2.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p>	
+						<span translate>Verification completed.</span>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="activeModal.dismiss()"
+						class="btn btn-default btn-xs-block" translate>Done</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+</div>

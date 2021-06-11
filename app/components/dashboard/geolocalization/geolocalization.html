@@ -1,0 +1,153 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col" style="top: 0px; position: sticky;">
+		<div class="page page-composable">
+			<sidebar-component></sidebar-component>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 page-composable-col">
+		<div *ngIf="user" class="page page-composable" style="padding: 1.5em;">
+			<div *ngIf="leafletOptions" class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div leaflet [leafletOptions]="leafletOptions.options" [(leafletLayers)]="leafletOptions.markers" [style.height]="'290px'" [style.width]="'100%'"  (leafletMapReady)="onMapReady($event)"></div>
+				</div>
+			</div>
+
+			<div *ngIf="isAddressSet()" class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h3 class="border-bottom border-yellow" translate>Your are geolocalized here:</h3>
+					<table class="table table-responsive hidden-xs">
+						<thead class="separator">
+							<tr>
+								<th class="text-center" translate>Country</th>
+								<th class="text-center" translate>Region</th>
+								<th class="text-center" translate>City</th>
+								<th class="text-center" translate>Street</th>
+								<th class="text-center" translate>Street Number</th>
+								<th class="text-center" translate>ZIP Code</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center text-capitalize">{{ user.country | country }}</td>
+								<td class="text-center text-capitalize">{{ user.region }}</td>
+								<td class="text-center text-capitalize">{{ user.city }}</td>
+								<td class="text-center text-capitalize">{{ user.street }}</td>
+								<td class="text-center">{{ user.streetnr }}</td>
+								<td class="text-center">{{ user.zipcode }}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table table-responsive hidden-lg hidden-md hidden-sm">
+
+						<tbody>
+							<tr>
+								<td translate>Country</td>
+								<td class="text-bold">{{ user.country | country }}</td>
+							</tr>
+							<tr>
+								<td translate>Region</td>
+								<td class="text-bold">{{ user.region }}</td>
+							</tr>
+							<tr>
+								<td translate>City</td>
+								<td class="text-bold">{{ user.city }}</td>
+							</tr>
+							<tr>
+								<td translate>Street</td>
+								<td class="text-bold">{{ user.street }}</td>
+							</tr>
+							<tr>
+								<td translate>Street Number</td>
+								<td class="text-bold">{{ user.streetnr }}</td>
+							</tr>
+							<tr>
+								<td translate>ZIP Code</td>
+								<td class="text-bold">{{ user.zipcode }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div *ngIf="userCountries.length > 0" class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h3 class="border-bottom border-yellow" translate>You operate here:</h3>
+					<table class="table table-responsive">
+						<thead class="separator">
+							<tr>
+								<th class="text-center" translate>Countries</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center">
+									<span *ngFor="let country of userCountries; let last = last">{{ country }}<span *ngIf="!last"> - </span></span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div *ngIf="isMarkerSet() && user.risk && user.usertype != 'npo'" class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h3 class="border-bottom border-yellow" translate>Your location is an area classified as:</h3>
+					<table class="table table-responsive">
+						<thead class="separator">
+							<tr>
+								<th class="text-center" translate>Event type</th>
+								<th class="text-center" translate>Hazard level</th>
+								<th class="text-center" translate>Source of information</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of user.risk | keyvalue">
+								<!-- (et, risk -->
+								<td class="text-center text-capitalize">{{item.key|translate}}</td>
+								<td class="text-center" [ngSwitch]="item.value.class">
+									<span *ngSwitchCase="'norisk'" translate>Very low risk</span>
+									<span *ngSwitchCase="'low'" translate>Low risk</span>
+									<span *ngSwitchCase="'medium'" translate>Medium risk</span>
+									<span *ngSwitchCase="'high'" translate>High risk</span>
+									<span *ngSwitchCase="'very-high'" translate>Very high risk</span>
+									<span *ngSwitchCase="'very-low'" translate>Very low risk</span>
+									<span *ngSwitchCase="'na'" [tooltip]="'Information not provided'|translate"
+										translate>N/A</span>
+								</td>
+								<td class="text-center" [ngSwitch]="item.value.source">
+									<span *ngSwitchCase="'DPC'" class="text-uppercase"
+										[tooltip]="'Department of italian Civil Protection'|translate"
+										translate>dpc</span>
+									<span *ngSwitchCase="'j-shis'" class="text-uppercase"
+										[tooltip]="'Japan Seismic Hazard Information Station'|translate"
+										translate>dpc</span>
+									<span *ngSwitchCase="'PAI'" class="text-uppercase"
+										[tooltip]="'Hydrogeological planning plans'|translate" translate>pai</span>
+									<span *ngSwitchCase="'helperbit'" class="text-capitalize" translate>helperbit</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+					<button
+						*ngIf="!isGeolocalizationEdit"
+						class="btn btn-default btn-xs-block"
+						(click)="newGeolocalization()"
+						[disabled]="user.locked" translate>Start Geolocalization</button>
+					<button
+						*ngIf="isGeolocalizationEdit"
+						class="btn btn-default btn-xs-block"
+						(click)="editGeolocalization()"
+						[disabled]="user.locked" translate>Edit Geolocalization</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

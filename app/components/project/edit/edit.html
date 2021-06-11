@@ -1,0 +1,227 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col" style="top: 0px; position: sticky;">
+		<div class="page page-composable">
+			<sidebar-component></sidebar-component>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 page-composable-col">
+		<div class="page" *ngIf="isReady">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+					<a routerLink="/project/create"
+						class="btn btn-danger btn-xs-block"
+						translate>Back to Projects</a>
+				</div>
+			</div>
+
+			<aw-wizard>
+				<aw-wizard-step [stepId]="1" *ngIf="!projectConcluded" [stepTitle]="wizard.step1.titles.main">
+					<div class="row">
+						<div class="col-xs-12">
+							<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+						</div>
+					</div>
+					<form [formGroup]="wizard.step1">
+						<formly-form [form]="wizard.step1" [fields]="wizard.step1.fields" [model]="wizard.step1.model"></formly-form>
+						<div class="row margin-top-15">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+								<button
+									(click)="sendProjectBasicInformation()"
+									[disabled]="wizard.step1.invalid"
+									class="btn btn-default btn-xs-block">
+										<span *ngIf="!projectConcluded" translate>Send Information</span>
+										<span *ngIf="projectConcluded" translate>Update Information</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</aw-wizard-step>
+				<aw-wizard-step [stepId]="2" *ngIf="!projectConcluded" [stepTitle]="wizard.step2.titles.main">
+					<div class="row">
+						<div class="col-xs-12">
+							<response-messages [message]="wizard.step2.responseMessage"></response-messages>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							{{ wizard.step2.titles.description }}
+						</div>
+					</div>
+					<form [formGroup]="wizard.step2">
+						<formly-form [form]="wizard.step2" [fields]="wizard.step2.fields" [model]="wizard.step2.model"></formly-form>
+						<div class="row margin-top-15">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+								<button
+									awPreviousStep
+									class="btn btn-default btn-xs-block"
+									translate>Previous</button>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+								<button
+									(click)="sendProjectCountries()"
+									[disabled]="wizard.step2.invalid"
+									class="btn btn-default btn-xs-block">
+										<span *ngIf="!projectConcluded" translate>Send Countries</span>
+										<span *ngIf="projectConcluded" translate>Update Countries</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</aw-wizard-step>
+				<aw-wizard-step [stepId]="3" [stepTitle]="wizard.step3.titles.main">
+					<div class="row">
+						<div class="col-xs-12">
+							<response-messages [message]="wizard.step3.responseMessage"></response-messages>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							{{ wizard.step3.titles.description }}
+						</div>
+					</div>
+
+					<div class="row">			
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="wizard.step3.model.activities.length == 0">
+							<h4 class="text-center" translate>No activities found</h4>
+						</div>
+					
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="wizard.step3.model.activities.length > 0">
+							<table class="table table-striped table-responsive">
+								<thead class="separator">
+									<tr>
+										<th class="text-center">
+											<span translate>English Title</span>
+											<div class="separator"></div>
+										</th>
+										<th class="text-center">
+											<span translate>Category</span>
+											<div class="separator"></div>
+										</th>
+										<th class="text-center">
+											<span translate>Date</span>
+											<div class="separator"></div>
+										</th>
+										<th class="text-center">
+											<span translate>Actions</span>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let activity of wizard.step3.model.activities; let index = index;">
+										<td class="text-center"> {{ activity.title | stranslate }} </td>
+										<td class="text-center"> {{ activityCategoryToString(activity.category) }}</td>
+										<td class="text-center"> {{ activity.createdAt | date: 'medium'}}</td>
+										<td class="text-center">
+											<a href="javascript:void(0)" (click)="editActivity(activity)" class="btn btn-default margin-xs-5 margin-right-5"> <i class="fa fa-pencil"></i> <span translate>Edit</span></a>
+											<a href="javascript:void(0)" (click)="openModalConfirmDeleteActivity(activity, index)" class="btn btn-danger margin-xs-5"> <i class="fa fa-trash"></i> <span translate>Remove</span></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="row padding-top-bottom-15">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+								<button class="btn btn-danger btn-xs-block" (click)="createActivity()" translate>New activity</button>
+							</div>
+						</div>				
+					</div>
+					
+					<div class="row margin-top-15">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+							<button
+								awPreviousStep
+								class="btn btn-default btn-xs-block"
+								translate>Previous</button>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+							<button
+								(click)="next()"
+								class="btn btn-default btn-xs-block" translate>Next</button>
+								<!-- [disabled]="wizard.step3.model.activities.length < 1" -->
+						</div>
+					</div>
+				</aw-wizard-step>
+				<aw-wizard-step [stepId]="4" [stepTitle]="wizard.step4.titles.main">
+					<div class="row">
+						<div class="col-xs-12">
+							<response-messages [message]="wizard.step4.responseMessage"></response-messages>
+							<response-messages *ngIf="wizard.step4.model.medias.length > 0 && wizard.step4.invalid" [message]="{type: 'error', error: 'EM6'}"></response-messages>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							{{ wizard.step4.titles.description }}
+						</div>
+					</div>
+					<form [formGroup]="wizard.step4">
+						<formly-form [form]="wizard.step4" [fields]="wizard.step4.fields" [model]="wizard.step4.model"></formly-form>
+						<div class="row margin-top-15">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+								<button
+									awPreviousStep
+									class="btn btn-default btn-xs-block"
+									translate>Previous</button>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+								<button
+									(click)="sendProjectMedia()"
+									[disabled]="wizard.step4.invalid"
+									class="btn btn-default btn-xs-block">
+										<span *ngIf="!projectConcluded" translate>Send Media</span>
+										<span *ngIf="projectConcluded" translate>Update Media</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</aw-wizard-step>
+				<aw-wizard-step [stepId]="5" [stepTitle]="wizard.step5.titles.main">
+					<div class="row">
+						<div class="col-xs-12">
+							<response-messages [message]="wizard.step5.responseMessage"></response-messages>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							{{ wizard.step5.titles.description }}
+						</div>
+					</div>
+					<form [formGroup]="wizard.step5">
+						<formly-form [form]="wizard.step5" [fields]="wizard.step5.fields" [model]="wizard.step5.model"></formly-form>
+						<div class="row margin-top-15">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+								<button
+									awPreviousStep
+									class="btn btn-default btn-xs-block"
+									translate>Previous</button>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+								<button
+									(click)="sendProjectOtherInformations()"
+									[disabled]="wizard.step5.invalid"
+									class="btn btn-default btn-xs-block">
+										<span *ngIf="!projectConcluded" translate>Send Other Information</span>
+										<span *ngIf="projectConcluded" translate>Update Other Information</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</aw-wizard-step>
+				<aw-wizard-step [stepId]="5" [stepTitle]="wizard.step6.titles.main">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+							<img src="/media/completed-green.png">
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+							<h4 *ngIf="!projectConcluded" class="text-uppercase text-bold" translate>Project created!</h4>
+							<h4 *ngIf="projectConcluded" class="text-uppercase text-bold" translate>Project updated!</h4>
+						</div>
+					</div>
+				</aw-wizard-step>
+			</aw-wizard>
+
+		</div>
+	</div>
+</div>

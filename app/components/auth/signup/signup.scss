@@ -1,0 +1,72 @@
+@import "~app/sass/const.scss";
+
+:host {
+  .firsttime {
+    .btn {
+      @media (max-width: #{$breakpointXsMax}) {
+        min-width: 50%;
+      }
+    }
+  }
+
+  .usertype-button-group {
+    margin: 10px 0px;
+
+    .btn {
+      @media screen and (min-width: $breakpointSmMin) {
+        width: 50%;
+      }
+
+      font-size: 14px;
+    }
+  }
+
+  .social-button-group {
+    margin: 10px 0px;
+
+    .btn-social {
+      @media screen and (min-width: $breakpointLgMin) {
+        width: 50%;
+      }
+
+      @media screen and (min-width: $breakpointMdMin) and (max-width: $breakpointMdMax) {
+        width: 50%;
+      }
+
+      @media screen and (min-width: $breakpointSmMin) and (max-width: $breakpointSmMax) {
+        width: 50%;
+      }
+
+      @media screen and (max-width: $breakpointXsMax) {
+        width: 100%;
+      }
+    }
+
+    .btn-social-inline {
+      @media screen and (min-width: $breakpointLgMin) {
+        width: 100%;
+      }
+
+      @media screen and (min-width: $breakpointMdMin) and (max-width: $breakpointMdMax) {
+        width: 50%;
+      }
+
+      @media screen and (min-width: $breakpointSmMin) and (max-width: $breakpointSmMax) {
+        width: 50%;
+      }
+
+      @media screen and (max-width: $breakpointXsMax) {
+        width: 100%;
+      }
+    }
+  }
+
+  hr.no-margin {
+    margin-bottom: 0;
+  }
+
+  .why-signup-link {
+    display: inline-block;
+    font-size: 12px;
+  }
+}

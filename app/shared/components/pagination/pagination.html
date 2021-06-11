@@ -1,0 +1,19 @@
+<ul class="pagination" *ngIf="totalPages > 1">
+    <li role="menuitem" *ngIf="boundaryLinks" [ngClass]="{disabled: noPrevious()||disabled}" class="pagination-first">
+        <a (click)="(noPrevious()||disabled) ? null : selectPage(1)" [attr.disabled]="(noPrevious()||disabled) ? true : null">&lt;&lt;</a>
+    </li>
+    <li role="menuitem" *ngIf="boundaryLinks" [ngClass]="{disabled: noPrevious()||disabled}" class="pagination-first">
+        <a (click)="(noPrevious()||disabled) ? null : selectPage(currentPage-1)" [attr.disabled]="(noPrevious()||disabled) ? true : null">&lt;</a>
+    </li>
+
+    <li *ngFor="let p of pages" role="menuitem" [ngClass]="{disabled: disabled, active: p == currentPage}">
+        <a (click)="selectPage(p)" [attr.disabled]="disabled ? true : null">{{p}}</a>
+    </li>
+
+    <li role="menuitem" *ngIf="boundaryLinks" [ngClass]="{disabled: noNext()||disabled}" class="pagination-last">
+        <a (click)="(noNext()||disabled) ? null : selectPage(currentPage+1)" [attr.disabled]="(noNext()||disabled) ? true : null">&gt;</a>
+    </li>
+    <li role="menuitem" *ngIf="boundaryLinks" [ngClass]="{disabled: noNext()||disabled}" class="pagination-last">
+        <a (click)="(noNext()||disabled) ? null : selectPage(totalPages)" [attr.disabled]="(noNext()||disabled) ? true : null">&gt;&gt;</a>
+    </li>
+</ul>

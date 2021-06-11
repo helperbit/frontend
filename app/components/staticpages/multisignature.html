@@ -1,0 +1,80 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="static-page-image">
+    <img [src]="image.url" [alt]="image.alt">
+</div>
+
+<div class="page page-medium margin-top-0 static-page-description">
+    <br>
+    <translated [lang]="'en'">
+        <h1 class="title border-bottom border-red">What is a multisignature bitcoin wallet?</h1>
+        <p>A bitcoin wallet is a software created to store math-based currency (also called cryptocurrency) and can be equated to a bank account, where the bitcoin address corresponds to the IBAN and the password (here called passphrase, consisting of 12 words) is unique and generated when the wallet is created. In Helperbit it is not necessary to download any software, as the procedure for generating the passphrase takes place on your browser (client-side).</p>
+        <p>The characteristic of this wallet is to be
+            <b>non-custodial</b> and
+            <b>multisignature</b> (M of N): N passphrases are generated, but M passphrases (fewer than generated) are requested to send a transaction. Helperbit manages only one passphrase, which means it has no decision-making power. This
+            <b>increases the security</b> of the wallet, protecting it from internal mistakes (loss of a passphrase or incorrect backup), and from external attacks by malicious people.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">Types of bitcoin wallets available in Helperbit</h1>
+        <p>For non-profit organizations and public entities, bitcoin wallets are “
+            <b>3 of 4</b>” type, with 3 passphrases managed by the organization and one in the hands of Helperbit, as a backup. 3 passphrases are required to send transactions, so the User is able to operate independently. Helperbit instead, with only one passphrase, can not access the funds.</p>
+        <p>To meet the needs of structured stakeholders, a bitcoin wallet with a customized number of passphrases can be generated upon request.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">Wallet security</h1>
+        <p>During the wallet creation process, you are invited to download a backup file. It is important to keep it consciously, as it allows you to recover the funds. Even the 12 words that represent the passphrase must be kept safe, not easily accessible by other people: we suggest to not keep them on your computer, unless in a very safe way, but to write them on several paper copies. If you lose a copy, you are still have the other passphrases copies.</p>
+        <p>In case that more than one passphrase is lost, the access to the wallet is compromised. Neither Helperbit nor the Bitcoin network have the power to recover the funds, as only the User is the owner of his wallet.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">How to recover your funds if you have lost a passphrase</h1>
+        <p>Helperbit has developed an open source recovery service that helps Users in case of loss of a passphrase. Click
+            <a href="https://helperbit.github.io/wallet-recovery/" target="_blank">here</a> and fill out the forms with the requested information. In case of problems, write an email to info@helperbit.com with the subject “Wallet Recovery”.</p>
+    </translated>
+
+    <translated [lang]="'it'">
+        <h1 class="title border-bottom border-red">Che cos’è un portafoglio bitcoin multifirma?</h1>
+        <p>Un portafoglio bitcoin, traduzione di wallet, è un software creato per custodire la moneta matematica (chiamata anche criptovaluta) e può essere assimilato per analogia ad un conto corrente bancario, dove l’indirizzo bitcoin corrisponde all’IBAN e la password di accesso (qui chiamata passphrase, costituita da 12 parole) è unica e generata al momento della creazione del portafoglio. In Helperbit non è necessario scaricare nessun software, in quanto la procedura di generazione della passphrase avviene sul proprio browser (client-side).</p>
+        <p>La caratteristica di questo portafoglio è di essere
+            <strong>non-custodial</strong> e
+            <strong>multifirma</strong> (M di N): a fronte della creazione di un numero N di passphrase di accesso, per ogni transazione viene richiesto l’inserimento di M passphrase (numero minore di quante generate). Helperbit gestisce una sola passphrase, che non gli conferisce nessun potere decisionale autonomo.
+        </p>
+        <hr>
+        <h1 class="title border-bottom border-red">Tipologie di portafogli bitcoin in Helperbit</h1>
+        <p>Per le Organizzazioni non profit ed Enti Pubblici i portafogli bitcoin sono della tipologia
+            <b>3 di 4</b>, con 3 passphrase gestite dall’organizzazione ed una in mano ad Helperbit, come backup. Sono necessarie 3 passphrase per poter effettuare transazioni, quindi l’Utente è in grado di operare autonomamente. Helperbit invece, con una sola chiave, non può accedere ai fondi.</p>
+        <p>Per i Singoli Utenti e le Aziende i portafogli bitcoin sono della tipologia
+            <b>2 di 3</b>, con 2 passphrase in gestione all’Utente o Azienda ed una ad Helperbit, come backup. Sono necessarie 2 passphrase per poter effettuare transazioni, quindi l’Utente è in grado di operare autonomamente. Helperbit invece, con una sola chiave, non può accedere ai fondi.</p>
+        <p>Per venire incontro alle necessità di un ente o organizzazione, su richiesta è possibile generare un portafoglio bitcoin con un numero personalizzato di passphrase.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">Sicurezza del portafoglio</h1>
+        <p>Durante il processo di creazione del portafoglio viene richiesto di scaricare un file di backup. E’ importante conservarlo consapevolmente, in quanto consente di recuperare i fondi. Anche le 12 parole che costituiscono la passphrase devono essere messe al sicuro, non facilmente accessibili da altre persone: si consiglia di non conservarle sul computer, se non in maniera sicura, ma di scriverle su più copie cartacee. In caso di smarrimento di una copia si è ancora in possesso della passphrase.</p>
+        <p>In caso vengano perse più di una passphrase, l’accesso al portafoglio risulta compromesso. Né Helperbit né il network Bitcoin hanno il potere di recuperare i fondi, in quanto solo l’Utente è proprietario del suo portafoglio.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">Come recuperare i fondi se hai perso una passphrase</h1>
+        <p>Helperbit ha sviluppato un servizio open source per il recupero dei fondi in caso di perdita di una passphrase. Clicca
+            <a href="https://helperbit.github.io/wallet-recovery/" target="_blank">qui</a> e compila i moduli con le informazioni richieste. In caso di problemi scrivi una mail a info@helperbit.com, inserendo come oggetto “Recupero del portafoglio”.</p>
+    </translated>
+
+    <translated [lang]="'es'">
+        <h1 class="title border-bottom border-red">¿Qué es una cartera bitcoin multifirma?</h1>
+        <p>Una cartera bitcoin, traducción de wallet, es un software creado para custodiar la moneda matemática (llamada también criptomoneda) y puede ser asimilada por analogía a una cuenta corriente bancaria, donde la dirección bitcoin corresponde al IBAN y la contraseña de acceso (aquí llamada passphrase, formada por 12 palabras) es única y generada al momento de la creación de la cartera. En Helperbit no es necesario descargar ningún software, ya que el procedimiento de generación de la passphrase se da en el propio browser (client-side).</p>
+        <p>La característica de esta cartera es la de ser
+            <b>no-custodial</b> y
+            <b>multifirma</b> (M de N): de cara a la creación de un número N de passphrase de acceso, para cada transacción se pide introducir M passphrase (número menor de las frases de acceso generadas). Helperbit gestiona una sola passphrase, que no le da ningún poder de decisión autónomo. Esto
+            <b>incrementa la seguridad</b> de la cartera, protegiéndola, por un lado, de errores internos (pérdida de una passphrase o escritura errónea de la misma), por otro lado, de ataques externos por parte de los malintencionados.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">Tipos de carteras bitcoin en Helperbit</h1>
+        <p>Para las Organizaciones non profit y Entes Públicos las carteras bitcoin son de tipo
+            <b>3 de 4</b>, con 3 passphrase gestionadas por la organización y una por Helperbit, como backup. Son necesarias 3 passphrase para poder efectuar transacciones, así que el Usuario es capaz de operar autónomamente. Helperbit, en cambio, con una sola llave no puede acceder a los fondos.</p>
+        <p>Para Usuarios Particulares y Empresas, las carteras bitcoin son de tipo
+            <b>2 de 3</b>, con 2 passphrase de gestión al Usuario o Empresa y una a Helperbit, como backup. Se necesitan 2 passphrase para poder efectuar transacciones, así que el Usuario es capaz de operar autónomamente. Helperbit, en cambio, con una sola llave, no puede acceder a los fondos.</p>
+        <p>Para cubrir las necesidades concretas de un ente u organización, es posible generar a petición una cartera bitcoin con un número personalizado de passphrase.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">Seguridad de la cartera</h1>
+        <p>Durante el proceso de creación de la cartera se pide la descarga de un file de backup. Es importante conservarlo conscientemente, ya que permite recuperar los fondos. También las 12 palabras que constituyen la passphrase tienen que estar al seguro, no ser fácilmente accesibles a otras personas: se aconseja no conservarlas en el ordenador (si no es de forma segura), sino escribirlas en más de una copia en papel. En caso de pérdida de una copia, se haya en posesión aún de la passphrase.</p>
+        <p>En caso de que se pierda más de una passphrase, el acceso a la cartera se ve comprometido. Ni Helperbit ni el network Bitcoin tienen el poder de recuperar los fondos, ya que solo el Usuario es el propietario de su cartera.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">¿Cómo recuperar los fondos si ha perdido una passphrase?</h1>
+        <p>Helperbit ha desarrollado un servicio open source para la recuperación de los fondos en caso de pérdida de una passphrase. Clique
+            <a href="https://helperbit.github.io/wallet-recovery/" target="_blank">aquí</a> y rellene los formularios con las informaciones pedidas. En caso de problemas, escriba una email a info@helperbit.com, introduciendo como objeto “Recuperación de la cartera”.</p>
+    </translated>
+</div>
+
+<seo-footer-component></seo-footer-component>

@@ -1,0 +1,130 @@
+@import "~app/sass/const.scss";
+@import "~app/sass/extends.scss";
+
+:host {
+  .search-bar {
+	@extend %not-clickable-default;
+
+    padding: 8px;
+	background-color: unset !important;
+	width: 20em;
+
+    .input-group-addon {
+      border: 0;
+      font-size: 1.2em;
+      background-color: #fff;
+      border-radius: 5px 0 0 5px;
+    }
+
+    .form-control {
+      color: #666;
+      background-color: #fff;
+      border-radius: 0 5px 5px 0;
+      padding-top: 10px;
+
+      &:focus {
+        outline: none;
+        border: 0px solid #fff !important;
+      }
+    }
+  }
+
+  .dropdown-search {
+    width: 32em;
+    background-color: #fafafa !important;
+
+    min-height: 5em;
+    max-height: 25em;
+    overflow-y: auto;
+
+    .no-result {
+	  font-size: 130%;
+	  text-transform: uppercase;
+	  font-weight: bold;
+	  
+      .fa-check {
+        font-size: 350%;
+      }
+    }
+
+    > .result {
+      font-family: $regularFont;
+      border-bottom: 1px solid #aaa;
+      background-color: #fafafa;
+      min-height: 5em;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+
+      &:hover {
+        background-color: #eaeaea;
+      }
+
+      &.notify-unread {
+        background-color: #eaeaea;
+
+        &:hover {
+          background-color: #fafafa;
+        }
+
+        .icon {
+          .icon-background {
+            color: $red;
+          }
+
+          &:hover > .icon-background {
+            color: $red !important;
+          }
+        }
+      }
+
+      .row {
+        cursor: pointer;
+        margin-left: 0px;
+        margin-right: 0px;
+
+        > .col-md-3 {
+          padding-left: 0px;
+          padding-right: 0px;
+
+          img {
+            border-radius: 50%;
+            width: 4em;
+            height: 4em;
+          }
+        }
+
+        > .col-md-9 {
+          padding-left: 0;
+          color: #333;
+
+          .main-info {
+            display: block;
+            text-transform: capitalize;
+            font-family: "Circe Bold";
+            font-size: 100%;
+            font-weight: bold;
+          }
+
+          .secondary-info {
+            text-transform: capitalize;
+            display: block;
+          }
+
+          .tertiary-info {
+            text-transform: capitalize;
+            display: inline;
+          }
+
+          .search-type {
+            display: block;
+            float: right;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: $yellow;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+}

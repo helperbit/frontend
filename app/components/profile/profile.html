@@ -1,0 +1,928 @@
+<modal-inner [config]="modals.addresses">
+	<p class="text-center" translate>These are Bitcoin addresses owned by the user.</p>
+
+	<table class="table margin-bottom-0" style="font-size: 90%;">
+		<thead class="separator">
+			<tr>
+				<th class="text-center" translate>Address</th>
+				<th class="text-center" translate>Received</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of addresses | keyvalue">
+				<td class="text-center text-ellipsis">
+					<a href="javascript:void(0)" [tooltip]="'Click to copy the address' | translate"
+						[copyToClipboard]="item.key">{{item.key}}</a>
+				</td>
+				<td class="text-center">
+					<address-balance [address]="item.key" [mode]="'received'"></address-balance>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</modal-inner>
+
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page profile page-large">
+	<div *ngIf="user && user.usertype == 'singleuser'">
+		<!-- SETTINGS BUTTON -->
+		<div class="settings-button" *ngIf="me">
+			<a routerLink="/me/edit">
+				<span class="fa-stack fa-1x icon-green">
+					<i class="fa fa-circle fa-stack-2x icon-background"></i>
+					<i class="fa fa-gear fa-stack-1x"></i>
+				</span>
+			</a>
+		</div>
+
+		<!-- ROUND IMAGE PROGRESS -->
+		<div class="row">
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<round-image-progress [config]="userImageConfig"></round-image-progress>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h4 class="text-center text-uppercase" translate>This profile is verified up
+					{{userImageConfig.percentage}}%</h4>
+			</div>
+
+		</div>
+
+		<!-- DEFAULT INFORMATION-->
+		<div class="row margin-top-30">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+				<h1 class="text-center margin-bottom-15" translate>Default Information</h1>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+				<table class="table table-responsive margin-bottom-0 table-info">
+					<thead class="separator background-yellow">
+						<tr>
+							<th class="text-center" translate>Username</th>
+							<th class="text-center" translate>Full Name</th>
+							<th class="text-center" translate>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center">{{ username || '-' }}</td>
+							<td class="text-center" *ngIf="user.firstname || user.lastname">
+								{{ user.firstname + ' ' + user.lastname }}</td>
+							<td class="text-center" *ngIf="!user.firstname && !user.lastname">{{ '-' }}</td>
+							<td class="text-center">{{ user.email || '-' }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- BADGES -->
+		<div class="row margin-top-30">
+			<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+				<h1 class="text-center margin-bottom-15" translate>Badges</h1>
+			</div>
+
+			<div>
+				<badges-grid [config]="badgesConfig"></badges-grid>
+			</div>
+		</div>
+
+		<!-- OTHER INFORMATIONS -->
+		<div class="row margin-top-30">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-15">
+				<h1 class="text-center" translate>Other Information</h1>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+				<table class="table table-responsive margin-bottom-0 table-info">
+					<thead class="separator background-yellow">
+						<tr>
+							<th class="text-center" translate>User Type</th>
+							<th class="text-center" translate>Job</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center">Single User</td>
+							<td class="text-center">{{ user.job || '-' }}</td>
+						</tr>
+					</tbody>
+					<thead class="separator background-yellow">
+						<tr>
+							<th class="text-center" translate>Website</th>
+							<th class="text-center" translate>Country</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center">
+								<external-link *ngIf="user.website" [url]="user.website"></external-link>
+								<span *ngIf="!user.website"> - </span>
+							</td>
+							<td class="text-center">
+								<span *ngIf="user.street">{{user.street}}</span>
+								<span *ngIf="user.city">{{user.city}} </span>
+								<span *ngIf="user.region">({{user.region}}) </span>
+								<span *ngIf="user.country">{{user.country|country}}</span>
+								<span *ngIf="!user.street && !user.city && !user.region && !user.country">
+									- </span>
+							</td>
+						</tr>
+					</tbody>
+					<thead class="separator background-yellow">
+						<tr>
+							<th class="text-center" translate>Date of birth</th>
+							<th class="text-center" translate>Mobile</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center">{{ (user.birthdate|date) || '-' }}</td>
+							<td class="text-center">{{ user.mobile || '-' }}</td>
+						</tr>
+					</tbody>
+					<thead class="separator background-yellow">
+						<tr>
+							<th colspan="2" class="text-center" translate>Bio</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="2" class="text-center">{{ (user.bio|stranslate) || '-' }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- RECEIVE ADDRESSES -->
+		<div class="row margin-top-30" *ngIf="user.receiveaddress">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-15">
+				<h1 class="text-center" translate>Receive Address</h1>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+				<table class="table table-responsive margin-bottom-0 table-info">
+					<thead class="separator background-yellow">
+						<tr>
+							<th class="text-center" style="width: 66%; display: table-cell;" colspan="2">
+								<span translate>Default Address</span> <a href="javascript:void(0)" (click)="showAddresses ()"
+									class="btn btn-success show-all" translate>show all</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center text-ellipsis" sstyle="width: 66%; display: table-cell;">
+								<a href="javascript:void(0)" [tooltip]="'Click to copy the address' | translate"
+									[copyToClipboard]="user.receiveaddress">{{user.receiveaddress}}</a>
+							</td>
+							<td class="text-center" style="width: 33%; display: table-cell;">
+								<qrcode class="hidden-sm" [size]="75" [qrdata]="user.receiveaddress"></qrcode>
+								<qrcode class="hidden-lg hidden-md hidden-xs" [size]="200"
+									[qrdata]="user.receiveaddress"></qrcode>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- HAZARD LEVEL -->
+		<div class="row margin-top-30" *ngIf="user.trustlevel >= 25">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-15">
+				<h1 class="text-center" translate>Classification Area</h1>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<table class="table table-responsive margin-bottom-0 table-info">
+					<thead class="separator background-yellow">
+						<tr>
+							<th class="text-center" translate>Event type</th>
+							<th class="text-center" translate>Hazard level</th>
+							<th class="text-center" translate>Source of information</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of user.risk | keyvalue">
+							<td class="text-center text-capitalize">{{item.key}}</td>
+							<td class="text-center" [ngSwitch]="item.value.class">
+								<span *ngSwitchCase="'norisk'" translate>Very low risk</span>
+								<span *ngSwitchCase="'low'" translate>Low risk</span>
+								<span *ngSwitchCase="'medium'" translate>Medium risk</span>
+								<span *ngSwitchCase="'high'" translate>High risk</span>
+								<span *ngSwitchCase="'na'" translate>N/A</span>
+								<span *ngSwitchCase="'very-high'" translate>Very high risk</span>
+								<span *ngSwitchCase="'very-low'" translate>Very low risk</span>
+							</td>
+							<td class="text-center" [ngSwitch]="item.value.source">
+								<span *ngSwitchCase="'DPC'" class="text-uppercase"
+									[tooltip]="'Department of italian Civil Protection'|translate" translate>dpc</span>
+								<span *ngSwitchCase="'j-shis'" class="text-uppercase"
+									[tooltip]="'Japan Seismic Hazard Information Station'|translate"
+									translate>dpc</span>
+								<span *ngSwitchCase="'PAI'" class="text-uppercase"
+									[tooltip]="'Hydrogeological planning plans'|translate" translate>pai</span>
+								<span *ngSwitchCase="'helperbit'" class="text-capitalize" translate>helperbit</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- IN HELPERBIT SINCE -->
+		<div class="row margin-top-15">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<p class="text-center">
+					<span translate>In Helperbit since</span>: <i>{{user.regdate|date}}</i>
+				</p>
+			</div>
+		</div>
+	</div>
+
+
+	<div *ngIf="user && user.usertype == 'npo' && user.username != 'helperbit'">
+		<!-- SETTINGS BUTTON -->
+		<div class="settings-button" *ngIf="me">
+			<a routerLink="/me/edit">
+				<span class="fa-stack fa-1x icon-green">
+					<i class="fa fa-circle fa-stack-2x icon-background"></i>
+					<i class="fa fa-gear fa-stack-1x"></i>
+				</span>
+			</a>
+		</div>
+
+		<!-- IMAGE -->
+		<div class="row">
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+				<img [imgAttrs]="user" [imgType]="'user'" class="img-circle user-avatar" [imgSrc]="user|avatar"
+					width="200" height="200" />
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h4 class="text-center margin-top-bottom-30">{{ user.fullname || user.username }}</h4>
+			</div>
+
+		</div>
+
+		<!-- TABS -->
+		<ngb-tabset [justify]="'fill'" (tabChange)="tabSelected($event)">
+
+			<!-- INFORMATION -->
+			<ngb-tab [title]="'Information'| translate">
+				<ng-template ngbTabContent>
+					<!-- PHOTO COVER -->
+					<div class="row" *ngIf="user.photo">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="image-wrapper"> <img [imgAttrs]="user" [imgType]="'user'"
+									[imgSrc]="user.photo|media">
+							</div>
+						</div>
+					</div>
+
+					<!-- DEFAULT INFORMATION-->
+					<div class="row margin-top-30">
+
+						<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+							<h1 class="text-center margin-bottom-15" translate>Default Information</h1>
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+							<table class="table table-responsive margin-bottom-0 table-info">
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Username</th>
+										<th class="text-center" translate>Full Name</th>
+										<th class="text-center" translate>Email</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">{{ user.username || '-' }}</td>
+										<td class="text-center">{{ user.fullname || '-' }}</td>
+										<td class="text-center">{{ user.email || '-' }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<!-- OTHER INFORMATIONS -->
+					<div class="row margin-top-30">
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-15">
+							<h1 class="text-center" translate>Other Information</h1>
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+							<table class="table table-responsive margin-bottom-0 table-info">
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Organization Type</th>
+										<th class="text-center" translate>Operators</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">{{ user | usertype }}</td>
+										<td class="text-center">{{ user.operators || '-' }}</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Website</th>
+										<th class="text-center" translate>Telephone</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">
+											<external-link *ngIf="user.website" [url]="user.website"></external-link>
+											<span *ngIf="!user.website"> - </span>
+										</td>
+										<td class="text-center">{{ user.telephone || '-' }} <span
+												*ngIf="user.mobile">({{ user.mobile }})</span> </td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Office</th>
+										<th class="text-center" translate>Foundation date</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">
+											<span *ngIf="user.street">{{user.street}} </span>
+											<span *ngIf="user.city">{{user.city}} </span>
+											<span *ngIf="user.region">({{user.region}}) </span>
+											<span *ngIf="user.country">{{user.country|country}}</span>
+										</td>
+										<td class="text-center">{{ (user.birthdate|date) || '-' }}</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th colspan="2" class="text-center" translate>Tags</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="2" class="text-center">
+											<tags-info *ngIf="user.tags.length > 0" [tags]="user.tags"></tags-info>
+											<span *ngIf="user.tags.length == 0" translate>Not declared</span>
+										</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th colspan="2" class="text-center"> <span translate>Operating Countries</span>
+											<a href="javascript:void(0)" *ngIf="user.countries && user.countries.length>0"
+												(click)="showMap()" class="btn btn-success show-all" translate>show map</a></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+											<td colspan="2" class="text-center">
+												<span *ngFor="let c of user.countries; let last = last"> {{c|country}} 
+													<span *ngIf="!last">-</span> </span>
+											</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th colspan="2" class="text-center" translate>Bio</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="2" class="text-center">{{ (user.bio|stranslate) || '-' }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<!-- RECEIVE ADDRESSES -->
+					<div class="row margin-top-30" *ngIf="user.receiveaddress">
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-15">
+							<h1 class="text-center" translate>Receive Address</h1>
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+							<table class="table table-responsive margin-bottom-0 table-info">
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" style="width: 66%; display: table-cell;" colspan="2">
+											<span translate>Default Address</span> <a href="javascript:void(0)"
+												(click)="showAddresses ()" class="btn btn-success show-all"
+												translate>show all</a>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center text-ellipsis" style="width: 66%; display: table-cell;">
+											<a href="javascript:void(0)"
+												[tooltip]="'Click to copy the address' | translate "
+												[copyToClipboard]="user.receiveaddress">{{user.receiveaddress}}</a>
+										</td>
+										<td class="text-center" style="width: 33%; display: table-cell;">
+											<qrcode class="hidden-sm" [size]="75" [qrdata]="user.receiveaddress">
+											</qrcode>
+											<qrcode class="hidden-lg hidden-md hidden-xs" [size]="200"
+												[qrdata]="user.receiveaddress"></qrcode>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<!-- IN HELPERBIT SINCE -->
+					<div class="row margin-top-15">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<p class="text-center margin-bottom-0">
+								<span translate>In Helperbit since</span>: <i>{{user.regdate|date}}</i>
+							</p>
+						</div>
+
+					</div>
+				</ng-template>
+			</ngb-tab>
+
+			<!-- STATISTICS -->
+			<ngb-tab [title]="'Statistics'| translate">
+				<ng-template ngbTabContent>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<table class="table table-responsive table-info"
+								[ngClass]="{ 'margin-bottom-15': chartConfig.values.length > 0, 'margin-bottom-0': chartConfig.values.length == 0 }">
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Donations</th>
+										<th class="text-center" translate>Bitcoin Donated</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">{{ donationsStats.donationsMade }}</td>
+										<td class="text-center">{{ donationsStats.bitcoinDonated }}</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Received Donations</th>
+										<th class="text-center" translate>Bitcoin Received</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">{{ donationsStats.donationsReceived }}</td>
+										<td class="text-center">{{ donationsStats.bitcoinReceived }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="charts" *ngIf="chartConfig.values.length>0">
+						<h4 class="text-center margin-bottom-30" translate>Donations Received</h4>
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<chart [values]="chartConfig.values" [colors]="chartConfig.colors"
+									[labels]="chartConfig.labels" [type]="chartConfig.type"
+									[options]="chartConfig.options">
+								</chart>
+								<br>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+
+			<!-- PROJECTS -->
+			<ngb-tab [title]="'Projects'| translate">
+				<ng-template ngbTabContent>
+					<div class="text-center" *ngIf="projects && projects.projects.length == 0">
+						<i translate>There are no active projects yet.</i>
+					</div>
+
+					<div class="row" *ngIf="projects && projects.projects.length != 0">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-bottom-15">
+							<h4 class="text-uppercase text-center" translate>Active Projects</h4>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 panel-container"
+							*ngFor="let project of projects.projects">
+							<project [project]="project"></project>
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="text-center" *ngIf="projects && projects.closedprojects.length == 0">
+						<i translate>There are no closed projects yet.</i>
+					</div>
+
+					<div class="row" *ngIf="projects && projects.closedprojects.length != 0">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-bottom-15">
+							<h4 class="text-uppercase text-center" translate>Closed Projects</h4>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 panel-container"
+							*ngFor="let project of projects.closedprojects">
+							<project [project]="project"></project>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+
+			<!-- DONATIONS -->
+			<ngb-tab [title]="'Donations'| translate">
+				<ng-template ngbTabContent>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<donation-list [config]="listConfig"></donation-list>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+
+			<!-- RORS -->
+			<ngb-tab [title]="'Rors'| translate">
+				<ng-template ngbTabContent>
+					<div class="text-center" *ngIf="rors && rors.length == 0">
+						<i translate>There are no request of refunds yet</i>
+					</div>
+
+					<table *ngIf="rors && rors.length != 0" class="table table-striped table-responsive">
+						<thead class="separator">
+							<tr>
+								<th class="text-uppercase text-center" translate>Description</th>
+								<th class="text-uppercase text-center" translate>Value</th>
+								<th class="text-uppercase text-center" translate>Date</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let ror of rors">
+								<td class="text-center"> <a [routerLink]="'/transaction/'+ror.txid"
+										target="_blank">{{ror.description}}</a> </td>
+								<td class="text-center">{{ror.valuebtc|money:'auto'}}</td>
+								<td class="text-center">{{ror.time|date}}</td>
+								<td class="text-center">
+									<span *ngIf="ror.from == user.username" class="label label-success"
+										translate>Requested</span>
+									<span *ngIf="ror.to == user.username" class="label label-success" translate>Sent</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</ng-template>
+			</ngb-tab>
+
+			<!-- TRANSACTIONS -->
+			<ngb-tab [title]="'Transactions'| translate">
+				<ng-template ngbTabContent>
+					<div class="text-center" *ngIf="txs.length == 0">
+						<i translate>There are no transactions</i>
+					</div>
+
+					<table *ngIf="txs.length != 0" class="table table-striped table-responsive margin-bottom-0">
+						<thead class="separator">
+							<tr>
+								<th class="text-uppercase text-center" translate>Description</th>
+								<th class="text-uppercase text-center" translate>Value</th>
+								<th class="text-uppercase text-center" translate>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let tx of txs">
+								<td class="text-center">
+									<a [routerLink]="'/transaction/'+tx.txid" target="_blank">{{tx.description}}</a>
+									<span translate *ngIf="tx.status == 'signing'">(pending)</span>
+								</td>
+								<td class="text-center">{{tx.value|money:'auto'}}</td>
+								<td class="text-center">{{tx.time|date}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</ng-template>
+			</ngb-tab>
+
+			<!-- GRAPH -->
+			<ngb-tab id="graph-tab" [title]="'Graph'| translate"></ngb-tab>
+
+		</ngb-tabset>
+	</div>
+
+
+
+
+
+	<div *ngIf="user && (user.usertype == 'company' ||  user.username == 'helperbit')">
+		<!-- SETTINGS BUTTON -->
+		<div class="settings-button" *ngIf="me">
+			<a routerLink="/me/edit">
+				<span class="fa-stack fa-1x icon-green">
+					<i class="fa fa-circle fa-stack-2x icon-background"></i>
+					<i class="fa fa-gear fa-stack-1x"></i>
+				</span>
+			</a>
+		</div>
+
+		<!-- IMAGE -->
+		<div class="row">
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+				<img [imgAttrs]="user" [imgType]="'user'" class="img-circle user-avatar" [imgSrc]="user|avatar"
+					width="200" height="200" />
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h4 class="text-center margin-top-bottom-30">{{ user.fullname || user.username }}</h4>
+			</div>
+
+		</div>
+
+		<!-- TABS -->
+		<ngb-tabset [justify]="'fill'">
+
+			<!-- INFORMATION -->
+			<ngb-tab [title]="'Information'| translate">
+				<ng-template ngbTabContent>
+
+					<!-- PHOTO COVER -->
+					<div class="row" *ngIf="user.photo">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="image-wrapper"> <img [imgAttrs]="user" [imgType]="'user'"
+									[imgSrc]="user.photo|media"> </div>
+						</div>
+					</div>
+
+					<!-- DEFAULT INFORMATION-->
+					<div class="row margin-top-30">
+
+						<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+							<h1 class="text-center margin-bottom-15" translate>Default Information</h1>
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+							<table class="table table-responsive margin-bottom-0 table-info">
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Username</th>
+										<th class="text-center" translate>Full Name</th>
+										<th class="text-center" translate>Email</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">{{ user.username || '-' }}</td>
+										<td class="text-center">{{ user.fullname || '-' }}</td>
+										<td class="text-center">{{ user.email || '-' }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<!-- OTHER INFORMATIONS -->
+					<div class="row margin-top-30">
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-15">
+							<h1 class="text-center" translate>Other Information</h1>
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+							<table class="table table-responsive margin-bottom-0 table-info">
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Organization Type</th>
+										<th class="text-center" translate>Tax Code</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center" translate>Company</td>
+										<td class="text-center">{{ user.vat || '-' }}</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Website</th>
+										<th class="text-center" translate>Telephone</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">
+											<external-link *ngIf="user.website" [url]="user.website"></external-link>
+											<span *ngIf="!user.website"> - </span>
+										</td>
+										<td class="text-center">{{ user.telephone || '-' }} <span
+												*ngIf="user.mobile">({{ user.mobile }})</span> </td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Office</th>
+										<th class="text-center" translate>Foundation date</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">
+											<span *ngIf="user.street">{{user.street}} </span>
+											<span *ngIf="user.city">{{user.city}} </span>
+											<span *ngIf="user.region">({{user.region}}) </span>
+											<span *ngIf="user.country">{{user.country|country}}</span>
+										</td>
+										<td class="text-center">{{ (user.birthdate|date) || '-' }}</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th colspan="2" class="text-center"> <span translate>Countries</span> <a
+												href="javascript:void(0)" *ngIf="user.countries && user.countries.length>0"
+												(click)="showMap()" class="btn btn-success show-all" translate>show map</a></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="2" class="text-center">
+											<span *ngFor="let c of user.countries; let last = last"> {{c|country}} 
+												<span *ngIf="!last">-</span> </span>
+										</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th colspan="2" class="text-center" translate>Bio</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="2" class="text-center">{{ (user.bio|stranslate) || '-' }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<!-- RECEIVE ADDRESSES -->
+					<div class="row margin-top-30" *ngIf="user.receiveaddress">
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-bottom-15">
+							<h1 class="text-center" translate>Receive Address</h1>
+						</div>
+
+						<div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+							<table class="table table-responsive margin-bottom-0 table-info">
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" style="width: 66%; display: table-cell;" colspan="2">
+											<span translate>Default Address</span> <a href="javascript:void(0)"
+												(click)="showAddresses ()" class="btn btn-success show-all"
+												translate>show all</a>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center text-ellipsis" sstyle="width: 66%; display: table-cell;">
+											<a href="javascript:void(0)"
+												[tooltip]="'Click to copy the address' | translate"
+												[copyToClipboard]="user.receiveaddress">{{user.receiveaddress}}</a>
+										</td>
+										<td class="text-center" style="width: 33%; display: table-cell;">
+											<qrcode class="hidden-sm" [size]="75" [qrdata]="user.receiveaddress">
+											</qrcode>
+											<qrcode class="hidden-lg hidden-md hidden-xs" [size]="200"
+												[qrdata]="user.receiveaddress"></qrcode>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<!-- IN HELPERBIT SINCE -->
+					<div class="row margin-top-15">
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<p class="text-center">
+								<span translate>In Helperbit since</span>: <i>{{user.regdate|date}}</i>
+							</p>
+						</div>
+
+					</div>
+				</ng-template>
+
+			</ngb-tab>
+
+			<!-- STATISTICS -->
+			<ngb-tab [title]="'Statistics'| translate">
+				<ng-template ngbTabContent>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<table class="table table-responsive table-info"
+								[ngClass]="{ 'margin-bottom-15': chartConfig.values.length > 0, 'margin-bottom-0': chartConfig.values.length == 0 }">
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Donations</th>
+										<th class="text-center" translate>Bitcoin Donated</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">{{ donationsStats.donationsMade }}</td>
+										<td class="text-center">{{ donationsStats.bitcoinDonated }}</td>
+									</tr>
+								</tbody>
+								<thead class="separator background-yellow">
+									<tr>
+										<th class="text-center" translate>Received Donations</th>
+										<th class="text-center" translate>Bitcoin Received</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">{{ donationsStats.donationsReceived }}</td>
+										<td class="text-center">{{ donationsStats.bitcoinReceived }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="charts" *ngIf="chartConfig.values.length>0">
+						<h4 class="text-center margin-bottom-30" translate>Donations Received</h4>
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<chart [values]="chartConfig.values" [colors]="chartConfig.colors"
+									[labels]="chartConfig.labels" [type]="chartConfig.type"
+									[options]="chartConfig.options">
+								</chart>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+
+			<!-- PROJECTS -->
+			<ngb-tab [title]="'Projects'| translate">
+				<ng-template ngbTabContent>
+					<div class="text-center" *ngIf="projects && projects.projects.length == 0">
+						<i translate>There are no active projects yet.</i>
+					</div>
+
+					<div class="row project" *ngIf="projects && projects.projects.length != 0">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-bottom-15">
+							<h4 class="text-uppercase text-center" translate>Active Projects</h4>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 panel-container"
+							*ngFor="let project of projects.projects">
+							<project [project]="project"></project>
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="text-center" *ngIf="projects && projects.closedprojects.length == 0">
+						<i translate>There are no closed projects yet.</i>
+					</div>
+
+					<div class="row project" *ngIf="projects && projects.closedprojects.length != 0">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-bottom-15">
+							<h4 class="text-uppercase text-center" translate>Closed Projects</h4>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 panel-container"
+							*ngFor="let project of projects.closedprojects">
+							<project [project]="project"></project>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+
+			<!-- DONATIONS -->
+			<ngb-tab [title]="'Donations'| translate">
+				<ng-template ngbTabContent>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<donation-list [config]="listConfig"></donation-list>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-tab>
+		</ngb-tabset>
+	</div>
+</div>

@@ -1,0 +1,195 @@
+<div>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<!-- <div class="container"> -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle='collapse' data-target='#navbar'
+				(click)="isNavCollapsed = !isNavCollapsed" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only" translate>Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" routerLink="/"> <img class="margin-top-10" src="/media/logo_white.svg"
+					alt="Helperbit" height="30px" /> </a>
+		</div>
+
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
+				<li syle="padding-top: 7px; padding-left: 2em" search-bar></li>
+			</ul>
+			<!-- Nav -->
+
+			<ul class="nav navbar-nav navbar-right">
+				<li> <a routerLink="/" translate>Home</a> </li>
+
+				<li> <a href="http://blog.helperbit.com" target="_blank" translate>Blog</a> </li>
+
+				<!-- TOOLS -->
+				<li ngbDropdown>
+					<a ngbDropdownToggle data-target='#toolsDropdown' href="javascript:void(0)" class="not-clickable">
+						<span translate>Tools</span>
+						<i class="fa fa-caret-down dropdown-caret hidden-lg hidden-md"></i>
+					</a>
+					<ul id='toolsDropdown' ngbDropdownMenu role="menu" class="padding-sm-left-30 padding-xs-left-30">
+						<li class="hidden-xs" role="presentation"> <a routerLink="/event/map" translate>Event Map</a>
+						</li>
+						<li role="presentation"> <a routerLink="/event/list" translate>Main Event List</a> </li>
+						<li role="presentation"> <a routerLink="/charity/list" translate>Organization List</a> </li>
+						<li role="presentation"> <a routerLink="/project/list" translate>Project List</a> </li>
+						<li role="presentation"> <a routerLink="/charity/proposed" translate>Proposed NPO List</a> </li>
+
+						<li class="divider hidden-sm hidden-xs"></li>
+
+						<li role="presentation"> <a routerLink="/donation/list" translate>Donation flow</a> </li>
+						<li class="hidden-xs" role="presentation"> <a routerLink="/donation/graph" translate>Donation
+								graph</a> </li>
+						<li role="presentation"> <a routerLink="/stats/world" translate>World Statistics</a> </li>
+						<li role="presentation"> <a routerLink="/stats/top-ambassadors" translate>Top Ambassadors</a>
+						</li>
+						<li role="presentation"> <a routerLink="/stats/top-donors" translate>Top Donors</a> </li>
+						<!--
+						<li feature="insurance" role="presentation"> <a routerLink="/insurance/simulation" translate>Event Simulation Tool</a> </li>
+						-->
+					</ul>
+				</li>
+
+				<!-- ABOUT -->
+				<li ngbDropdown>
+					<!--<span class="caret"></span>-->
+					<a href="javascript:void(0)" class="not-clickable" role="button" ngbDropdownToggle
+						data-target='#aboutDropdown' aria-expanded="false">
+						<span translate>About</span>
+						<i class="fa fa-caret-down dropdown-caret hidden-lg hidden-md"></i>
+					</a>
+
+					<ul id='aboutDropdown' ngbDropdownMenu role="menu" class="padding-sm-left-30 padding-xs-left-30">
+						<li role="presentation"> <a routerLink="/about" translate>About Helperbit</a> </li>
+						<li role="presentation"> <a routerLink="/about" fragment="whysignup" translate>Why signup</a>
+						</li>
+						<li role="presentation"> <a routerLink="/about" fragment="whyhelperbit" translate>Why
+								Helperbit</a> </li>
+						<li role="presentation"> <a routerLink="/about" fragment="benefit" translate>Benefits</a> </li>
+
+						<li class="divider hidden-sm hidden-xs"></li>
+
+						<li role="presentation"> <a routerLink="/about" fragment="press" translate>Press</a> </li>
+						<li role="presentation"> <a routerLink="/about" fragment="award" translate>Awards</a> </li>
+						<li role="presentation"> <a routerLink="/about" fragment="team" translate>Team</a> </li>
+						<li role="presentation"> <a routerLink="/about" fragment="contact" translate>Contact Us</a>
+						</li>
+					</ul>
+				</li>
+
+				<li> <a routerLink="/about/faq" translate>Faq</a> </li>
+
+				<li *ngIf="!logged"> <a routerLink="/signup" translate>Signup</a> </li>
+
+				<li *ngIf="!logged"> <a routerLink="/login"> <i class="fa fa-lock"></i>
+						<span translate>login</span>
+					</a>
+				</li>
+
+				<!-- <li> <a routerLink="/charity-pot" class="background-red" translate>Charity Pot</a> </li> -->
+
+				<!-- <li *ngIf="logged"> <a routerLink="/me/ambassador" class="background-red" translate>Ambassador</a> </li> -->
+
+				<!-- SETTINGS -->
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="not-clickable" role="button" aria-expanded="false"
+						data-toggle="dropdown" data-target="settingsMenu">
+						<i style="font-size: 1.2em;" class="fa fa-gear" aria-hidden="true"></i>
+						<span translate class="hidden-xl hidden-lg hidden-md">Settings</span>
+						<i class="fa fa-caret-down dropdown-caret hidden-lg hidden-md"></i>
+					</a>
+					<ul id="settingsMenu" class="dropdown-menu margin-0 padding-5" role="menu"
+						(click)="$event.stopPropagation();">
+						<li role="presentation">
+							<language-selector></language-selector>
+						</li>
+						<li class="divider"></li>
+						<li role="presentation">
+							<currency-selector></currency-selector>
+						</li>
+					</ul>
+				</li>
+
+				<!-- NOTIFICATIONS -->
+				<li class="dropdown" *ngIf="logged" notification-bar></li>
+
+				<!-- USER MENU -->
+				<li class="dropdown" *ngIf="user && logged">
+					<a href="javascript:void(0)" class="not-clickable" role="button" class="dropdown-toggle"
+						data-toggle="dropdown" aria-expanded="false">
+						<span *ngIf="!user.avatar" class="hidden-xs">
+							<i class="fa fa-user" aria-hidden="true"></i>
+							{{username}}
+						</span>
+						<img *ngIf="user.avatar" [src]="user|avatar" class="hidden-sm hidden-xs img-circle"
+							height="25px" style="margin-top: -3px; float: left" />
+						<span class="hidden-md hidden-lg hidden-xl">{{username}}</span>
+						<i class="fa fa-caret-down dropdown-caret hidden-lg hidden-md"></i>
+					</a>
+					<!-- <ul class="dropdown-menu" role="menu" (click)="$event.stopPropagation();"> -->
+					<ul class="dropdown-menu padding-sm-left-30 padding-xs-left-30" role="menu">
+						<li role="presentation">
+							<a routerLink="/user/me" translate>Personal Page</a>
+						</li>
+						<li role="presentation" *ngIf="usertype == 'singleuser'">
+							<a routerLink="/me/controlpanel" translate>Control Panel</a>
+						</li>
+						<li role="presentation" *ngIf="usertype != 'singleuser'">
+							<a routerLink="/me/edit" translate>My Settings</a>
+						</li>
+						<li class="hidden-xs" role="presentation">
+							<a [class.disabled]="user.usertype == 'npo' && user.trustlevel < 90" routerLink="/me/wallet" translate>My Wallet</a>
+						</li>
+						<li role="presentation" *ngIf="usertype == 'company' || usertype == 'singleuser'">
+							<!-- *ngIf="usertype == 'singleuser' || usertype == 'company'"> -->
+							<a routerLink="/campaign/create" translate>My Campaigns</a>
+						</li>
+						<li role="presentation" *ngIf="usertype != 'singleuser'">
+							<a [class.disabled]="user.usertype == 'npo' && (user.receiveaddress == null || user.receiveaddress == '')" routerLink="/project/create" translate>My Projects</a>
+						</li>
+						<li role="presentation">
+							<a [class.disabled]="user.usertype == 'npo' && (user.receiveaddress == null || user.receiveaddress == '')" routerLink="/me/rors" *ngIf="! (usertype != 'company' && usertype != 'npo')" translate>My
+								refund claims</a>
+						</li>
+						<!-- <li feature="insurance" role="presentation">
+							<a href="javascript:void(0)" translate>Premium</a>
+						</li> -->
+						<li role="presentation">
+							<a href="javascript:void(0)" (click)="logout()" translate>Logout</a>
+						</li>
+					</ul>
+				</li>
+
+				<!--
+					<li class="dropdown" *ngIf="logged">
+						<a href="javascript:void(0)" role="button" aria-expanded="false">
+							<span class="fa-stack fa-1x icon-red">
+								<i class="fa fa-circle fa-stack-2x icon-background"></i>
+								<i class="fa-stack-1x fa"><b>1</b></i>
+							</span>
+						</a>
+						<ul class="dropdown-menu" role="menu" style="background-color: #fafafa;">
+							<li role="presentation">
+								<a routerLink="/user/me" translate>You haven't yet created a wallet; start to receive and donate by creating one</a></li>
+							</li>
+						</ul>
+					</li>-->
+			</ul>
+		</div>
+		<!-- </div> -->
+	</nav>
+
+	<div *ngIf="outdatedpolicy && (outdatedpolicy.terms || outdatedpolicy.privacy)" class="outdated-policy">
+		<div class="container">
+			<i class="fa fa-exclamation-triangle"></i>
+			<span translate>The Helperbit policy has been updated; please read and accept the new policy, or proceed to
+				delete your account.</span>
+			<a (click)="policyModal()" href="javascript:void(0)" translate>Click here</a>
+		</div>
+	</div>
+
+	<div id="snackbar">{{snackbar.text}}</div>
+</div>

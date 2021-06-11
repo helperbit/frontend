@@ -1,0 +1,137 @@
+<div class="tools-page-template main-content display-flex display-flex-row height-percentage-100 width-percentage-100">
+	<div class="display-flex display-flex-column display-flex-grow-1 box-content" style="max-width: 100%;">
+		<div class="display-flex display-flex-column display-flex-grow-1 data-content">
+			<table [hidden]="donations.length == 0"
+				class="table table-striped table-responsive table-flex margin-bottom-0"
+				[ngClass]="{ 'margin-right-left-15': config.fullSize, 'width-percentage-100': !config.fullSize }">
+				<thead *ngIf="!config.hideHeader" class="separator">
+					<tr>
+						<th *ngFor="let k of tableHeadColumnsList" [ngStyle]="tableHeadColumns[k].style"
+							[ngClass]="tableHeadColumns[k].class">
+							{{tableHeadColumns[k].label}}
+							<span class="sort">
+								<i (click)="sortResults(tableHeadColumns[k].sort.desc.value);"
+									*ngIf="tableHeadColumns[k].sort.asc.show()" class="fa fa-sort-asc"></i>
+								<i (click)="sortResults(tableHeadColumns[k].sort.asc.value);"
+									*ngIf="tableHeadColumns[k].sort.desc.show()" class="fa fa-sort-desc"></i>
+								<i (click)="sortResults(tableHeadColumns[k].sort.ascDesc.value);"
+									*ngIf="tableHeadColumns[k].sort.ascDesc.show()" class="fa fa-sort"></i>
+							</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let donation of donations">
+						<!-- Transaction ID -->
+						<td [ngStyle]="tableHeadColumns['txid'].style" [ngClass]="tableHeadColumns['txid'].class"
+							*ngIf="tableHeadColumns['txid'].show">
+							<div class="text-ellipsis"> <a routerLink="/donation/{{donation.txid}}"> {{ donation.txid }} </a>
+							</div>
+						</td>
+						<!-- Donor + Donation Type -->
+						<td [ngStyle]="tableHeadColumns['from'].style" [ngClass]="tableHeadColumns['from'].class"
+							*ngIf="tableHeadColumns['from'].show">
+							<div class="text-ellipsis">
+								<a target="_blank" *ngIf="donation.from != null"
+									[routerLink]="'/user/'+donation.from">{{donation.from}}</a>
+								<span *ngIf="donation.from == null" translate>anonymous user</span>
+								<span *ngIf="donation.fiatdonation != null" class="margin-left-5">
+									<a [tooltip]="'Donation via credit/debit card' | translate"> <i
+											class="fa fa-credit-card"></i> </a>
+								</span>
+								<span *ngIf="donation.campaign != null" class="margin-left-5">
+									<a [tooltip]="'Donation to a fundraising campaign' | translate"> <i
+											class="fa fa-birthday-cake"></i> </a>
+								</span>
+								<span *ngIf="donation.altdonation != null" class="margin-left-5">
+									<a
+										[tooltip]="'Donation via ' + donation.fromcurrency + ' crypto-currency' | translate">
+										<i class="cc {{donation.fromcurrency}}"></i> </a>
+								</span>
+							</div>
+						</td>
+						<!-- Country Donor -->
+						<td [ngStyle]="tableHeadColumns['fromCountry'].style"
+							[ngClass]="tableHeadColumns['fromCountry'].class"
+							*ngIf="tableHeadColumns['fromCountry'].show"> {{ donation.fromcountry | country }} </td>
+						<!-- From To Direction -->
+						<td [ngStyle]="tableHeadColumns['directionDonation'].style"
+							[ngClass]="tableHeadColumns['directionDonation'].class"
+							*ngIf="tableHeadColumns['directionDonation'].show"> <i
+								class="fa fa-arrow-right text-green"></i> </td>
+						<!-- Number of Recipients -->
+						<td [ngStyle]="tableHeadColumns['toLength'].style"
+							[ngClass]="tableHeadColumns['toLength'].class" *ngIf="tableHeadColumns['toLength'].show">
+							{{ donation.to.length }}
+						</td>
+						<!-- Recipient/s -->
+						<td [ngStyle]="tableHeadColumns['to'].style" [ngClass]="tableHeadColumns['to'].class"
+							*ngIf="tableHeadColumns['to'].show">
+							<div *ngIf="donation.event != null" class="text-ellipsis">
+								<a target="_blank" [routerLink]="'/event/'+donation.event">{{donation.event}}</a>
+							</div>
+							<div *ngIf="donation.event == null && donation.project == null" class="text-ellipsis">
+								<span *ngFor="let to of donation.to">
+									<a target="_blank" [routerLink]="'/user/'+to.user">{{to.user}}</a>
+									&nbsp;
+								</span>
+							</div>
+						</td>
+						<!-- Project Recipient -->
+						<td [ngStyle]="tableHeadColumns['toProject'].style" class="projectReceipient"
+							[ngClass]="tableHeadColumns['toProject'].class" *ngIf="tableHeadColumns['toProject'].show">
+							<a target="_blank" *ngFor="let toDonation of donation.to; let last = last"
+								[routerLink]="'/project/'+toDonation.project._id">{{ (toDonation.project.title | stranslate) + (!last ? ',' : '')}}</a>
+							<span *ngIf="donation.to.length == 0">-</span>
+						</td>
+						<!-- Country Recipient -->
+						<td [ngStyle]="tableHeadColumns['toCountry'].style"
+							[ngClass]="tableHeadColumns['toCountry'].class" *ngIf="tableHeadColumns['toCountry'].show">
+							{{ donation.tocountry | country }} </td>
+						<!-- Donation Date -->
+						<td [ngStyle]="tableHeadColumns['time'].style" [ngClass]="tableHeadColumns['time'].class"
+							*ngIf="tableHeadColumns['time'].show">
+							<span *ngIf="config.columnsType == 'full'"> {{ donation.time | date : 'medium' }} </span>
+							<span *ngIf="config.columnsType != 'full'"> {{ donation.time | timediff }} </span>
+						</td>
+						<!-- Donation Value -->
+						<td [ngStyle]="tableHeadColumns['value'].style" [ngClass]="tableHeadColumns['value'].class"
+							*ngIf="tableHeadColumns['value'].show">
+							<span *ngIf="config.type.value == 'user'">
+								<span *ngFor="let dd of donation.to">
+									<span
+										*ngIf="dd.user == config.type.object.username && (currentResolution != 'sm'  && currentResolution != 'xs')">
+										{{ dd.value | money : 'full' }} </span>
+								</span>
+							</span>
+							<span
+								*ngIf="config.type.value != 'user' && (currentResolution != 'sm' && currentResolution != 'xs')">
+								{{ donation.value | money : 'auto' }} </span>
+							<a *ngIf="config.type.value != 'user' && (currentResolution == 'sm' || currentResolution == 'xs')"
+								routerLink="/donation/{{donation.txid}}"> {{ donation.value | money : 'auto' }} </a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p class="text-center text-italic margin-bottom-0 font-size-percentage-100" [hidden]="donations.length != 0"
+				translate>No donations yet</p>
+		</div>
+
+		<div *ngIf="config.pagination" class="pagination-content" [hidden]="donations.length == 0">
+			<div class="row padding-top-10"
+				[ngClass]="{ 'margin-right-left-0': config.fullSize, 'padding-right-left-15': !config.fullSize }">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left">
+					<pagination [totalItems]="pagination.itemsCount" [itemsPerPage]="pagination.resultPerPage"
+						[maxSize]="pagination.maxPages" [boundaryLinks]="true" [(ngModel)]="pagination.currentPage"
+						(change)="changePage();"></pagination>
+				</div>
+
+				<div *ngIf="pagination.resultPerPage < pagination.itemsCount" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right text-xs-left">
+					<buttons-group [config]="pagination" [(ngModel)]="pagination.resultPerPage"
+						(change)="limitResults($event)"></buttons-group>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

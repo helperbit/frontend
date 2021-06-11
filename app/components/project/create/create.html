@@ -1,0 +1,118 @@
+<!-- No wallet -->
+<modal [config]="modals.noWallet">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel" translate>Create a wallet</h4>
+		</div>
+		<div class="modal-body text-color-black">
+			<span translate>You need to have a wallet to publish a project</span>.<br>
+			<hr>
+			<div align="center" class="row">
+				<div class="col-md-12">
+					<a routerLink="/me/wallet" class="btn btn-default"><i class="fa fa-bitcoin"></i> <span translate>Create a wallet</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</modal>
+
+<!-- Create donation button -->
+<modal [config]="modals.createDonationButton">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel" translate>Donation button</h4>
+		</div>
+		<div class="modal-body text-color-black" align="left" *ngIf="selectedProject">
+			<p class="text-justify" translate>Insert the following HTML code in the <i>head</i> section of your werbsite.</p>
+			<textarea style="font-size: 80%">
+				<link rel="stylesheet" href="{{baseUrl}}/widgets/donate-button/style.css">
+			
+				<script src="{{baseUrl}}/widgets/donate-button/button.min.js"></script>
+				<script>helperbit_init ('project', '{{selectedProject._id}}');</script>
+			</textarea>
+				
+			<p class="text-justify margin-top-15" translate>Insert the following HTML code in your werbsite, where you want to display the donation button.</p>
+			<textarea style="font-size: 80%">
+				<div class="hbcontainer" id="hbcontainer-project-{{selectedProject._id}}">
+					<iframe class="hbdonateframe" id="hbdonateframe-project-{{selectedProject._id}}" scrolling="no" href="javascript:void(0)" src=""></iframe>
+				</div>
+				<a class="hbdonatebutton" id="hbdonatebutton-project-{{selectedProject._id}}">Donate in Bitcoin</a>
+			</textarea>			
+		</div>
+	</div>
+</modal>
+
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col" style="top: 0px; position: sticky;">
+		<div class="page page-composable">
+			<sidebar-component></sidebar-component>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 page-composable-col">
+		<div class="page">
+			<modal-inner [config]="modals.confirm"></modal-inner>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" *ngIf="projects.all.length == 0" translate>No project found</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="projects.all.length > 0">
+					
+					<table class="table table-striped table-responsive">
+						<thead class="separator">
+							<tr>
+								<th *ngFor="let item of tableHeadColumnsList" [ngClass]="tableHeadColumns[item].class" [ngStyle]="tableHeadColumns[item].style"> {{ tableHeadColumns[item].label }} </th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let project of projects.all">
+								<td [ngClass]="tableHeadColumns['title'].class" [ngStyle]="tableHeadColumns['title'].style" class="text-center"> {{ (project.title | stranslate) || '-' }} </td>
+								<td [ngClass]="tableHeadColumns['status'].class" [ngStyle]="tableHeadColumns['status'].style">
+									<span class="label status hidden-xs" [ngClass]="projectsRowStyle[project._id].status.class.label">
+										<i class="fa hidden-md" [ngClass]="projectsRowStyle[project._id].status.class.icon"></i> {{ projectsRowStyle[project._id].status.text || '-' }}
+									</span>
+									<span class="text-uppercase hidden-lg hidden-md hidden-sm">{{ projectsRowStyle[project._id].status.text || '-' }}</span>
+								</td>
+								<td [ngClass]="tableHeadColumns['donations'].class" [ngStyle]="tableHeadColumns['donations'].style">
+									<progress-bar class="hidden-sm hidden-xs" [config]="project.progressBarConfig"></progress-bar>
+									<span class="text-uppercase hidden-lg hidden-md">{{ project.received | money }}</span>
+								</td>
+								<td [ngClass]="tableHeadColumns['supporters'].class" [ngStyle]="tableHeadColumns['supporters'].style" class="text-center"> {{ project.receiveddonations || '-' }} </td>
+								<td [ngClass]="tableHeadColumns['actions'].class" [ngStyle]="tableHeadColumns['actions'].style" class="text-center">
+									<div [ngClass]="{ 'btn-group' : browserHelperService.currentResolution != 'xs' }">
+										<a
+											*ngFor="let button of projectsRowStyle[project._id].buttons"
+											[hidden]="!button.show"
+											[tooltip]="button.tooltip"
+											href="javascript:void(0)"
+											(click)="button.click(project)"
+											class="btn margin-xs-5"
+											[ngClass]="button.class">
+												<i class="fa" [ngClass]="button.icon.class"></i>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+			<div class="row padding-bottom-15" *ngIf="user && wallets">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+					<button *ngIf="user.trustlevel >= 40 && wallets.available.length != 0" class="btn btn-danger btn-xs-block" (click)="newProject ()">
+						<span translate>New project</span>
+					</button>
+					<button class="btn btn-danger btn-xs-block disabled" *ngIf="user.trustlevel >= 40 && wallets.available.length == 0" [tooltip]="'You need a new wallet to create another project'|translate">
+						<span translate>New project</span>
+					</button>
+					<button class="btn btn-danger btn-xs-block disabled" *ngIf="user.trustlevel < 40" [tooltip]="'You need to be verified before creating a project (minimum trust level required is 40)'|translate">
+						<span translate>New project</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

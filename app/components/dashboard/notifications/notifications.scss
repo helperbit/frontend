@@ -1,0 +1,46 @@
+@import "~app/sass/const.scss";
+
+.page {
+	height: calc(100% - #{$headerHeight} - 68px - #{$footerHeight});
+
+	@media screen and (max-width: #{$breakpointXsMax}) {
+		height: calc(100vh - #{$headerHeight} - 68px - #{$footerHeightXs} - 4em)
+	}
+
+	.main-box {
+		.notifications-box {
+			overflow: hidden;
+			overflow-y: auto;
+		}
+
+		.notification {
+			padding: 10px;
+			border-bottom: 1px solid #ddd;
+			
+			p { margin:0; }
+			a {
+				color: #333;
+				&:hover { color: #333; }
+			}
+			
+			&:hover {
+				&.unread {
+					color: #333;
+					a { 
+						color: #333;
+						&:hover { color: #333; }
+					}
+				}		
+			}
+			
+			&.unread {
+				a { 
+					color: $red;
+					&:hover { color: $red; }
+				}
+
+				color: $red;
+			}
+		}
+	}
+}

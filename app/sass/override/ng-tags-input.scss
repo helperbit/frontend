@@ -1,0 +1,42 @@
+tags-input {
+
+	.host {
+		margin-bottom: 0px !important;
+		margin-top: 0px !important;
+	}
+
+	.autocomplete .suggestion-item.selected {
+		background-color: $yellow !important;
+	}
+
+	.tags {
+		transition: border ease-in-out 0.3s !important;
+
+		&.focused {
+			-webkit-box-shadow: none !important;
+			-moz-box-shadow: none !important;
+			box-shadow: none !important;
+			border: 1px solid $yellow;
+		}
+
+		.tag-item {
+			background: $yellow !important;
+			border: none !important;
+			line-height: 26px !important;
+			color: #fff !important;
+			font-weight: bold;
+		
+			.remove-button {
+				color: #fff !important;
+			}
+		}
+	}
+
+	&.ng-invalid .tags {
+		-webkit-box-shadow: none !important;
+		-moz-box-shadow: none !important;
+		box-shadow: none !important;
+		border: 1px solid $red;
+	}
+
+}

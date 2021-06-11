@@ -1,0 +1,123 @@
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" translate>Document</h4>
+</div>
+
+<div class="modal-body">
+	<aw-wizard>
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+			<form [formGroup]="wizard.step1">
+				<formly-form [form]="wizard.step1" [fields]="wizard.step1.fields" [model]="wizard.step1.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+						<button
+							(click)="sendDocumentInformation()"
+							[disabled]="wizard.step1.invalid"
+							class="btn btn-default btn-xs-block">
+								<span *ngIf="!editMode" translate>Send Information</span>
+								<span *ngIf="editMode" translate>Update Information</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step2.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step2.responseMessage"></response-messages>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"> {{ wizard.step2.titles.description }} </div>
+			</div>
+			<form [formGroup]="wizard.step2">
+				<formly-form [form]="wizard.step2" [fields]="wizard.step2.fields" [model]="wizard.step2.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+						<button
+							awPreviousStep
+							class="btn btn-default btn-xs-block"
+							translate>Previous</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+						<button
+							(click)="sendDocumentMedias()"
+							[disabled]="wizard.step2.invalid"
+							class="btn btn-default btn-xs-block">
+								<span *ngIf="!editMode" translate>Send Document</span>
+								<span *ngIf="editMode" translate>Update Document</span>
+							</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="3" [stepTitle]="wizard.step3.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step3.responseMessage"></response-messages>
+				</div>
+			</div>
+			<div class="row">
+					<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> <h4 translate>Information</h4> </div> -->
+					<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 text-sm-center text-xs-center"> <b translate>Document type</b>: </div> <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 text-sm-center text-xs-center"> {{wizard.step3.model.type}} </div>
+					<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 text-sm-center text-xs-center"> <b translate>Document ID</b>: </div> <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 text-sm-center text-xs-center"> {{wizard.step3.model.id}} </div>
+					<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 text-sm-center text-xs-center"> <b translate>Document Expiration Date</b>: </div> <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 text-sm-center text-xs-center"> {{wizard.step3.model.expirationDate | date}} </div>
+			</div>
+			<div class="row margin-top-30">
+				<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> <h4 translate>Documents</h4> </div> -->
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<p class="text-center"> <b translate>Front</b> </p>
+					<file-thumb [auth]="true" [mediaId]="wizard.step3.model.mediaFront.mid"></file-thumb>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 margin-sm-top-10 margin-xs-top-10">
+					<p class="text-center"> <b translate>Back</b> </p>
+					<file-thumb [auth]="true" [mediaId]="wizard.step3.model.mediaBack.mid"></file-thumb>
+				</div>
+			</div>
+			<div class="row margin-top-15">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+					<button
+					awPreviousStep
+						class="btn btn-default btn-xs-block"
+						translate>Previous</button>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="confirmDocument()"
+						class="btn btn-default btn-xs-block"
+						translate>Confirm</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="4" [stepTitle]="wizard.step4.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p>
+						<span translate>Your request is now pending for review and approval.</span> <br>
+						<span translate>An Helperbit staff member will verify your documents soon.</span>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="activeModal.dismiss()"
+						class="btn btn-default btn-xs-block" translate>Done</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+
+</div>

@@ -1,0 +1,57 @@
+@import "~app/sass/const.scss";
+
+.proposed-npo-box {
+    height: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    .country-image {
+        margin: 0 auto;
+        height: 100px;
+        width: 150px;
+        text-align: center;
+        padding: 5px 10px;
+        
+        img {
+            width: 100%;
+        }
+        
+        i {
+            font-size: 500%;
+        }
+    }
+
+    .info {
+    }
+
+    @media screen and (max-width: #{$breakpointXxsMax}) {
+        width: 100%;
+    }
+}
+
+table {
+
+    .proposed-npo-image, .proposed-npo-countries {
+        float: left;
+    }
+
+    .proposed-npo-image {
+        width: 125px;
+        height: 75px;
+        text-align: center;
+        padding: 5px 10px;
+
+        img {
+            max-width: 100%;
+            height: 100%;
+        }
+        
+        i {
+            font-size: 500%;
+        }
+    }
+
+    .proposed-npo-countries {
+        width: calc(100% - 125px);
+    }
+}

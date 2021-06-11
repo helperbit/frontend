@@ -1,0 +1,27 @@
+@import '../../../../../sass/const.scss';
+
+ul.usertype-info {
+	list-style-type: none;
+	padding: 0;
+	margin-bottom: 0;
+
+	li {
+		font-size: 18px;
+		font-family: $regularFont;
+		margin-bottom: 10px;
+
+		p {
+			margin-bottom: 0;
+
+			i.fa {
+				color: $green;
+				width: 20px;
+				text-align: center;
+			}
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}

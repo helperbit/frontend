@@ -1,0 +1,88 @@
+html {
+    overflow: hidden;
+	height: 100%;
+	background-color: $yellow;
+}
+
+body {
+	font-size: 1.4em;
+	height: 100%;
+    overflow: hidden;
+	background-color: $yellow;
+}
+
+p {
+	font-size: 90%;
+}
+
+*[hidden] { display: none !important; }
+
+table > {
+	
+	thead {
+		color: #fff;
+		background-color: #000;
+		font-size: 100%;
+		font-family: $regularFont;
+		> tr {
+
+			> th {
+				font-size: 12px;
+			}
+
+			> td {
+				/*border-right: 1px solid #555;*/
+				padding: 0;
+				> {
+					.separator {
+						width: 1px;
+						top: 0px;
+						bottom: 50%;
+						float: right;
+						right: -1em;
+						background-color: #585758;
+						overflow: hidden;
+						position: relative;
+					}
+					.separator-padded {
+						width: 1px;
+						top: 0px;
+						bottom: 50%;
+						float: right;
+						right: -1em;
+						background-color: #585758;
+						overflow: hidden;
+						position: relative;
+						right: -5px;
+					}
+					.sort {
+						float: right;
+						right: 5px;
+						position: relative;
+						> a {
+							color: #ddd;
+						}
+					}
+				}
+			}
+				
+		} 
+	}
+
+	tbody {
+		/*height: 500px;
+		display: block;
+		overflow:auto;*/
+		> tr {
+			background-color: #eeeeee;
+			font-size: 90%;
+			> td {
+				border-right: 0px solid #f0f0f0;
+			}
+		}
+	}
+}
+
+* + span[translate]:before, span[translate]:after {
+	content: " ";
+}

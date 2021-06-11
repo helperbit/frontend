@@ -1,0 +1,45 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-tiny">
+    <div class="row">
+        <div class="col-xs-12">
+            <response-messages [message]="wizard.step0.responseMessage"></response-messages>
+        </div>
+    </div>
+
+    <aw-wizard>
+        <aw-wizard-step [stepId]="0" [stepTitle]="wizard.step0.titles.main">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p class="text-center">{{ wizard.step0.titles.description }}</p>
+                </div>
+
+                <form [formGroup]="wizard.step0">
+                    <formly-form [form]="wizard.step0" [fields]="wizard.step0.fields" [model]="wizard.step0.model">
+                    </formly-form>
+                    <div class="row margin-top-15">
+                        <div
+                            class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-center text-md-center text-sm-center text-xs-center margin-xs-top-15">
+                            <button (click)="submit(wizard.step0.model)" [disabled]="!wizard.step0.valid"
+                                class="btn btn-default btn-xs-block" translate>Update Profile</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </aw-wizard-step>
+
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p translate>Before you can login again, you have to activate your account with the code
+                        sent to your email address. If you did not receive this email, please check your
+                        junk/spam folder. If you entered an incorrect email address, you will need to
+                        re-register with the correct email address.</p>
+				</div>
+			</div>
+		</aw-wizard-step>
+    </aw-wizard>
+</div>

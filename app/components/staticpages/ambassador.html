@@ -1,0 +1,163 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="static-page-image">
+    <img [src]="image.url" alt="image.alt">
+</div>
+
+<div class="page page-medium margin-top-0 static-page-description">
+    <translated [lang]="'en'">
+        <div class="text-center padding-bottom-15">
+            <a *ngIf="!isLogged" routerLink="/signup" class="btn btn-success">Become an Ambassador!</a>
+        </div>
+        <h1 class="title border-bottom border-red">What is the Ambassador Program?</h1>
+        <p>Everyone can become an Helperbit Ambassador by promoting the platform through their own invitation link.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">What is the invitation link?</h1>
+        <p>The invitation link is a customized link that can be used to help your friends to sign up for the platform and which is also used to connect invitees with invitings. Each registered user can find his own invitation link in the "Ambassador" page. If you are not yet signed up, ask to a registered friend to pass you his link, or search on the internet if someone has published his own.
+            To use the invite, just complete the registration form that appears clicking on the link.
+        </p>
+        <div *ngIf="isLogged">
+            <button class="button-invitation-code btn btn-default btn-block width-lg-percentage-50 width-md-percentage-50 width-sm-percentage-50 width-xs-percentage-100" style="margin: 0 auto;" [copyToClipboard]="reflink" [copiedText]="'Copied! Now share it with your friends.'">
+                <span class="button-text">Copy your Invitation Link</span>
+                <span class="invitation-code">{{user?.refcode}}</span>
+            </button>
+            <div class="padding-top-10 text-center width-lg-percentage-50 width-md-percentage-50 width-sm-percentage-50 width-xs-percentage-100" style="margin: 0 auto;">
+                <social-share [socialConfig]="socialShare.config" [socialStyle]="socialShare.style" [hideLink]="true"></social-share>
+            </div>
+        </div>
+        <hr>
+        <h1 class="title border-bottom border-red">Why should I use an invitation link?</h1>
+        <p>Using an invitation link you will be granted with the exclusive "Friends" badge! Only Users who have helped at least one friend to sign up or newcomers who have signed up using an invitation link have the opportunity to receive this digital award and can aim at completing the entire badge collection.</p>
+        <hr>
+
+        <p>The Ambassador Badge is based on several levels:</p>
+        <ul>
+            <li>Bronze Level <i class="fa fa-long-arrow-right"></i> at least 2 Users signed up with your invitation link</li>
+            <li>Silver Level <i class="fa fa-long-arrow-right"></i> you receive this prize when you reach 20 referred Users</li>
+            <li>Gold Level <i class="fa fa-long-arrow-right"></i> this badge is unlocked when you reach 50 referred Users</li>
+        </ul>
+        <ul class="badges-list padding-top-bottom-15 padding-left-0">
+            <li class="text-center"> <img src="{{badgesData['ambassador-bronze'].images.small}}" alt="Bronze Ambassador Badge - Helperbit"> </li>
+            <li class="text-center"> <img src="{{badgesData['ambassador-silver'].images.small}}" alt="Silver Ambassador Badge - Helperbit"> </li>
+            <li class="text-center"> <img src="{{badgesData['ambassador-gold'].images.small}}" alt="Gold Ambassador Badge - Helperbit"> </li>
+        </ul>
+        <hr>
+        <h1 class="title border-bottom border-red">How can I increase the number of referred Users?</h1>
+        <p>You should be innovative and enterprising! There are several solutions to increase the visibility of your invitation link, below we give you some tips:</p>
+        <ul>
+            <li>write an article about Helperbit on blogging platforms like Medium and Steemit;</li>
+            <li>record a short video or draw images where you describe the characteristics of the platform and publish your material on social networks. Multimedia material has a very high impact!</li>
+            <li>talk about us in Telegram chats and forums like Bitcointalk;</li>
+            <li>organizes a physical event, for example a meetup, to talk about bitcoin, blockchain and Helperbit;</li>
+            <li>and…. use imagination; you will surely have brilliant ideas, stupefy us!</li>
+        </ul>
+        <div class="text-center padding-top-5">
+            <a *ngIf="!isLogged" routerLink="/signup" class="btn btn-success">Become an Ambassador!</a>
+        </div>
+    </translated>
+
+    <translated [lang]="'it'">
+        <div class="text-center padding-bottom-15">
+            <a *ngIf="!isLogged" routerLink="/signup" class="btn btn-success">Diventa un Ambassador!</a>
+        </div>
+        <h1 class="title border-bottom border-red">Che cos’è l’Ambassador Program?</h1>
+        <p>Tutti possono diventare Ambassador di Helperbit promuovendo la piattaforma tramite il proprio link d’invito.
+        </p>
+        <hr>
+        <h1 class="title border-bottom border-red">Che cos’è il link d’invito?</h1>
+        <p>Il link d’invito è un link personalizzato che può essere utilizzato per far iscrivere i propri amici alla piattaforma e che serve per collegare invitato con invitante. Ogni utente registrato ha a disposizione il proprio link d’invito nella pagina “Ambassador”. Se non sei ancora iscritto, chiedi ad un amico già registrato di passarti il suo link, oppure cerca su internet se qualcuno ha pubblicato il proprio.
+            Per utilizzare l’invito, basta completare l’iscrizione direttamente dalla pagina a cui rimanda il link.
+        </p>
+        <div *ngIf="isLogged">
+            <button class="button-invitation-code btn btn-default btn-block width-lg-percentage-50 width-md-percentage-50 width-sm-percentage-50 width-xs-percentage-100" style="margin: 0 auto;" [copyToClipboard]="reflink" [copiedText]="'Copiato! Adesso condividilo con i tuoi amici.'">
+                <span class="button-text">Copia il tuo link d'invito</span>
+                <span class="invitation-code">{{user?.refcode}}</span>
+            </button>
+            <div class="padding-top-10 text-center width-lg-percentage-50 width-md-percentage-50 width-sm-percentage-50 width-xs-percentage-100" style="margin: 0 auto;">
+                <social-share [socialConfig]="socialShare.config" [socialStyle]="socialShare.style" [hideLink]="true"></social-share>
+            </div>
+        </div>
+        <hr>
+        <h1 class="title border-bottom border-red">Perchè usare un link d’invito?</h1>
+        <p>Utilizzare un link d’invito ti permette di ricevere l’esclusivo badge “Friends”! Solo chi ha favorito l’iscrizione di almeno un amico o chi si è iscritto utilizzando un link d’invito ha l’opportunità di ricevere questo premio digitale ed iniziare la strada verso il completamento di tutto il medagliere.</p>
+        <hr>
+        <p>L’Ambassador Badge è strutturato su più livelli:</p>
+        <ul>
+            <li>Livello Bronzo <i class="fa fa-long-arrow-right"></i> almeno 2 amici si sono iscritti con il tuo link d’invito</li>
+            <li>Livello Argento <i class="fa fa-long-arrow-right"></i> ricevi questo premio quando raggiungi i 20 iscritti</li>
+            <li>Livello Oro <i class="fa fa-long-arrow-right"></i> questo badge si sblocca quando raggiungi i 50 iscritti</li>
+        </ul>
+        <ul class="badges-list padding-top-bottom-15 padding-left-0">
+            <li class="text-center"> <img src="/media/badges/large/png/ambassador/bronze.png" alt="Ambassador Badge Bronzo - Helperbit"> </li>
+            <li class="text-center"> <img src="/media/badges/large/png/ambassador/silver.png" alt="Ambassador Badge Argento - Helperbit"> </li>
+            <li class="text-center"> <img src="/media/badges/large/png/ambassador/gold.png" alt="Ambassador Badge Oro - Helperbit"> </li>
+        </ul>
+        <hr>
+        <h1 class="title border-bottom border-red">Come posso incrementare il mio numero di iscritti?</h1>
+        <p>Bisogna essere innovativi ed intraprendenti! Ci sono diverse soluzioni per incrementare la visibilità del proprio codice, qui sotto ti diamo alcuni consigli:</p>
+        <ul>
+            <li>scrivi un articolo che parla di Helperbit su piattaforme di blogging come Medium e Steemit;
+            <li>registra un breve video o disegna delle immagini dove descrivi le caratteristiche della piattaforma e pubblicali sui social networks. Il materiale multimediale ha un altissimo impatto!</li>
+            <li>parla di noi nelle chat Telegram e forum come Bitcointalk;</li>
+            <li>organizza un evento fisico, per esempio un meetup, per parlare di bitcoin, blockchain e Helperbit;</li>
+            <li>e…. usa la fantasia; avrai sicuramente idee brillanti, stupiscici!</li>
+        </ul>
+        <div class="text-center padding-top-5">
+            <a *ngIf="!isLogged" routerLink="/signup" class="btn btn-success">Diventa un Ambassador!</a>
+        </div>
+    </translated>
+
+    <translated [lang]="'es'">
+        <div class="text-center padding-bottom-15">
+            <a *ngIf="!isLogged" routerLink="/signup" class="btn btn-success">¡Hazte Ambassador!</a>
+        </div>
+        <h1 class="title border-bottom border-red">¿Qué es el Programa Ambassador?</h1>
+        <p>Todos pueden llegar a ser Ambassador de Helperbit, promoviendo la plataforma a través del link de invitación.
+        </p>
+        <hr>
+        <h1 class="title border-bottom border-red">¿Qué es el link de invitación?</h1>
+        <p>
+            El link de invitación es un link personalizado que se puede utilizar para hacer que vuestros amigos se inscriban en la plataforma y sirve para conectar al invitado con la persona que invita. Cada usuario registrado tiene a disposición el link de invitación en la página “Ambassador”. Si no estás inscrito aún, pide a un amigo ya registrado que te pase su link. También puedes buscar en internet si alguien ha publicado el suyo. 
+            Para utilizar la invitación solo hay que completar la inscripción directamente desde la página a la que da acceso el link.
+        </p>
+        <div *ngIf="isLogged">
+            <button class="button-invitation-code btn btn-default btn-block width-lg-percentage-50 width-md-percentage-50 width-sm-percentage-50 width-xs-percentage-100" style="margin: 0 auto;" [copyToClipboard]="reflink" [copiedText]="'¡Copiado! Ahora compártelo con tus amigos.'">
+                <span class="button-text">Copia tu enlace de invitación</span>
+                <span class="invitation-code">{{user?.refcode}}</span>
+            </button>
+            <div class="padding-top-10 text-center width-lg-percentage-50 width-md-percentage-50 width-sm-percentage-50 width-xs-percentage-100" style="margin: 0 auto;">
+                <social-share [socialConfig]="socialShare.config" [socialStyle]="socialShare.style" [hideLink]="true"></social-share>
+            </div>
+        </div>
+        <hr>
+        <h1 class="title border-bottom border-red">¿Por qué usar un link de invitación?</h1>
+        <p>Usar un link de invitación te permite recibir el exclusivo badge “Friends”. Solo quien haya invitado por lo menos a un amigo o quien se haya inscrito usando un link de invitación, tiene la oportunidad de recibir este premio digital y comenzar el camino hacia la colección de badge “Friends”.</p>
+        <hr>
+        <p>El Ambassador Badge se estructura en varios niveles:</p>
+        <ul>
+            <li>Nivel Bronce <i class="fa fa-long-arrow-right"></i> por lo menos 2 amigos se han inscrito con tu link de invitación</li>
+            <li>Nivel Plata <i class="fa fa-long-arrow-right"></i> recibes este premio cuando consigues 20 inscritos</li>
+            <li>Nivel Oro <i class="fa fa-long-arrow-right"></i> este badge se desbloquea cuando consigues 50 inscritos</li>
+        </ul>
+        <ul class="badges-list padding-top-bottom-15 padding-left-0">
+            <li class="text-center"> <img src="/media/badges/large/png/ambassador/bronze.png" alt="Ambassador Badge Bronce - Helperbit"> </li>
+            <li class="text-center"> <img src="/media/badges/large/png/ambassador/silver.png" alt="Ambassador Badge Plata - Helperbit"> </li>
+            <li class="text-center"> <img src="/media/badges/large/png/ambassador/gold.png" alt="Ambassador Badge Oro - Helperbit"> </li>
+        </ul>
+        <hr>
+        <h1 class="title border-bottom border-red">¿Cómo puedo incrementar mi número de inscritos?</h1>
+        <p>¡Hay que ser innovadores y emprendedores! Hay distintas soluciones para incrementar la visibilidad del código personal. A continuación te damos algunos consejos:</p>
+        <ul>
+            <li>Escribe un artículo que hable de Helperbit en plataformas de blogging como Medium y Steemit;
+            <li>graba un breve video o diseña imágenes donde describes las características de la plataforma y publícalas en las redes sociales. ¡El material multimedia tiene un grande impacto!</li>
+            <li>habla de nosotros en chat Telegram y foros como Bitcointalk;</li>
+            <li>organiza un evento físico, por ejemplo un meetup, para hablar de bitcoin, blockchain y Helperbit;</li>
+            <li>Y... usa la imaginación, tendrás seguramente ideas brillantes ¡sorpréndenos!</li>
+        </ul>
+        <div class="text-center padding-top-5">
+            <a *ngIf="!isLogged" routerLink="/signup" class="btn btn-success">¡Hazte Ambassador!</a>
+        </div>
+    </translated>
+</div>
+
+<seo-footer-component></seo-footer-component>

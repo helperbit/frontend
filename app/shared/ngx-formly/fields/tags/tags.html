@@ -1,0 +1,24 @@
+<!-- 
+	TODO erano delle vecchie proprietà di angular formly
+	vedere se sono integrabili
+
+	bisogna sistemare la validazione che al momento c'è nel modulo ngx-chips ma non è passata a ngx formly
+
+	replace-spaces-with-dashes="false"
+	min-tags="{{ to.required ? 1 : 0 }}" 
+
+-->
+
+<tag-input
+	[placeholder]="field.templateOptions.placeholder"
+	[secondaryPlaceholder]="field.templateOptions.placeholder"
+	[formControl]="formControl"
+	(onTextChange)="onTextChange($event)"
+	[onlyFromAutocomplete]="true">
+		<tag-input-dropdown
+			[autocompleteItems]="autocompleteArr"
+			[minimumTextLength]="1">
+		</tag-input-dropdown>
+</tag-input>
+
+<input type="hidden" [formControl]="formControl" [formlyAttributes]="field">

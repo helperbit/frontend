@@ -1,0 +1,234 @@
+import getUnixTime from 'date-fns/getUnixTime';
+import { UtilsService } from '../../../services/utils';
+import { InfoBoxConfig } from '../../../shared/components/info-box/info-box';
+import { LightingInvoiceConfig } from '../../../shared/components/lightning-invoice/lightning-invoice';
+import { ResponseMessageConfig, buildErrorResponseMessage } from '../../../shared/components/response-messages/response-messages';
+import { CountdownConfig } from '../../../shared/components/countdown/countdown';
+import { LightningService } from '../../../models/lightning';
+import { CharityPotService, CharityPotRound } from '../../../models/charity-pot';
+import { ProjectService } from '../../../models/project';
+import { UserService, User } from '../../../models/user';
+import { TString, ObjectId } from '../../../models/common';
+import { getMediaUrl } from 'app/shared/helpers/utils';
+
+class CharityPotController {
+	$scope: any;
+	utilsService: UtilsService;
+	lightningService: LightningService;
+	charityPotService: CharityPotService;
+	projectService: ProjectService;
+	userService: UserService;
+
+	infoBox: InfoBoxConfig;
+	countdownConfig: CountdownConfig;
+	lightningConfig: LightingInvoiceConfig;
+	responseMessage: ResponseMessageConfig;
+	lightningNode: any;
+	rounds: CharityPotRound[];
+	activeRoundIndex: number;
+	currentRound: any;
+	projects: { edited: any[]; originals: any[] };
+	selectedProject: { title: TString; id: ObjectId };
+	wallets: { url: string; text: string }[];
+
+	constructor(userService, projectService, $scope, translate, utilsService, $uibModal, lightningService, charityPotService) {
+		this.lightningService = lightningService;
+		this.projectService = projectService;
+		this.charityPotService = charityPotService;
+		this.userService = userService;
+		this.$scope = $scope;
+		this.utilsService = utilsService;
+
+		this.infoBox = {
+			title: translate.instant('What is a Charity Pot?'),
+			description: translate.instant('Lorem Ipsum Dolor Sit Amet'),
+			link: '/i/charity-pot'
+
+		};
+
+		this.lightningConfig = {
+			max: 5000000, 		// In millisatoshi 		0.00005000000	bitcoin
+			min: 50000, 		// In millisatoshi		0.00000050000 	bitcoin
+			// msatoshi: 5000,
+			metadata: {
+				type: 'charitypot',
+				round: null,
+				vote: null
+			},
+			description: translate.instant('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer consequat elementum auctor. Praesent gravida ornare elit, et porta nibh aliquam id. Nulla facilisi. Morbi volutpat feugiat erat ac facilisis. Fusce ac ultrices tellus, nec pellentesque lorem. Sed ultrices, ligula id ornare blandit, quam magna congue metus, vel porttitor quam magna eu ex.'),
+			otherInputs: {
+				btc: ['SAT'],
+			}
+		};
+
+
+		this.lightningNode = null;
+		this.rounds = [];
+		this.activeRoundIndex = 0;
+		this.currentRound = {};
+
+		this.projects = {
+			edited: [],
+			originals: []
+		};
+		this.selectedProject = {
+			title: null,
+			id: null
+		};
+
+
+		this.wallets = [
+			{
+				url: 'https://www.lbtc.io/',
+				text: 'Blue Wallet (Android, iOS)'
+			},
+			{
+				url: 'https://www.lbtc.io/',
+				text: 'Casa (Desktop, Casa Node)'
+			},
+			{
+				url: 'https://www.lbtc.io/',
+				text: 'Eclair (Android)'
+			}
+		];
+	}
+
+
+	paymentSuccess() { this.updateRounds(); }
+
+	currentRoundExpired() { this.updateRounds(); }
+
+	updateRounds() {
+		this.charityPotService.getRoundList().subscribe(rounds => {
+			rounds.forEach(round => {
+				if (round.status == 'running') {
+					this.currentRound = round;
+					this.lightningConfig.metadata.round = this.currentRound._id;
+
+					const start = getUnixTime(new Date());
+					const end = getUnixTime(new Date(this.currentRound.expiration));
+
+					this.countdownConfig = {
+						duration: end - start,
+						show: ['days', 'hours', 'minutes', 'seconds']
+					};
+
+					this.charityPotService.getStats().subscribe(stats => {
+						this.currentRound.target = stats.target;
+					}, (res) => {
+						this.responseMessage = buildErrorResponseMessage(res.error);
+					});
+				}
+				// else if(round.status == 'concluded') {
+				// }
+
+				round.results.forEach(result => {
+					this.projectService.get(String(result.project)).subscribe((project) => {
+						result.project = project;
+					}, (res) => {
+						this.responseMessage = buildErrorResponseMessage(res.error);
+					});
+				});
+			});
+
+			this.rounds = rounds;
+
+			//TODO ricordarsi di creare un formControl o qualcosa per avere un validation (se serve, che non ricordo)
+			// const watchValidation = this.$scope.$watch(() => this.lightningConfig.validation, (newVal, oldVal) => {
+			// 	if (!newVal) return;
+
+			// 	if (!this.selectedProject || !this.selectedProject.id)
+			// 		this.lightningConfig.validation.$setValidity('projectSelected', false);
+
+			// 	watchValidation();
+			// });
+		}, (res) => {
+			this.responseMessage = buildErrorResponseMessage(res.error);
+		});
+	}
+
+	changeRound(increment) {
+		if (this.activeRoundIndex + increment < 0 || this.activeRoundIndex + increment > this.rounds.length - 1) return;
+
+		this.activeRoundIndex += increment;
+		this.currentRound = this.rounds[this.activeRoundIndex];
+
+		//winner.project will be override the first was called the get project. After, winner.project contain the project object
+		if (this.currentRound.status == 'concluded' && !this.currentRound.winner.project._id) {
+			//TODO API DETAILS
+			this.projectService.get(this.currentRound.winner.project).subscribe((project) => {
+				this.currentRound.winner.project = project;
+
+				this.userService.get(project.owner).subscribe((user: User) => {
+					this.currentRound.winner.project.owner = user;
+				}, (res) => {
+					this.responseMessage = buildErrorResponseMessage(res.error);
+				});
+			}, (res) => {
+				this.responseMessage = buildErrorResponseMessage(res.error);
+			})
+		}
+	}
+
+	chooseProject() {
+		// const projectsModal = this.$uibModal.open({
+		// 	component: 'chooseElements',
+		// 	size: 'xl',
+		// 	backdrop: 'static',
+		// 	// keyboard: false,
+		// 	resolve: {
+		// 		modalData: () => {
+		// 			//after open
+		// 			return {
+		// 				title: 'Choose a project',
+		// 				description: 'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.',
+		// 				type: 'project',
+		// 				elements: this.projects.edited
+		// 			};
+		// 		}
+		// 	}
+		// });
+
+		// projectsModal.result.then((project) => {
+		// 	this.selectedProject.id = project.id;
+		// 	this.selectedProject.title = project.title;
+		// 	this.lightningConfig.metadata.vote = project.id;
+
+		// 	// this.lightningConfig.validation.$setValidity('projectSelected', true);
+		// });
+	}
+
+
+	$onInit() {
+		this.lightningService.getInfo().subscribe((data) => {
+			this.lightningNode = data.nodeinfo;
+		}, (res) => {
+			this.responseMessage = buildErrorResponseMessage(res.error);
+		});
+
+		this.updateRounds();
+
+		this.projectService.getAll().subscribe(projects => {
+			this.projects.originals = projects;
+
+			this.projects.edited = projects.map((project) => {
+				return {
+					id: project._id,
+					title: project.title,
+					imgUrl: project.media[0] ? getMediaUrl(project.media[0]) : '/media/avatar_empty_org.png',
+					href: '/project/' + project._id,
+					progressBarConfig: this.projectService.createProgressBarConfig(project)
+				};
+			});
+		}, (res) => {
+			this.responseMessage = buildErrorResponseMessage(res.error);
+		});
+	};
+
+	static get $inject() { return ['userService', 'projectService', '$scope', 'translateService', 'utilsService', '$uibModal', 'lightningService', 'charityPotService']; }
+}
+
+const CharityPotComponent = {
+	templateUrl: 'components/donation/charity-pot/charity-pot.html',
+	controller: CharityPotController
+};

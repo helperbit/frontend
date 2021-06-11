@@ -1,0 +1,133 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-medium" *ngIf="donation">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+			<span class="field-title" translate>Transaction ID</span>
+		</div>
+		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 margin-xs-top-10 text-lg-right text-md-right text-sm-right">
+			<span *ngIf="donation.fiatdonation != null" class="label label-default" [tooltip]="'Donation via credit/debit card'|translate">
+				<i class="fa fa-credit-card"></i> <span translate>Credit/Debit card</span>
+			</span>
+			<span *ngIf="donation.altdonation != null" class="label label-default" [tooltip]="'Donation via ' + donation.fromcurrency + ' crypto-currency'|translate">
+				<i class="cc {{donation.fromcurrency}}-alt"> {{donation.fromcurrency}} <span translate>donation</span></i>
+			</span>
+			
+			<span *ngIf="donation.status == 'signing'" class="label label-info" translate>Waiting</span>
+			<span *ngIf="donation.status != 'confirmed' && donation.status != 'signing'" class="label label-danger" translate>Unconfirmed</span>
+			<span *ngIf="donation.status == 'confirmed'" class="label label-success" translate>Confirmed</span>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+			<p> <external-link [url]="donation.txid|explorer" [text]="donation.txid"></external-link> </p>
+		</div>
+	</div>
+
+	<div class="row display-flex display-flex-row display-flex-wrap margin-top-15" *ngIf="donation.tocountry != null">
+		<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 country display-flex display-flex-column">
+			<span *ngIf="donation.fromcountry">
+				<div class="text-center"> {{donation.fromcountry|country}} </div>
+				<div class="display-flex display-flex-grow-1 display-flex-vertical-center display-flex-horizontal-center padding-top-10">
+					<img [imgAttrs]="{ 'alt': (donation.fromcountry | country) }" [imgSrc]="'/media/country/' + donation.fromcountry + '.svg'"/>
+				</div>
+			</span>
+			<span *ngIf="!donation.fromcountry">
+				<div class="text-center" translate>anonymous location</div>
+				<div class="display-flex display-flex-grow-1 display-flex-vertical-center display-flex-horizontal-center">
+					<span class="fa-stack fa-1x" style="font-size: 400%;">
+						<i class="fa fa-globe fa-stack-2x icon-background text-color-red"></i>
+						<i class="fa fa-question fa-stack-1x text-color-yellow"></i>
+					</span>
+				</div>
+			</span>
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 country display-flex display-flex-column display-flex-vertical-center display-flex-horizontal-center margin-xs-top-bottom-15">
+			<i class="fa fa-arrow-right hidden-xs" style="font-size: 300%"></i>
+			<i class="fa fa-arrow-down hidden-lg hidden-md hidden-sm" style="font-size: 300%"></i>
+		</div>
+		<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 country display-flex display-flex-column">
+			<div class="text-center"> {{donation.tocountry|country}} </div>
+			<div class="display-flex display-flex-grow-1 display-flex-vertical-center display-flex-horizontal-center">
+				<img [imgAttrs]="{ 'alt': (donation.tocountry | country) }" [imgSrc]="'/media/country/' + donation.tocountry + '.svg'"/>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row margin-top-15">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<span class="field-title" translate>Donation ID</span>
+			<p>{{donation._id}}</p>
+
+			<span class="field-title" translate>From user</span>
+			<p>
+				<a target="_blank" *ngIf="donation.from != null" [routerLink]="'/user/' + donation.from">{{donation.from}}</a>
+				<span *ngIf="donation.from == null">
+					<span translate>anonymous user</span>
+					<span class="font-size-percentage-80">{{donation.fromaddress}}</span>
+				</span>
+			</p>
+
+			<span class="field-title" translate>Date</span>
+			<p>{{donation.time|date:'medium'}}</p>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right">
+			<span *ngIf="donation.event">
+				<span class="field-title" translate>Event</span>
+				<p>
+					<a target="_blank" [routerLink]="event|seourl:'event'">
+						<span *ngIf="event == null"> {{donation.event}} </span>
+						<span *ngIf="event != null">
+							<span class="text-capitalize">{{event.type}}</span> in {{event.affectedcountries[0]|country}} - {{event.lastshakedate|date}}
+						</span>
+					</a>
+				</p>
+			</span>
+	
+			<span class="field-title" translate>Value</span>
+			<p>{{donation.value|money:'full'}}</p>
+
+			<span *ngIf="donation.value_historic.usd">
+				<span class="field-title" translate>Historical value</span> 
+				<a [tooltip]="'Value at time of transaction'|translate">
+					<i class="fa fa-question-circle"></i>
+				</a>
+				<p>{{donation.value_historic.usd|moneyUSD}}</p>
+			</span>
+		</div>
+	</div>
+	
+	<div class="row margin-top-15">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<table class="table compressed margin-bottom-0">
+				<thead class="separator">
+					<tr>
+						<th class="text-center" translate>User recipient</th>
+						<th class="text-center" translate>Value</th>
+						<th class="text-center">Project</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let to of donation.to">
+						<td class="text-center">
+							<a target="_blank" [routerLink]="'/user/'+to.user">{{to.user}}</a>
+						</td>
+						<td class="text-center">{{to.value|money:'full'}}</td>
+						<td class="text-center">
+							<a target="_blank" *ngIf="to.project != null" [routerLink]="projects[to.project]|seourl:'project'">
+								<span *ngIf="projects[to.project]"><i>{{projects[to.project].title|stranslate|crop:32}}</i></span>
+								<span *ngIf="!projects[to.project]" translate>Project</span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<hr *ngIf="invoice.enabled">
+
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="invoice.enabled">
+			<p translate>If an user request it, you can print the following invoice, sign it and send the document to the user address for tax-deduction purposes.</p>
+			<a class="btn btn-block btn-danger" target="_blank" [routerLink]="'donation/' + donation.txid + '/invoice'" translate>Print invoice</a>
+		</div>
+	</div>
+
+</div>

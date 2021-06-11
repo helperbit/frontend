@@ -1,0 +1,32 @@
+<div class="wrapper" [class.hidden]="!show">
+	<div class="main-container">
+		<div class="steps-container">
+			<div *ngFor="let step of steps" class="step" [ngClass]="step.status" (click)="showDescription()">
+				<div class="ball" [ngClass]="step.status">
+					<svg-icon [iconId]="step.iconId" [iconSrc]="step.src"></svg-icon>
+				</div>
+				<p class="title">{{step.title}}</p>
+			</div>
+		</div>
+		<div class="descriptions-container" [hidden]="!isDescriptionsShow">
+			<div *ngFor="let step of steps" class="description" [ngClass]="step.status">
+				<ul class="check-list">
+					<li *ngFor="let task of step.tasks"
+						[ngClass]="{ 'success': task.status == 'completed', 'edit': task.status == 'inprogress' }">
+						<a *ngIf="task.href && step.status != 'not-available' && task.status != 'not-available'"
+							[routerLink]="task.href" [tooltip]="getTooltipOfTask(task)">{{task.title}}</a>
+						<span *ngIf="!task.href && step.status != 'not-available' && task.status != 'not-available'"
+							[tooltip]="getTooltipOfTask(task)">{{task.title}}</span>
+						<span *ngIf="step.status == 'not-available' || task.status == 'not-available'"
+							[ngClass]="task.status">{{task.title}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="options-container hidden-xs">
+		<div class="more-button text-center" (click)="showDescription()">
+			<i class="fa fa-chevron-down" [ngClass]="{ 'up': isDescriptionsShow, 'down': !isDescriptionsShow }"></i>
+		</div>
+	</div>
+</div>

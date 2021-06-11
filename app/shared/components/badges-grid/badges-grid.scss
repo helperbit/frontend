@@ -1,0 +1,48 @@
+@import '../../../sass/const.scss';
+@import '../../../sass/extends.scss';
+
+:host {
+	display: block;
+
+	.badge-Info {
+
+		img {
+
+			@media screen and (min-width: #{$breakpointLgMin}) {
+				height: 300px;
+			}
+
+			@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+				height: 250px;
+			}
+
+			@media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+				height: 200px;
+			}
+
+			@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+				height: 175px;
+			}
+	
+			@media screen and (max-width: #{$breakpointXxsMax}) {
+				height: 150px;
+			}
+		}
+	}
+
+	.helperbit-badge {
+
+		img {
+			@extend %clickable-opacity;
+			transition: transform linear 0.3s;
+	
+			&:hover {
+				transform: scale(1.25);
+			}
+	
+			&.locked {
+				opacity: 0.5;
+			}
+		}
+	}
+}

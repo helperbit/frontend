@@ -1,0 +1,310 @@
+@import "~app/sass/const.scss";
+@import "~app/sass/extends.scss";
+
+:host {
+  a.disabled {
+    pointer-events: none;
+    cursor: default;
+  }
+
+	.not-clickable {
+		@extend %not-clickable-default;
+	}
+
+
+  /* Collapse navbar with higher height than the default */
+  @media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+    .navbar-right {
+      float: none !important;
+    }
+
+    .navbar-header, .navbar-nav, .navbar-nav > li {
+      float: none;
+    }
+    .navbar-nav {
+      margin: 7.5px -15px;
+    }
+    .navbar-collapse.collapse {
+      display: none !important;
+      border-top: 1px solid #e7e7e7;
+
+      &.in {
+        display: block !important;
+      }
+    }
+    .navbar-toggle {
+      display: block;
+    }
+    .navbar-nav > li > a {
+      padding-top: 10px;
+      // padding-bottom: 10px;
+      height: auto;
+    }
+
+    .navbar > .navbar-collapse > ul.nav > li > a {
+      height: auto !important;
+    }
+
+    .navbar-nav .show .dropdown-menu {
+      position: static;
+      float: none;
+      width: auto;
+      margin-top: 0;
+      background-color: transparent;
+      border: 0;
+      box-shadow: none;
+    }
+  }
+
+  .navbar {
+    min-height: $headerHeight;
+    z-index: 1002;
+    box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.5) !important;
+    border-radius: 0 !important;
+    border: 0;
+    margin-bottom: 0;
+
+    // @media only screen and (max-width: #{breakpointSmMin}) {
+    //	margin-bottom: 2px;
+    // }
+
+    // @media only screen and (min-width: #{$breakpointSmMin}) {
+    // 	margin-bottom: 0px;
+    // }
+
+    a.disabled {
+      color: #ccc;
+      background-color: rgba(255, 255, 255, 0.3) !important;
+
+      &:hover,
+      &:focus {
+        color: #ccc;
+        background-color: transparent;
+      }
+    }
+
+    &.navbar-inverse {
+      background-color: $yellow;
+      border-color: transparent;
+
+      .navbar-nav .open {
+        @media (max-width: #{$breakpointXsMax}) {
+          > .dropdown-header {
+            border-color: transparent;
+          }
+
+          .divider {
+            background-color: transparent;
+          }
+
+          > {
+            li > a {
+              color: #fff;
+
+              &:hover,
+              &:focus {
+                color: #2c3e50;
+                background-color: transparent;
+              }
+            }
+
+            .active > a {
+              color: #fff;
+              background-color: #15a589;
+
+              &:hover,
+              &:focus {
+                color: #fff;
+                background-color: #15a589;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    > .navbar-header {
+      > .navbar-toggle {
+        border-color: #fff;
+
+        &:hover,
+        &:focus {
+          background-color: #fff;
+        }
+
+        &:focus .icon-bar,
+        &:hover .icon-bar {
+          background-color: #000;
+        }
+
+        .icon-bar {
+          background-color: #fff;
+        }
+      }
+
+      > .navbar-brand {
+        padding: 0;
+        padding-top: 0em;
+        padding-left: 0.5em;
+        color: #fff;
+
+        &:hover,
+        &:focus {
+          color: #2c3e50;
+          background-color: transparent;
+        }
+      }
+    }
+
+    > .navbar-collapse {
+      border-color: #fff;
+
+      @media only screen and (max-width: #{$breakpointXsMax}) {
+        max-height: none;
+      }
+
+      > ul.nav {
+        &.navbar-nav {
+          margin: -0.5px 0;
+
+          @media only screen and (max-width: #{$breakpointXsMax}) {
+            margin: -0.5px -15px;
+          }
+        }
+
+        > li {
+          background-color: $yellow;
+
+          &.open {
+            > a {
+              &,
+              &:hover,
+              &:focus {
+                background-color: #eda626;
+                color: #fff;
+              }
+            }
+          }
+
+          > a {
+            height: $headerHeight;
+            color: #fff;
+            text-transform: uppercase;
+            font-family: $extraBoldFont;
+            font-size: 90%;
+            letter-spacing: 0.05em;
+
+            @media only screen and (max-width: #{$breakpointXsMax}) {
+              height: auto;
+            }
+
+            &:hover,
+            &:focus {
+              color: #fff;
+              text-decoration: none;
+              background-color: #eda626;
+
+              &.not-clickable {
+                background-color: transparent;
+              }
+            }
+
+            .dropdown-caret {
+              font-size: 150%;
+              padding-left: 10px;
+            }
+
+            > i {
+              font-size: 80%;
+            }
+          }
+
+          &.dropdown {
+            > .dropdown-header {
+              color: #999;
+              height: 5em;
+              padding-top: 1em;
+              font-family: $regularFont;
+              font-size: 110%;
+              border-color: transparent;
+            }
+
+            > .dropdown-menu {
+              // margin-top: -1px !important;
+              background-color: $yellow;
+              font-size: 100%;
+              padding: 0;
+              border: 0;
+
+              li {
+                &.divider {
+                  height: 1px;
+                  margin: 5px 0;
+                  overflow: hidden;
+                  background-color: #ffc265;
+                }
+
+                > a {
+                  font-size: 90%;
+                  display: block;
+                  padding: 5px 15px;
+                  clear: both;
+                  font-weight: normal;
+                  color: #fff;
+                  white-space: nowrap;
+                  text-transform: uppercase;
+                  font-family: $extraBoldFont;
+                  letter-spacing: 0.05em;
+                  &:hover,
+                  &:focus {
+                    color: #fff;
+                    text-decoration: none;
+                    background-color: #eda626;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .outdated-policy {
+    position: relative;
+    top: 50px;
+    color: white;
+    background-color: #dc0300;
+    padding: 1em;
+
+    a,
+    a:hover {
+      cursor: pointer;
+      color: white;
+    }
+  }
+
+  //SNACKBAR
+
+  #snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    right: 10px;
+    bottom: 60px;
+    font-size: 17px;
+
+    &.show {
+      visibility: visible;
+      -webkit-animation: fadein-bottom 0.5s, fadeout-bottom 0.5s 2.5s;
+      animation: fadein-bottom 0.5s, fadeout-bottom 0.5s 2.5s;
+    }
+  }
+}

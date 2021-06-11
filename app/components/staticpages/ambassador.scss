@@ -1,0 +1,111 @@
+@import "~app/sass/const.scss";
+
+ul.prizes-list {
+    list-style-type: none;
+    display: inline-block;
+    width: 100%;
+
+    li {
+        float: left;
+        width: 25%;
+
+        @media screen and (max-width: #{$breakpointXsMax}) {
+            width: 50%;
+        }
+
+        svg-icon {
+            fill: $yellow;
+
+            svg {
+                width: 80%;
+            }
+        }
+
+        img {
+            height: 100px;
+        }
+    }
+    
+}
+
+ul.badges-list {
+    list-style-type: none;
+    display: inline-block;
+    width: 100%;
+
+    li {
+        float: left;
+        width: 33.3333%;
+        
+        @media screen and (max-width: #{$breakpointXsMax}) {
+            float: none;
+            width: 100%;
+        }
+
+        img {
+            height: 150px;
+        }
+    }
+    
+}
+
+.button-invitation-code {
+    transition: background-color linear 0.5s, border-color linear 0.5s;
+
+    .button-text {
+        visibility: visible;
+        opacity: 1;
+        position: unset;
+        transition: visibility linear 0.5s, opacity linear 0.5s;
+    }
+
+    .invitation-code {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        left: -999999px;
+        transition: visibility linear 0.5s, opacity linear 0.5s;
+    }
+
+    &:hover {
+        background-color: $green;
+        border-color: $green;
+
+        .button-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            left: -999999px;
+        }
+
+        .invitation-code {
+            visibility: visible;
+            opacity: 1;
+            position: unset;
+        }
+    }
+
+}
+
+:host ::ng-deep social-share .inner-iterator {
+        a {
+            height: 31px !important;
+            border-radius: 4px;
+
+            i {
+                line-height: 31px !important;
+                transform: scale(1.25) !important;
+            }
+        }
+
+        &:first-child a {
+            width: calc(50% - 2px - 2.5px) !important;
+            margin-right: 2.5px;
+        }
+
+        &:last-child a {
+            width: calc(50% - 2px - 2.5px) !important;
+            margin-left: 2.5px;
+        }
+    }
+// }

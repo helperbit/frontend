@@ -1,0 +1,82 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-medium">
+
+	<aw-wizard [awNavigationMode] navigateForward="allow">
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+	
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h5 class="text-justify">{{ wizard.step1.titles.description }}</h5>
+				</div>
+			</div>
+
+			<form [formGroup]="wizard.step1">
+				<formly-form [form]="wizard.step1" [fields]="wizard.step1.fields" [model]="wizard.step1.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+						<button (click)="wizard.step1.previous()" class="btn btn-default btn-xs-block" translate>Previous</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+						<button (click)="resetPassword()" [disabled]="!wizard.step1.valid" class="btn btn-default btn-xs-block"
+						translate>Send reset</button>
+					</div>
+				</div>
+			</form>
+
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step2.titles.main">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<i class="fa fa-envelope text-color-green" style="font-size:700%;"></i><br>
+					<p><span translate>We have sent an email to you with a reset link, please check your mail inbox.</span></p>
+				</div>
+			</div>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="3" [stepTitle]="wizard.step3.titles.main">
+	
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step3.responseMessage"></response-messages>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h5 class="text-center">{{ wizard.step3.titles.description }}</h5>
+				</div>
+			</div>
+
+			<form [formGroup]="wizard.step3">
+				<formly-form [form]="wizard.step3" [fields]="wizard.step3.fields" [model]="wizard.step3.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+						<button (click)="wizard.step3.previous()" class="btn btn-default btn-xs-block" translate>Previous</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+						<button (click)="changePassword()" [disabled]="!wizard.step3.valid" class="btn btn-default btn-xs-block"
+						translate>Change Password</button>
+					</div>
+				</div>
+			</form>
+
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="4" [stepTitle]="wizard.step4.titles.main">
+			<div class="row">
+				<div class="col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-xs-12 text-center margin-top-20 completed-text">
+					<h4 translate>Your password as been reset.</h4>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+
+</div>

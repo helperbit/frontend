@@ -1,0 +1,73 @@
+/*
+	-moz-animation			Firefox < 16
+	-webkit-animation		Safari, Chrome and Opera > 12.1
+	-ms-animation			Opera < 12.1
+	-o-animation			Internet Explorer
+*/
+
+$timeExtraFast: 0.2s;
+$timeFast: 0.35s;
+$timeMedium: 0.5s;
+$timeSlow: 0.65s;
+$timeExtraSlow: 0.8s;
+
+// .animation-delay-one 	{ }
+.animation-delay-two 	{ -webkit-animation-delay: #{$timeExtraFast}; animation-delay: #{$timeExtraFast}; }
+.animation-delay-three 	{ -webkit-animation-delay: #{$timeFast}; animation-delay: #{$timeFast}; }
+.animation-delay-four 	{ -webkit-animation-delay: #{$timeMedium}; animation-delay: #{$timeMedium}; }
+
+.animation-speed-fast 	{
+	-moz-animation-duration: #{$timeExtraFast};
+	-webkit-animation-duration: #{$timeExtraFast};
+	animation-duration: #{$timeExtraFast};
+}
+
+.animation-all {
+	transition: all #{$timeFast} linear;
+	-moz-transition: all #{$timeFast} linear;
+	-webkit-transition: all #{$timeFast} linear;
+	-o-transition: all #{$timeFast} linear;
+}
+
+.animation-opacity {
+	transition: opacity #{$timeMedium} ease-out;
+	-moz-transition: opacity #{$timeMedium} ease-out;
+	-webkit-transition: opacity #{$timeMedium} ease-out;
+	-o-transition: opacity #{$timeMedium} ease-out;
+}
+
+.animation-slideup {
+	-moz-animation-name: slideup;
+	-moz-animation-iteration-count: 1;
+	-moz-animation-timing-function: ease-in;
+	-moz-animation-duration: #{$timeFast};
+
+	-webkit-animation-name: slideup;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-duration: #{$timeFast};
+
+	animation-name: slideup;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: #{$timeFast};
+}
+
+.animation-fade {
+-webkit-animation: fadein 2s;
+   -moz-animation: fadein 2s;
+	-ms-animation: fadein 2s;
+	 -o-animation: fadein 2s;
+		animation: fadein 2s;
+}
+
+
+/* EXTENDS */
+
+
+//this function work with heightExpandAnimation JS function
+%animation-height-expand {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height ease-out #{$timeFast};
+}

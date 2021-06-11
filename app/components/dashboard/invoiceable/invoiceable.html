@@ -1,0 +1,44 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col" style="top: 0px; position: sticky;">
+		<div class="page page-composable">
+			<sidebar-component></sidebar-component>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 page-composable-col">
+		<div class="page page-composable" style="padding: 1.5em;">
+			<div align="center">
+				<p translate>You can request an invoice for tax deduction purpouses for the following donations you sent to an Helperbit NPO.</p>
+			</div>
+
+		    <div align="center" *ngIf="invoiceableDonations.length == 0">
+		        <i translate>Nothing here yet</i>
+		    </div>
+
+			<table class="table" *ngIf="invoiceableDonations.length > 0">
+				<thead class="separator">
+					<tr>
+						<th translate>Tx</th>
+						<th translate>Date</th>
+						<th translate>To</th>
+						<th translate>Value</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let d of invoiceableDonations">
+						<td><a [routerLink]="'/donation/' + d.txid" target="_blank">{{d.txid|crop:16}}</a></td>
+						<td>{{d.time|date}}</td>
+						<td>{{d.to[0].user}}</td>
+						<td>{{d.to[0].value|money}}</td>
+						<td>
+							<button class="btn btn-danger btn-sm" *ngIf="d.invoicestatus == 'none'" (click)="requestInvoice(d.txid)" translate>Request Invoice</button>
+							<span class="label label-success" *ngIf="d.invoicestatus == 'requested'" translate>Requested</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

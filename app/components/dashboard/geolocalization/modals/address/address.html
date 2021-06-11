@@ -1,0 +1,137 @@
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" translate>Edit geolocalization</h4>
+</div>
+
+<div class="modal-body">
+	<aw-wizard>
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+			<form [formGroup]="wizard.step1">
+				<formly-form [form]="wizard.step1" [fields]="wizard.step1.fields" [model]="wizard.step1.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+						<button
+							(click)="sendUserAddress()"
+							[disabled]="wizard.step1.invalid"
+							class="btn btn-default btn-xs-block">
+								<span *ngIf="!editMode" translate>Send Address</span>
+								<span *ngIf="editMode" translate>Update Address</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" *ngIf="wizard.step2.enabled" [stepTitle]="wizard.step2.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step2.responseMessage"></response-messages>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+					{{ 'Drag and drop in your precise position' | translate }}
+				</div>
+			</div>
+
+			<div *ngIf="leafletOptions" class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div
+						leaflet
+						[leafletOptions]="leafletOptions.options"
+						[(leafletLayers)]="leafletOptions.markers"
+     					(leafletMapReady)="onMapReady($event)"
+						[style.height]="'290px'"
+						[style.width]="'100%'">
+					</div>
+				</div>
+				<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<leaflet
+						class="margin-top-bottom-20"
+						center="leaflet.center"
+						markers="leaflet.markers"
+						event-broadcast="leaflet.events"
+						height="290px"
+						width="100%">
+					</leaflet>
+				</div> -->
+			</div>
+			<div class="row margin-top-15">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+					<button
+						awPreviousStep
+						class="btn btn-default btn-xs-block"
+						translate>Previous</button>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="sendUserPosition()"
+						class="btn btn-default btn-xs-block"
+						translate>Confirm Position</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="3" *ngIf="wizard.step3.enabled" [stepTitle]="wizard.step3.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step3.responseMessage"></response-messages>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h4 class="text-center">{{ wizard.step3.titles.heading }}</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<form [formGroup]="wizard.step3">
+						<formly-form [form]="wizard.step3" [fields]="wizard.step3.fields" [model]="wizard.step3.model"></formly-form>
+					</form>
+				</div>
+			</div>
+			<div class="row margin-top-15">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+					<button
+						awPreviousStep
+						class="btn btn-default btn-xs-block"
+						translate>Previous</button>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="sendUserCountries()"
+						[disabled]="wizard.step3.invalid"
+						class="btn btn-default btn-xs-block">
+							<span *ngIf="!editMode" translate>Send Countries</span>
+							<span *ngIf="editMode" translate>Update Countries</span>
+					</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="4" [stepTitle]="wizard.step4.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<h4 *ngIf="!editMode" class="text-uppercase text-bold" translate>Autocertified geolocalization done!</h4>
+					<h4 *ngIf="editMode" class="text-uppercase text-bold" translate>Autocertified geolocalization updated!</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="activeModal.dismiss()"
+						class="btn btn-default btn-xs-block" translate>Done</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+</div>

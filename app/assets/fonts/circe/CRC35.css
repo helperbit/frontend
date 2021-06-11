@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'CRC35';
+    src: url('fonts/CRC35.eot');
+    src: url('fonts/CRC35.eot') format('embedded-opentype'),
+         url('fonts/CRC35.woff2') format('woff2'),
+         url('fonts/CRC35.woff') format('woff'),
+         url('fonts/CRC35.ttf') format('truetype'),
+         url('fonts/CRC35.svg#CRC35') format('svg');
+}

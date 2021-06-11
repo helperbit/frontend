@@ -1,0 +1,76 @@
+//TODO così fa sminchiare tutte le mappe. Devo creare una classe specifica per determinate mappe
+// .angular-leaflet-map {
+//     //margin: 20px 0px;
+// }
+
+.leaflet-control-layers-overlays, .leaflet-control-layers-separator {
+	display: none;
+}
+
+/* Leaflet wrapper */
+
+.leaflet-right {
+    right: 15px;
+}
+
+// .leaflet-popup-content-wrapper, .leaflet-popup-content {}
+
+.leaflet-popup-content-wrapper img {
+	padding-right: 5px;
+	width: 32px;
+	height: 32px;
+}
+
+.leaflet-popup-content a {
+	color: $yellow;
+	font-family: $boldFont;
+	text-transform: uppercase;
+	text-decoration: none;
+	// &:hover {}
+}
+
+/** Leaflet - usermarker */
+
+.leaflet-usermarker,
+.leaflet-usermarker-small {
+    width: 34px;
+    height: 34px;
+    background: url(/media/reddot.png);
+    background-size: 100%;
+}
+.leaflet-usermarker-small {
+    width: 17px;
+    height: 17px;
+}
+
+.leaflet-usermarker i.pulse,
+.leaflet-usermarker-small i.pulse {
+    display: block;
+
+    -moz-animation: leaflet-usermarker-pulsate 1.5s ease-in-out infinite;
+    -webkit-animation: leaflet-usermarker-pulsate 1.5s ease-in-out infinite;
+    animation: leaflet-usermarker-pulsate 1.5s ease-in-out infinite;
+    border:1pt solid #ff0800;
+    /* make a circle */
+    -moz-border-radius:51px;
+    -webkit-border-radius:51px;
+    border-radius:51px;
+    /* multiply the shadows, inside and outside the circle */
+/*    -moz-box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
+    -webkit-box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
+    box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;*/
+    /* multiply the shadows, inside and outside the circle */
+    -moz-box-shadow:inset 0 0 5px rgb(255, 8, 0), inset 0 0 5px #ff0800, inset 0 0 5px #ff0800, 0 0 5px rgb(255, 8, 0), 0 0 5px rgb(255, 8, 0), 0 0 5px #06f;
+    -webkit-box-shadow:inset 0 0 5px #ff0800, inset 0 0 5px #ff0800, inset 0 0 5px #ff0800, 0 0 5px #ff0800, 0 0 5px #ff0800, 0 0 5px #06f;
+    box-shadow:inset 0 0 5px #ff0800, inset 0 0 5px #ff0800, inset 0 0 5px #ff0800, 0 0 5px #ff0800, 0 0 5px #ff0800, 0 0 5px #06f;
+    /* set the ring's new dimension and re-center it */
+    height:36px!important;
+    width:36px!important;
+    margin:-14px 0 0 -14px;
+}
+
+.leaflet-usermarker-small i.pulse {
+    height: 31px !important;
+    width: 31px !important;
+    margin: -7px 0 0 -7px;
+}

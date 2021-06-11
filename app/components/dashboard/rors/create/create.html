@@ -1,0 +1,50 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+    <div class="col-lg-2 col-sm-12 col-xs-12 col-md-2 page-composable-col" style="top: 0px; position: sticky;">
+        <div class="page page-composable">
+            <sidebar-component></sidebar-component>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 page-composable-col">
+        <div class="page page-composable padding-25">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <a routerLink="/me/rors" class="btn btn-danger btn-xs-block" translate>Back to Request of Refund</a>
+                </div>
+            </div>
+
+			<aw-wizard>
+				<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+					<div class="row">
+						<div class="col-xs-12">
+							<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+						</div>
+                    </div>
+                    <h4>{{ wizard.step1.titles.heading}}</h4>
+					<form [formGroup]="wizard.step1">
+						<formly-form [form]="wizard.step1" [fields]="wizard.step1.fields" [model]="wizard.step1.model"></formly-form>
+						<div class="row margin-top-15">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+								<button
+									(click)="sendRorInformation()"
+									[disabled]="wizard.step1.invalid"
+									class="btn btn-default btn-xs-block" translate>Send Information</button>
+							</div>
+						</div>
+					</form>
+				</aw-wizard-step>
+				<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step2.titles.main">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+							<img src="/media/completed-green.png">
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+                            <p translate>Refund claim successfull created.</p>
+                        </div>
+					</div>
+                </aw-wizard-step>
+			</aw-wizard>
+        </div>
+    </div>
+</div>

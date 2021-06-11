@@ -1,0 +1,181 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-large" *ngIf="project">
+	<div class="project-image" *ngIf="project.media.length > 0">
+		<img class="cover" [imgAttrs]="project" [imgType]="'project'" [imgSrc]="project.media[currentImageIndex]|media">
+
+		<a [routerLink]="'/user/'+project.owner" class="owner-image">
+			<img [imgAttrs]="{ 'username': project.owner }" [imgType]="'user'" [imgSrc]="project.owner|avatar"
+				[tooltip]="project.owner">
+		</a>
+	</div>
+
+	<div class="row display-flex display-flex-row display-flex-wrap">
+		<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 display-flex display-flex-column">
+			<h1>{{project.title|stranslate}}</h1>
+
+			<h2>
+				<span *ngIf="event?.article.title">{{event?.article.title}}. </span>
+				<span translate>started on</span>
+				{{project.start|date:'longDate'}}
+				<span *ngIf="project.end != null">&middot; <span translate>closed on</span>
+					{{project.end|date:'longDate'}}</span>
+			</h2>
+
+			<div class="padding-top-bottom-15">
+				<progress-bar [config]="progressBarConfig"></progress-bar>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 display-flex display-flex-column padding-bottom-15 project-donate-button"
+			*ngIf="project.target > project.received && project.paused == false">
+			<button *ngIf="project.receiveaddress" 
+				class="margin-bottom-5 btn btn-info btn-block btn-xs-block" (click)="donate ()"
+				translate>Donate</button>
+				<!-- TODO: enable again -->
+				<!-- [disabled]="project.end !== null" [ngClass]="{ 'disabled': project.end !== null }" -->
+
+			<social-share *ngIf="socialShare" [socialConfig]="socialShare.config" [socialStyle]="socialShare.style"></social-share>
+		</div>
+	</div>
+
+	<ngb-tabset [justify]="'fill'" (tabChange)="tabSelected($event)">
+		<ngb-tab [title]="'Info'| translate">
+			<ng-template ngbTabContent>
+				<br>
+				<div class="row">
+					<div class="col-md-8 col-xs-12">
+						<div class="field margin-bottom-5">
+							<span class="title" translate>Created by:</span>
+							<span><a
+									[routerLink]="'/user/'+project.owner">{{project.ownerdetails.fullname || project.owner}}</a></span>
+						</div>
+						<div class="field margin-bottom-5">
+							<span class="title" translate>Bitcoin address:</span>
+							<span>
+								<a href="javascript:void(0)" [tooltip]="'Click to copy the address' | translate"
+									[copyToClipboard]="project.receiveaddress">{{project.receiveaddress}}</a>
+							</span>
+						</div>
+
+						<div *ngIf="project.tags.length>0" class="field margin-bottom-5">
+							<tags-info [tags]="project.tags"></tags-info>
+						</div>
+						<div [innerHtml]="iframeVideo"></div>
+
+						<p style="font-family: Circe Book; font-size: 110%"
+							[innerHtml]="project.description | stranslate | linkyCompile"></p>
+					</div>
+					<div class="col-md-4 col-xs-12">
+						<countries-map [countries]="project.countries" [width]="'100%'" [height]="'180px'">
+						</countries-map>
+						<br>
+						<span>
+							<div class="field">
+								<span class="title" translate>Donations</span>
+								<span class="value">{{project.receiveddonations}}</span>
+							</div>
+							<div class="field">
+								<span class="title" translate>Donations volume</span>
+								<span class="value">{{project.received|money:'auto'}}</span>
+							</div>
+							<div class="field">
+								<span class="title" translate>Target</span>
+								<span
+									class="value">{{project.target|moneyToBTC:project.currency|money:'auto':true}}</span>
+							</div>
+							<hr>
+							<div class="field">
+								<span class="title" translate>Amount already used</span>
+								<span class="value">{{project.used|moneyFIAT:project.currency}}</span>
+							</div>
+							<div class="field">
+								<span class="title" translate>Amount pending usage</span>
+								<span class="value">{{project.pending|money:'auto'}}</span>
+							</div>
+						</span>
+						<span *ngIf="project.event != null">
+							<hr>
+							<div class="field" *ngIf="event != null">
+								<span class="title" translate>Event type</span>
+								<span class="value text-capitalize">{{event.type|translate}}</span>
+							</div>
+							<div class="field" *ngIf="event != null">
+								<span class="title" translate>Magnitude</span>
+								<span class="value">{{event.maxmagnitude|magnitude:event.type}}</span>
+							</div>
+							<div class="field" *ngIf="event != null">
+								<span class="title" translate>Affected population</span>
+								<span class="value">~{{event.population.affected}}</span>
+							</div>
+							<div class="field" *ngIf="event != null">
+								<!-- <span class="title" translate>Affected population</span> -->
+								<span class="value link"><a [routerLink]="'/event/' + event._id" target="_blank" translate>go to event</a></span>
+							</div>
+						</span>
+					</div>
+
+					<div class="col-xs-12">
+						<br>
+						<project-timeline [project]="project" [maxEntries]="3" [onlyPreview]="true"></project-timeline>
+					</div>
+
+					<div class="col-xs-12 supporters" *ngIf="project.supporters && project.supporters.length > 0">
+						<hr>
+						<h2 translate>Supporters</h2>
+						<div class="row">
+							<div class="col-sm-6 col-xs-6" [ngClass]="{ 'col-md-3': project.supporters.length > 3, 'col-md-4': project.supporters.length == 3, 'col-md-6': project.supporters.length == 2, 'col-md-12': project.supporters.length == 1}"
+								*ngFor="let sup of project.supporters">
+								<a [href]="sup.link" target="_blank" [class]="'supporter supporter-' + sup.level">
+									<img [src]="sup.user|avatar">
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 other-projects" *ngIf="otherProjects.length > 0">
+						<hr>
+						<h2 translate>Other relevant projects created by this charity</h2>
+						<div class="row">
+							<div class="panel-container col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12" *ngFor="let proj of otherProjects">
+								<project [project]="proj" [donate]="false"></project>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+		</ngb-tab>
+
+		<ngb-tab [title]="'Media'| translate">
+			<ng-template ngbTabContent>
+				<div class="text-center padding-15" *ngIf="!project.media || project.media.length == 0">
+					<i>There are no media yet.</i>
+				</div>
+				<slidershow *ngIf="project.media.length != 0" [images]="projectImages" [config]="projectImagesConfig">
+				</slidershow>
+			</ng-template>
+		</ngb-tab>
+
+		<ngb-tab [title]="'Activities'| translate">
+			<ng-template ngbTabContent>
+				<project-timeline [project]="project"></project-timeline>
+				
+				<!-- <div class="text-center padding-15" *ngIf="project.activities.length == 0">
+					<i>There are no activities yet.</i>
+				</div>
+				<div class="row aligned-row" *ngIf="project.activities.length != 0">
+					<div class="col-md-6 col-sm-12" *ngFor="let activity of project.activities">
+						<activity [activity]="activity"></activity>
+					</div>
+				</div> -->
+			</ng-template>
+		</ngb-tab>
+
+		<ngb-tab [title]="'Donations'| translate">
+			<ng-template ngbTabContent>
+				<br>
+				<donation-list [config]="listConfig"></donation-list>
+			</ng-template>
+		</ngb-tab>
+
+		<ngb-tab id="graph-tab" [title]="'Graph'| translate"></ngb-tab>
+	</ngb-tabset>
+</div>

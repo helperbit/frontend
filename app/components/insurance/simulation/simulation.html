@@ -1,0 +1,125 @@
+<modal [config]="$ctrl.modals.notLogged">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title" id="myModalLabel" translate>Not logged</h4>
+		</div>
+		<div class="modal-body">
+			<span translate>You need to be logged in with a geolocalized user to access the simulation tool</span>.<br>
+		</div>
+		<div class="modal-footer">
+			<a routerLink="/signup" class="btn btn-default btn-lg" translate>Signup</a>
+			<a routerLink="/login" class="btn btn-default btn-lg" translate>Login</a>
+		</div>	
+	</div>
+</modal>
+
+<modal [config]="$ctrl.modals.notGeolocalized">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title" id="myModalLabel" translate>Not geolocalized</h4>
+		</div>
+		<div class="modal-body">
+			<span translate>You need to be geolocalized to access the simulation tool</span>.<br>
+		</div>
+		<div class="modal-footer">
+			<a routerLink="/me/geoloc" class="btn btn-default btn-lg" translate>Geolocalize</a>
+		</div>	
+	</div>
+</modal>
+
+<div class="event-sim fluid-container">
+	<div class="row event-container">
+		<div height="100%" class="col-md-4 details-wrap well padding-0 padding-left-15" style="margin: 0;overflow-y: visible; overflow: scroll; height: 100%; overflow-x: hidden;">
+			<h1 translate>event simulation tool</h1>
+			<p translate>Drag the earthquake marker in the map to simulate an earthquake event, and adjust sliders to know your potential gain.</p>
+														
+			<h2>Define the earthquake</h2>
+			
+			<div>
+				<span class="field-title">Magnitude (<span ng-bind="$ctrl.simulation.magnitude|magnitude"></span>) 
+					<i style="cursor: pointer" class="fa fa-question-circle" tooltip tooltip-content="{{'Magnitude of the simulated event'|translate}}"></i>
+				</span>
+				<slider class="red" value="$ctrl.simulation.magnitude" ng-model="$ctrl.simulation.magnitude"
+					on-stop-slide="$ctrl.updateGain()" min="6.0" step="0.1" max="10"></slider>
+			</div>
+			<div>
+				<span class="field-title">Depth (<span ng-bind="$ctrl.simulation.depth"></span> km)
+					<i style="cursor: pointer" class="fa fa-question-circle" tooltip tooltip-content="{{'Depth under the ground of the simulated event'|translate}}"></i>
+				</span>
+				<slider class="red" value="$ctrl.simulation.depth" ng-model="$ctrl.simulation.depth"
+					on-stop-slide="$ctrl.updateGain()" min="1" step="1" max="80"></slider>
+			</div>
+			<div>
+				<span class="field-title">Epicenter
+					<i style="cursor: pointer" class="fa fa-question-circle" tooltip tooltip-content="{{'Position of the simulated event'|translate}}"></i>
+				</span><br>
+				Latitude: <input type="text" ng-model="$ctrl.simulation.markers.event.lat" class="form-control" 
+					ng-change="$ctrl.updateGain()" number-input />
+				Longitude: <input type="text" ng-model="$ctrl.simulation.markers.event.lng" class="form-control" 
+					ng-change="$ctrl.updateGain()" number-input />
+			</div>
+			
+			<hr>
+			<h2>Define the pool of funds</h2>
+			
+			<div>
+				<span class="field-title">Your deposit [BTC]
+					<i style="cursor: pointer" class="fa fa-question-circle" tooltip tooltip-content="{{'Your Bitcoin deposit in the pool of funds'|translate}}"></i>
+				</span>
+				<input type="text" ng-model="$ctrl.simulation.deposit" class="form-control" 
+					ng-change="$ctrl.updateGain()"  />
+				<!--<slider class="red" value="simulation.price" ng-model="simulation.price"
+					on-stop-slide="updateGain()" min="0.05" step="0.05" max="1"></slider>-->
+			</div>
+			<div>
+				<span class="field-title">Total users
+					<i style="cursor: pointer" class="fa fa-question-circle" tooltip tooltip-content="{{'Total number of users in the pool of funds'|translate}}"></i>
+				</span>
+				<input type="text" ng-model="$ctrl.simulation.users" class="form-control" 
+					ng-change="$ctrl.updateGain()"  />
+				<!--<slider class="red" value="simulation.users" ng-model="simulation.users"
+					on-stop-slide="updateGain()" min="100" step="100" max="100000"></slider>-->
+			</div>
+			<div>
+				<span class="field-title">Total pool of funds [BTC]
+					<i style="cursor: pointer" class="fa fa-question-circle" tooltip tooltip-content="{{'Bitcoin deposited in the pool of funds'|translate}}"></i>
+				</span>
+				<input type="text" ng-model="$ctrl.simulation.pool" class="form-control" 
+					ng-change="$ctrl.updateGain()"  />
+				<!--<slider class="red" value="simulation.pool" ng-model="simulation.pool"
+					on-stop-slide="updateGain()" min="1" step="100" max="100000"></slider>-->
+			</div>
+			<div>
+				<span class="field-title">Affected users
+					<i style="cursor: pointer" class="fa fa-question-circle" tooltip tooltip-content="{{'Number of users affected by the simulated event'|translate}}"></i>
+				</span>
+				<input type="text" ng-model="$ctrl.simulation.affected" class="form-control" 
+					ng-change="$ctrl.updateGain()" />
+				<!--<slider class="red" value="simulation.affected" ng-model="simulation.affected"
+					on-stop-slide="updateGain()" min="5" step="5" max="10000"></slider>-->
+			</div>
+			
+			<hr>
+			<h2>You will get back</h2>
+						
+			<div align="center" class="gain">
+				<div class="row">
+					<div class="col-md-6">
+						<span ng-bind="$ctrl.simulation.gain|money"></span> immediatly<br>
+					</div>
+					<div class="col-md-6">
+						<span ng-bind="$ctrl.simulation.gainyear|money"></span> at year end<br>
+					</div>
+				</div>
+				<br>
+			</div>
+		</div>	
+	
+		<!-- Map -->
+		<div class="map col-md-8">
+			<leaflet center="$ctrl.map.center" bounds="$ctrl.map.bounds" defaults="$ctrl.map.defaults" layers="$ctrl.map.layers" 
+				markers="$ctrl.simulation.markers" event-broadcast="$ctrl.map.events" paths="$ctrl.simulation.paths"
+				height="100%" width="100%"></leaflet>
+		</div>
+	</div>
+</div>

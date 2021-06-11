@@ -1,0 +1,75 @@
+@import '~app/sass/const.scss';
+@import '~app/sass/extends.scss';
+
+:host {
+
+	.invoice-content {
+		display: flex;
+		flex-direction: column;
+		color: #000;
+
+		.spinner-box {
+			height: 250px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.status-unpaid {
+
+			.invoice-values {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		
+			.invoice-info {
+				display: flex;
+				flex-direction: row;
+				padding-top: 15px;
+
+				@media screen and (max-width: $breakpointXsMax) {
+					flex-direction: column;
+				}
+				
+				.qrcode {
+					display: flex;
+					flex-grow: 1;
+					flex-basis: 0;
+					align-items: center;
+					justify-content: flex-end;
+
+					@media screen and (max-width: $breakpointXsMax) {
+						justify-content: center;
+					}
+				}
+			}
+
+			.payreq {
+				@extend %clickable-text-link;
+			}
+		}
+
+		.status-paid, .status-expired, .offline-node {
+
+			.status-image {
+				display: flex;
+				height: 100px;
+				align-items: center;
+				justify-content: center;
+
+				i {
+					font-size: 600%;
+				}
+			}
+
+			.status-description {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+			}
+		}
+
+	}
+}

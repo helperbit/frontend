@@ -1,0 +1,25 @@
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog" role="document" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">
+					<span *ngIf="error=='E2'" translate>Resource not found</span>
+					<span *ngIf="error=='E'" translate>Error</span>
+					<span *ngIf="error=='UNR'" translate>Service unreachable</span>
+				<p *ngIf="error=='TMR'" translate>Too many requests</p>
+				</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<i class="fa fa-exclamation-circle text-color-red" style="font-size:700%;"></i>
+				<br><br>
+				<p *ngIf="error=='E2'" translate>Resource <i>{{id}}</i> not found.</p>
+				<p *ngIf="error=='E'" translate>Generic error.</p>
+				<p *ngIf="error=='UNR'" translate>The service is unreachable; please try again later.</p>
+				<p *ngIf="error=='TMR'" translate>Too many requests; please try again later.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" (click)="goBack ()" translate>Go back</button>
+			</div>
+		</div>
+	</div>
+</div>

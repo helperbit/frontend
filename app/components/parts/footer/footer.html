@@ -1,0 +1,51 @@
+<div>
+	<cookie-consent></cookie-consent>
+	<div class="footer fullwidth">
+		<div class="row margin-right-left-0">
+			<div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 info">
+				<span class="title">{{currentRouteName|translate}}</span>
+				<span class="hidden-xs">
+					| &copy; Helperbit s.r.l. <span translate>All rights reserved</span> <span class="hidden-xs">-</span> <br class="hidden-lg hidden-md hidden-sm"> PI: 13844091002
+				</span>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 text-right">
+				<span class="price hidden-sm hidden-xs">1<i class="fa fa-btc font-size-percentage-85"></i> =
+					<span *ngIf="currencyService.currency.code == 'EUR'">{{currencyService.btcprice.eur|number:'1.0-0'}}<i class="fa font-size-percentage-85 fa-eur"> </i></span>
+					<span *ngIf="currencyService.currency.code == 'USD' || currencyService.currency.code == 'BTC'"> {{currencyService.btcprice.usd|number:'1.0-0'}}<i class="fa font-size-percentage-85 fa-usd"> </i></span>
+				</span>
+				<a class="hidden-xs" href="https://www.facebook.com/helperbit" target="_blank">
+					<span class="social">
+						<span class="hidden-sm">{{facebook}}&nbsp;</span>
+						<span class="fa-stack fa-1x icon icon-inverse">
+							<i class="fa fa-circle fa-stack-2x icon-background"></i>
+							<i class="fa fa-facebook fa-stack-1x"></i>
+						</span>
+					</span>
+				</a>
+				<a class="hidden-xs" href="https://twitter.com/helperbit" target="_blank">
+					<span class="social">
+						<span class="hidden-sm">{{twitter}}&nbsp;</span>
+						<span class="fa-stack fa-1x icon icon-inverse">
+							<i class="fa fa-circle fa-stack-2x icon-background"></i>
+							<i class="fa fa-twitter fa-stack-1x"></i>
+						</span>
+					</span>
+				</a>
+				<a class="hidden-xs" href="https://t.me/helperbit" target="_blank">
+					<span class="social">
+						<span class="fa-stack fa-1x icon icon-inverse">
+							<i class="fa fa-circle fa-stack-2x icon-background"></i>
+							<i class="fa fa-send fa-stack-1x" style="left: -2px;"></i>
+						</span>
+					</span>
+				</a>
+				<button class="btn btn-default btn-sm btn-feedback" (click)="openFeedbackModal()">
+					<i class="fa fa-feed hidden-xs"></i> <span translate>Feedback</span>
+				</button>
+			</div>
+			<div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center text-color-white padding-lg-top-50 padding-md-top-50 padding-sm-top-30 padding-xs-top-15 font-size-percentage-85">
+				&copy; Helperbit s.r.l. <span translate>All rights reserved</span> <span class="hidden-xs">-</span> <br class="hidden-lg hidden-md hidden-sm"> PI: 13844091002
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+@import '../../../sass/const.scss';
+
+:host {	
+	.round-image-content {
+		width: 250px;
+		height: 250px;
+		margin: 0 auto;
+
+		.avatar {
+			border-radius: 50%;
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			margin: 25px 25px auto;
+			display: block;
+		}
+
+		.circular-chart {
+			display: block;
+			max-height: 250px;
+			max-width: 250px;
+			
+			.circle {
+			fill: none;
+			stroke-width: 1.25;
+			animation: progress-svg 3s ease-out forwards;
+			}
+		
+			.trust-level-red {
+				stroke: $red;
+			}
+			
+			.trust-level-orange {
+				stroke: $orange;
+			}
+			
+			.trust-level-green {
+				stroke: $green;
+			}
+		}
+	}
+}

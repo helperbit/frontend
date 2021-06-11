@@ -1,0 +1,14 @@
+<!-- <input
+	type="text"
+	class="form-control"
+	name="{{$ctrl.name}}"
+	placeholder="{{$ctrl.config.placeholder}}"
+	ng-model="$ctrl.value"
+	ng-required="$ctrl.config.required"
+	ng-disabled="$ctrl.config.disabled"> -->
+
+<input
+	#numberDecimal
+	type="text"
+	class="form-control"
+	[formControl]="formControl">

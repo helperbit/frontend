@@ -1,0 +1,5 @@
+<div class="tags">
+    <div class="img" *ngFor="let tag of tags" [tooltip]="tagsData[tag].name | translate">
+        <svg-icon [iconId]="tagsData[tag].iconId" [iconSrc]="tagsData[tag].src"></svg-icon>
+    </div>
+</div>

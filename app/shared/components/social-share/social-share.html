@@ -1,0 +1,14 @@
+<!--https://github.com/bradvin/social-share-urls-->
+<span class="inner-iterator" *ngFor="let item of buttons | keyvalue">
+	<span *ngIf="item.value.show">
+		<a *ngIf="item.key == 'link'" [ngClass]="item.value.class" href="javascript:void(0)"
+			[tooltip]="item.value.tooltip.content" [position]="'bottom'" [copyToClipboard]="config.url">
+			<i class="fa" [ngClass]="item.value.icon"></i>
+		</a>
+
+		<a *ngIf="item.key != 'link'" [ngClass]="item.value.class" [href]="item.value.href"
+			[tooltip]="item.value.tooltip.content" [position]="'bottom'" [target]="item.value.target">
+			<i class="fa" [ngClass]="item.value.icon"></i>
+		</a>
+	</span>
+</span>

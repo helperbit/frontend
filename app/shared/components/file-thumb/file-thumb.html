@@ -1,0 +1,10 @@
+<div class="file-thumb">
+	<lightbox [images]="lightbox.images" [activeIndex]="0" (closed)="lightbox.show = false" [show]="lightbox.show"></lightbox>
+	<div class="image" *ngIf="media.type == 'image'">
+		<img [alt]="media.alt" [src]="media.url | media" (click)="lightbox.show = true">
+	</div>
+	<a  *ngIf="media.type == 'pdf'" class="btn btn-block btn-default file" [href]="media.url|media" target="_blank">
+		<i class="fa fa-file-pdf-o"></i>
+		<h5 class="margin-top-bottom-0" translate>Click to see the file</h5>
+	</a>
+</div>

@@ -1,0 +1,195 @@
+@import 'const';
+
+body {
+	background: rgba(0, 0, 0, 0.0);
+}
+
+.modal {
+	overflow-y: auto !important;
+	 
+	.by {
+		color: #fff;
+		font-family: $lightFont;
+		
+		& > a {
+			font-family: $boldFont;
+			color: #fff;
+		}
+		
+		& > a:hover {
+			color: #fff;
+		}
+	}
+}
+
+@media (max-width: 500px) {
+	.modal-dialog {
+		width: 90% !important;
+	}
+}
+
+.modal-header {
+	border-bottom: 0px;
+}
+
+.modal-dialog {
+	margin-bottom: 10px;
+	width: 430px;
+
+	.modal-footer {	
+	}
+	
+	.modal-content {
+		border-radius: 5px;
+
+		.donation-share {
+			color: $red;
+			text-decoration: none;
+		}
+		.donation-share:hover, .donation-share:focus, .donation-share:active {
+			color: $yellow;
+			text-decoration: none;
+		}
+	}
+	
+	.modal-header {
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		padding: 0px;
+		
+		.image {
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+			width: 100%;
+			overflow: hidden;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;
+			height: 8em;
+		}
+		
+		.overlay {
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+			position: absolute;
+			width: 100%;
+			height: 8em;
+			transition: background-color 1s .3s;
+			background: rgba(254, 183, 55, 1);
+			top: 0;
+			left: 0;
+
+			&.active {
+				background-color: rgba(54, 83, 55, 0.8);
+			}
+		}
+
+
+		
+		.info {
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+			position: absolute;
+			width: 100%;
+			height: 8em;
+			top: 0;
+			left: 0;
+			padding-top: 10px;
+			padding-left: 30px;
+			padding-right: 30px;
+			
+			#project-percentage {
+				font-family: $boldFont;
+				font-size: 14px;
+				font-weight: bold;
+				position: absolute;
+				bottom: 0.5em;
+				right: 0.5em;
+				color: white;
+			}
+
+			.progress {
+				height: 6px;
+				position: absolute;
+				bottom: 0px;
+				left: 0px;
+				width: 100%;
+				margin-bottom: 0px;
+				border-radius: 0px;
+				box-shadow: none;
+
+				.progress-bar {
+					background-color: rgba(254, 183, 55, 1);
+				}
+			}
+			
+			h4 {
+				font-family: $lightFont;
+				font-weight: bold;
+				color: #fff;
+				// text-transform: uppercase;
+				font-size: 150%;
+
+				overflow: hidden; 
+				white-space: nowrap; 
+				width: 100%;
+			}
+		}
+		
+		.back-button {
+			transition: opacity .5s;
+			opacity: 0;
+			position: absolute;
+			top: -0.8em;
+			left: -0.8em;
+			cursor: pointer;
+
+			&.show {
+				opacity: 1;
+			}
+
+			.fa {
+				transition: color .5s;
+			}
+
+			&:hover {
+				.fa-circle {
+					color: #fff;
+				}
+				.fa-chevron-left {
+					color: #333;
+				}
+			}
+
+		}
+
+		.close-button {
+			position: absolute; 
+			top: -0.8em; 
+			right: -0.8em; 
+			cursor: pointer;
+
+			&:hover {
+				.fa-circle {
+					color: #fff;
+				}
+				.fa-times {
+					color: #333;
+				}
+			}
+
+			.fa {
+				transition: color .5s;
+			}
+
+			.fa-circle {
+				text-shadow: 0 0 5px #333;
+				color: #333;
+			}
+
+			.fa-times {
+				color: #fff;
+			}
+		}
+	}
+}

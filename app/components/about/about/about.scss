@@ -1,0 +1,153 @@
+@import "~app/sass/const.scss";
+@import "~app/sass/extends.scss";
+
+#aboutPage {
+  position: relative !important;
+  height: 100% !important;
+  overflow-y: scroll !important;
+}
+
+.about-page {
+  .menu-button {
+    @extend %clickable-opacity;
+
+    // position: sticky;
+    position: fixed;
+    display: inline-block;
+    left: 0.5em;
+    top: calc(#{$headerHeight} + 0.5em);
+    font-size: 1.5em;
+    padding: 0.25em 0.5em;
+    border-radius: 5px;
+    // cursor: pointer;
+    background-color: $orange;
+    color: #fff;
+    z-index: 1;
+    box-shadow: 4px 0 13px rgba(51, 51, 51, 0.5);
+  }
+
+  nav.navbar-inverse {
+    width: 200px;
+    height: calc(100% - #{$headerHeight + $footerHeight});
+    position: fixed;
+    left: -200px;
+    top: $headerHeight;
+    background-color: #000;
+    z-index: 1;
+    box-shadow: 3px 0 5px rgba(51, 51, 51, 0.5);
+    transition: left linear 0.2s;
+
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 0;
+
+    @media screen and (max-width: #{$breakpointXsMax}) {
+      height: calc(100% - #{$headerHeight});
+    }
+
+    &.open {
+      left: 0;
+    }
+
+    .menu-close {
+      text-align: right;
+      padding: 7.5px 15px;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #fff;
+      transition: color linear 0.3s;
+
+      &:hover {
+        color: $yellow;
+      }
+    }
+
+    ul {
+      overflow-y: auto;
+      height: calc(100% - 45px); //45px is .menu-close height
+
+      li {
+        &:hover a,
+        &.active a {
+          background-color: $yellow;
+        }
+
+        a {
+          color: #fff;
+          background-color: #000;
+          text-decoration: none;
+          text-transform: uppercase;
+          padding-left: 15px;
+          transition: background-color linear 0.3s;
+        }
+      }
+    }
+  }
+
+  //SECTION
+  & > .section {
+    padding: 1.5em 5em;
+    height: 100%;
+    min-height: 100%;
+
+    @media screen and (max-width: #{$breakpointXsMax}) {
+      padding: 1.5em 10px;
+    }
+  }
+
+  .award-section {
+    background-color: #fff;
+  }
+
+  .benefit-section {
+    background-color: $orange; 
+  }
+
+  .contact-section {
+    background-color: $yellow;
+  }
+
+  .partners-section {
+    background-color: #fff;
+  }
+
+  .press-section {
+    background-color: #fff;
+  }
+
+  .team-section {
+    background-color: #e99909;
+  }
+
+  .top-section {
+    background-color: $yellow;
+  }
+
+  .whyhelperbit-section {
+    background-color: $yellow; /*$green;*/
+  }
+
+  .whysignup-section {
+    background-color: #e99909; 
+  }
+
+  //OTHER TODO - sistemare meglio (che roba e'?)
+
+  h1 {
+    font-family: "GoBold Regular";
+    color: #000;
+    font-size: 150%;
+  }
+
+  h2 {
+    font-family: $boldFont;
+    font-size: 150%;
+    color: #fff;
+  }
+
+  .title {
+    font-family: "GoBold Regular";
+    color: #000 !important;
+    font-size: 200%;
+  }
+}

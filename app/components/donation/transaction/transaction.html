@@ -1,0 +1,106 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-medium" *ngIf="transaction">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+			<span class="field-title"
+				*ngIf="transaction.status == 'broadcasted' || transaction.status == 'confirmed'"
+				translate>Transaction ID</span>
+			<span class="field-title" *ngIf="transaction.status == 'signing'" translate>Temporary ID</span>
+		</div>
+		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 margin-xs-top-10 text-lg-right text-md-right text-sm-right">
+			<span *ngIf="transaction.status == 'broadcasted' || transaction.status == 'signed'"
+				class="label label-danger" translate>Unconfirmed</span>
+			<span *ngIf="transaction.status == 'confirmed'" class="label label-success" translate>Confirmed</span>
+			<span *ngIf="transaction.status == 'signing'" class="label label-danger"
+				[tooltip]="'The transaction is pending for admin signatures'|translate"
+				translate>Pending</span>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10">
+			<p>
+				<external-link
+					*ngIf="transaction.status == 'broadcasted' || transaction.status == 'confirmed'"
+					[url]="transaction.txid|explorer" [text]="transaction.txid"></external-link>
+				<span *ngIf="transaction.status == 'signing'">{{transaction.txid}}</span>
+			</p>
+		</div>
+	</div>
+
+	<div class="row display-flex display-flex-row display-flex-wrap margin-top-15">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 display-flex display-flex-column">
+			<span class="field-title" translate>From user</span>
+			<p>
+				<a target="_blank" *ngIf="transaction.from != null"
+					[routerLink]="'/user/'+transaction.from">{{transaction.from}}</a>
+				<span *ngIf="transaction.from == null" translate>anonymous user</span>
+			</p>
+		</div>
+		<div
+			class="col-lg-6 col-md-6 col-sm-6 col-xs-12 display-flex display-flex-column text-lg-right text-md-right text-sm-right">
+			<span class="field-title" translate>To user</span>
+			<p>
+				{{transaction.to}}
+				<span *ngIf="transaction.touser"> (<a [routerLink]="'/user/'+ transaction.touser"
+						target="_blank">{{transaction.touser}}</a>) </span>
+			</p>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 display-flex display-flex-column">
+			<span class="field-title" translate>Value</span>
+			<p>{{transaction.value|money:'full'}}</p>
+		</div>
+		<div
+			class="col-lg-6 col-md-6 col-sm-6 col-xs-12 display-flex display-flex-column text-lg-right text-md-right text-sm-right">
+			<span *ngIf="transaction.value_historic.usd">
+				<span class="field-title" translate>Historical value</span>
+				<a [tooltip]="'Value at time of transaction'|translate">
+					<i class="fa fa-question-circle"></i>
+				</a>
+				<p>{{transaction.value_historic.usd|moneyUSD}}</p>
+			</span>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 display-flex display-flex-column">
+			<span><span class="field-title" translate>Date</span>
+				<p>{{transaction.time|date:'medium'}}</p>
+			</span>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<span class="field-title" translate>Description</span>
+			<p>{{transaction.description}}</p>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="transaction.admins">
+			<span class="field-title" translate>Signers</span>
+			<p>
+				<span *ngFor="let ad of transaction.signers" class="label label-success margin-top-5"
+					[tooltip]="'This admin has signed the transaction'|translate">
+					<i class="fa fa-user"></i> {{ad}}
+				</span>
+				<span *ngFor="let ad of transaction.refused" class="label label-danger margin-top-5"
+					[tooltip]="'This admin hasn\'t signed the transaction'|translate">
+					<i class="fa fa-user"></i> {{ad}}
+				</span>
+			</p>
+		</div>
+	</div>
+
+	<hr class="margin-top-10 margin-bottom-15" *ngIf="transaction.ror">
+
+	<div class="row" *ngIf="transaction.ror">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<p>
+				<span translate>This transaction is a Request of Refund transaction for</span>
+				<i>"{{ror.description}}"</i>;
+				<span translate>this transaction has been sent from</span>
+				<a [routerLink]="'/user/'+ror.to" target="_blank">{{ror.to}}</a>
+				<span translate>to</span>
+				<a [routerLink]="'/user/'+ror.from" target="_blank">{{ror.from}}</a>.
+				<br>
+				<br>
+				<span translate>Document hash (stored immutable in this transaction)</span>:
+				<input class="form-control" [value]="ror.hash" readonly>
+			</p>
+			<div class="text-center">
+				<a [href]="ror.documents[0]|media" target="_blank" class="btn btn-default">Download document</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+<div *ngIf="config.show && config.text" [ngClass]="{ 'box-fixed': config.fixed }">
+	<div
+		class="alert"
+		role="alert"
+		[ngClass]="{ 'alert-danger': config.type == 'error', 'alert-success': config.type == 'success' }">
+		<a *ngIf="!config.fixed" href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+		<a *ngIf="config.fixed" href="javascript:void(0)" class="close" aria-label="close" (click)="config.show = false" title="close">×</a>
+		{{ config.text | translate }}
+	</div>
+</div>

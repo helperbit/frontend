@@ -1,0 +1,28 @@
+@import "~app/sass/const.scss";
+@import "~app/sass/extends.scss";
+
+.banner {
+	height: auto;
+	border: 0;
+	border-radius: 0;
+
+	&.ambassador {
+		@extend %clickable-opacity;
+
+		img {
+			width: 100%;
+
+			@media screen and (min-width: #{$breakpointLgMin}) {
+				width: 80%;
+			}
+
+			@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+				width: 90%;
+			}
+		}
+	}
+
+	&.ambassador {
+		background-color: $yellow;
+	}
+}

@@ -1,0 +1,101 @@
+@import "~app/sass/const.scss";
+
+.page {
+	padding: 1.5em;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	box-shadow: 0 5px 15px rgba(0,0,0,.5);
+	background-color: #fff;
+
+	> hr {
+		margin-top: 0px;
+		margin-bottom: 15px;
+	}
+
+	@media only screen and (max-width: #{$breakpointXsMax}) {
+		padding: 1em;
+	}
+
+	.title {
+		font-family: 'GoBold Regular';
+		color: #000 !important;
+		margin-bottom: 1em;
+
+		span {
+			// margin-left: -2px;
+		}
+	}
+
+	p {
+		color: #333;
+	}
+	h1 {
+		text-transform: capitalize;
+		font-family: "Gobold Regular";
+		font-size: 140%;
+	}
+}
+
+.page-modalized {
+	padding: 1.0em;
+	/*box-shadow: 0 0 1px 1px #fff;*/
+	margin-bottom: 3.4em;
+	margin-top: 1em;
+	width: 45em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.page-tiny, .page-medium, .page-large, .page-extra-large, .page-modalized {
+	margin-left: auto;
+	margin-right: auto;
+
+	@media only screen and (max-width: #{$breakpointSmMax}) {
+		width: 100% !important;
+	}
+}
+
+.page-tiny {
+	// width: 23.3em;
+	width: 25em;
+}
+
+.page-medium {
+	width: 45em;
+}
+
+.page-large {
+	width: 65em;
+}
+
+.page-extra-large {
+	width: 85em;
+}
+
+.page .info {
+	color: #fff;
+	background-color: #66e266;
+	border-radius: 1px;
+	height: 25px;
+	margin-bottom: 15px;
+	font-size: 95%;
+}
+
+/* event 2 */
+.page-composable {
+	margin-bottom: 0.8em;
+	margin-top: 2em;
+	padding: 0;
+	box-shadow: 0 5px 10px rgba(0,0,0,.5);
+}
+
+//TODO rimuovere insieme alle classi di page e ricreare una nuova struttura per le parti di impostazione utente (e dove usato .page ecc..)
+.page-composable-col {
+	padding-left: 6px;
+	padding-right: 6px;
+
+	@media screen and (max-width: #{$breakpointXsMax}) {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}

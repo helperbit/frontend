@@ -1,0 +1,18 @@
+:host {
+  .col-md-4, .col-md-6 {
+    margin-bottom: 3.5em;
+  }
+
+  a, a:hover {
+    margin-top: 1em;
+    font-size: 150%;
+    font-family: "GoBold Regular";
+    color: #000;
+  }
+
+  img {
+    height: 5.5em;
+    max-height: 5.5em;
+    margin-bottom: 0.5em;
+  }
+}

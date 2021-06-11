@@ -1,0 +1,36 @@
+{
+    "title": [
+        { 
+            "text": {
+                "en": "A wildfire hits {{country}}",
+                "it": "Un incendio ha colpito {{country}}"
+            },
+            "conditions": [ { "field": "mag", "max": 7.0 } ]
+        },
+        { 
+            "text": {
+                "en": "An extended wildfire hits {{country}}",
+                "it": "Un incendio esteso ha colpito {{country}}"
+            },
+            "conditions": [ { "field": "mag", "min": 7.0, "max": 8.0 } ]
+        },
+        { 
+            "text": {
+                "en": "A very extended wildfire hits {{country}}",
+                "it": "Un incendio molto esteso ha colpito {{country}}"
+            },
+            "conditions": [ { "field": "mag", "min": 8.0 } ]
+        }
+    ],
+    "phrases": [
+        [
+            {
+                "text": {
+                    "en": "{{title}} at {{date}}. About {{apop}} people are affected by the wildfire.",
+                    "it": "{{title}} il {{date}}. Circa {{apop}} persone sono state coinvolte nell'area dell'icendio."
+                },
+                "conditions": []
+            }
+        ]
+    ]
+}

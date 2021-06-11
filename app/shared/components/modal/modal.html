@@ -1,0 +1,21 @@
+<div class="modal-header">
+	<button type="button" class="close" (click)="activeModal.dismiss()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title" id="myModalLabel">{{config.title}}</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-xs-12 text-center padding-15">
+			{{ config.description }}
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="row">
+		<div class="col-xs-6 text-left">
+			<button type="button" class="btn btn-default" (click)="activeModal.dismiss()" translate>Cancel</button>
+		</div>
+		<div class="col-xs-6 text-right">
+			<button (click)="activeModal.close()" type="button" class="btn btn-danger" translate>Confirm</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,98 @@
+import getUnixTime from 'date-fns/getUnixTime';
+import { Component, Output, Input, OnChanges, OnDestroy, EventEmitter } from '@angular/core'
+
+export interface CountdownConfig {
+	duration: number;
+	show: string[];
+	to?: number;
+}
+
+@Component({
+	selector: 'countdown',
+	templateUrl: 'countdown.html',
+	styleUrls: ['countdown.scss']
+})
+export class CountdownComponent implements OnChanges, OnDestroy {
+	@Input() config: CountdownConfig;
+	@Input() destroy: boolean;
+	@Output() expired = new EventEmitter();
+
+	countdown: any;
+	show: any;
+	intervalCountdown: NodeJS.Timeout;
+
+	constructor() {
+		this.countdown = {
+			days: 0,
+			hours: 0,
+			minutes: 0,
+			seconds: 0,
+		};
+		this.show = {
+			days: false,
+			hours: false,
+			minutes: false,
+			seconds: false,
+		}
+	}
+
+	deleteCountDown() {
+		clearInterval(this.intervalCountdown);
+		this.intervalCountdown = undefined;
+	}
+
+	countDown(from, increment, callback) {
+		let passed = 0;
+
+		let remaining = from - passed;
+		callback(remaining)
+
+		this.intervalCountdown = setInterval(() => {
+			passed += increment;
+			remaining = from - passed;
+
+			callback(remaining)
+
+			if (remaining <= 0)
+				this.deleteCountDown();
+		}, increment);
+	}
+
+	ngOnChanges(changes) {
+		if (changes.config && changes.config.currentValue) {
+			this.config.show.forEach(key => { this.show[key] = true; });
+
+			const duration = getUnixTime(new Date(this.config.duration));
+			const to = getUnixTime(new Date(this.config.to));
+
+			this.countDown(duration, 1000, (remaining) => {
+				throw "to be reimplemented";
+				// TODO: fix without moment
+				// const remainingObj = moment.duration(remaining);
+
+				// if (this.show.days)
+				// 	this.countdown.days = remainingObj.days();
+
+				// if (this.show.hours)
+				// 	this.countdown.hours = remainingObj.hours();
+
+				// if (this.show.minutes)
+				// 	this.countdown.minutes = remainingObj.minutes();
+
+				// if (this.show.seconds)
+				// 	this.countdown.seconds = remainingObj.seconds();
+
+				if (remaining <= 0) {
+					this.deleteCountDown();
+					this.expired.emit();
+				}
+			});
+		}
+		if (changes.destroy && changes.destroy.currentValue)
+			this.deleteCountDown();
+	}
+
+	ngOnDestroy() {
+		this.deleteCountDown();
+	}
+}

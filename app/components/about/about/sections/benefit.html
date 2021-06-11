@@ -1,0 +1,89 @@
+<h1 class="title border-bottom border-red margin-bottom-35" translate>benefit</h1>
+
+<div class="row">
+
+    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+        <div class="feature text-center padding-right-15" (click)="currentBenefit = 'transp'">
+            <i class="fa fa-cogs"></i>
+            <h1 class="margin-top-15" translate>transparency</h1>
+        </div>
+        <div class="feature text-center padding-right-15" (click)="currentBenefit = 'speed'">
+            <i class="fa fa-rocket"></i>
+            <h1 class="margin-top-15" translate>speed</h1>
+        </div>
+        <div class="feature text-center" (click)="currentBenefit = 'eff'">
+            <i class="fa fa-feed"></i>
+            <h1 class="margin-top-15" translate>efficiency</h1>
+        </div>
+        <div class="feature text-center padding-right-15" (click)="currentBenefit = 'geo'">
+            <i class="fa fa-globe"></i>
+            <h1 class="margin-top-15">gis <span class="hidden-sm hidden-xs" translate>approach</span> </h1>
+        </div>
+        <div class="feature text-center padding-right-15" (click)="currentBenefit = 'fair'">
+            <i class="fa fa-legal"></i>
+            <h1 class="margin-top-15" translate>fairness</h1>
+        </div>
+        <div class="feature text-center" (click)="currentBenefit = 'p2p'">
+            <i class="fa fa-users"></i>
+            <h1 class="margin-top-15">p2p</h1>
+        </div>
+        <div class="feature text-center padding-right-15" (click)="currentBenefit = 'curr'">
+            <i class="fa fa-bitcoin"></i>
+            <!-- <i class="fa fa-usd"></i>
+            <i class="fa fa-euro"></i> -->
+            <h1 class="margin-top-15" translate>multi currency</h1>
+        </div>
+        <div class="feature text-center padding-right-15" (click)="currentBenefit = 'wall'">
+            <i class="fa fa-lock"></i>
+            <h1 class="margin-top-15" translate>multisig wallet</h1>
+        </div>
+        <div class="feature text-center" (click)="currentBenefit = 'help'">
+            <i class="fa fa-heartbeat"></i>
+            <h1 class="margin-top-15" translate>help and get helped</h1>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 hidden-sm hidden-xs benefit-content">
+        <div *ngIf="currentBenefit == ''">
+            <p class="text-center" translate>Press on one benefit icon to view details</p>
+        </div>
+        <div *ngIf="currentBenefit == 'help'">
+            <h1 class="text-center" translate>help and get helped</h1>
+            <p class="text-center" translate>Many times you will donate to others, but if you complete the verification process and a natural disaster happens in your area you will be eligible to receive direct donations from all around the world</p>
+        </div>
+        <div *ngIf="currentBenefit == 'wall'">
+            <h1 class="text-center" translate>multisignature wallet</h1>
+            <p class="text-center" translate>We provide multisignature wallet (2of3) to all our users, and a n-of-m multisignature wallet for organizations. This reduce drastically the risk of theft and misuse of the donations.</p>
+        </div>
+        <div *ngIf="currentBenefit == 'curr'">
+            <h1 class="text-center" translate>multi currency</h1>
+            <p class="text-center" translate>User can decide to make donation with debit card or directly in bitcoin. Organization can accept bitcoin or local currency.
+            </p>
+        </div>
+        <div *ngIf="currentBenefit == 'geo'">
+            <h1 class="text-center" translate>geographic approach</h1>
+            <p class="text-center" translate>We offer a geographic approach for natural disasters, so you know exactly who is in need and you can help knowingly.</p>
+        </div>
+        <div *ngIf="currentBenefit == 'p2p'">
+            <h1 class="text-center">p2p</h1>
+            <p class="text-center" translate>Some times we just want to give directly to the end user, cutting any intermediary or organization. With Helperbit a real P2P donation is finally possible.</p>
+        </div>
+        <div *ngIf="currentBenefit == 'fair'">
+            <h1 class="text-center" translate>fairness</h1>
+            <p class="text-center" translate>Many times media coverage is unbalanced and many problems are hidden, we offer participatory tools to compare humanitarian needs worldwide.</p>
+        </div>
+        <div *ngIf="currentBenefit == 'eff'">
+            <h1 class="text-center" translate>efficiency</h1>
+            <p class="text-center" translate>Every cent is relevant when lives are involved: we don't charge any additional fee if you use bitcoin, the method of payment to use is your choice.</p>
+        </div>
+        <div *ngIf="currentBenefit == 'speed'">
+            <h1 class="text-center" translate>speed</h1>
+            <p class="text-center" translate>In Humanitarian action every day is important: we offer the oppotunity to send donations in less than an hour all around the world.</p>
+        </div>
+        <div *ngIf="currentBenefit == 'transp'">
+            <h1 class="text-center" translate>transparency</h1>
+            <p class="text-center" translate>Thanks to blockchain technology donors can track their own donations and organizations can show how they use it.</p>
+        </div>
+    </div>
+
+</div>

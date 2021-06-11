@@ -1,0 +1,35 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="static-page-image">
+    <img [src]="image.url" [alt]="image.alt">
+</div>
+
+<div class="page page-medium margin-top-0 static-page-description">
+    <br>
+    <translated [lang]="'en'" [langs]="['en', 'it']">
+        <h1 class="title border-bottom border-red">What is the Proposed NPO List</h1>
+        <p>The Proposed NPO List allows users to report non-profit organizations and public bodies that have not yet signed up for Helperbit. Users can also “like” those that have been already suggested, reinforcing the value of the request.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">Why propose a non-profit organization</h1>
+        <p>When the reports are received, Helperbit will contact the proposed institutions and follow them in their first approach to the bitcoin and blockchain world. The organization has the possibility to create a multisignature bitcoin wallet and launch a crypto charity fundraising with blockchain traceability.</p>
+        <p>Do you know an organization that could benefit from this platform but that is not yet in Helperbit? <a routerLink="/charity/proposed">Propose it!</a></p>
+    </translated>
+
+    <translated [lang]="'it'" [langs]="['en', 'it']">
+        <h1 class="title border-bottom border-red">Che cos’è la pagina Lista non profit proposte</h1>
+        <p>La pagina Lista non profit proposte permette agli utenti di segnalare le organizzazioni non profit ed enti pubblici che non sono ancora iscritti ad Helperbit. Gli utenti possono anche mettere il “like” a quelle già suggerite, rafforzando il valore della richiesta.</p>
+        <hr>
+        <h1 class="title border-bottom border-red">Perchè proporre un’organizzazione non profit</h1>
+        <p>Una volta ricevute le segnalazioni degli utenti, Helperbit provvederà a contattare gli enti proposti e li seguirà nell’avvicinamento al mondo bitcoin e blockchain. L’organizzazione ha quindi la possibilità di crearsi un portafoglio bitcoin multifirma ed avviare una raccolta fondi solidale con la tracciabilità in blockchain.</p>
+        <p>Conosci un’organizzazione che potrebbe beneficiare di questa piattaforma ma non è ancora in Helperbit? <a routerLink="/charity/proposed">Proponila tu stesso!</a></p>
+    </translated>
+
+    <!--
+    <translated [lang]="'es'">
+        <h1 class="title border-bottom border-red"></h1>
+        <p></p>
+    </translated>
+    -->
+</div>
+
+<seo-footer-component></seo-footer-component>

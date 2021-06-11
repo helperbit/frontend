@@ -1,0 +1,20 @@
+<div class="lightbox" *ngIf="show">
+	<div class="close" (click)="hide()"> <i class="fa fa-close"></i> </div>
+	<a class="prev" *ngIf="images.length > 1" (click)="plusSlides(-1)"> <i class="fa fa-arrow-left"></i> </a>
+	<span *ngIf="!imgAttrs.active">
+		<a target="_blank" [href]="activeImage.img | media" *ngIf="activeImage.type == 'pdf'">
+			<img width="256px" class="img" alt="{{activeImage.alt}}" [src]="'media/pdf.png'">
+		</a>
+		<img *ngIf="activeImage.type != 'pdf'" class="img" alt="{{activeImage.alt}}"
+			[src]="activeImage.img | media">
+	</span>
+
+	<span *ngIf="imgAttrs.active">
+		<a target="_blank" [href]="activeImage.img | media" *ngIf="activeImage.type == 'pdf'">
+			<img width="256px" class="img" alt="{{activeImage.alt}}" [src]="'media/pdf.png'">
+		</a>
+		<img *ngIf="activeImage.type != 'pdf'" class="img" [imgAttrs]="imgAttrs.value" [imgType]="imgAttrs.type"
+			[imgSrc]="activeImage.img | media">
+	</span>
+	<a class="next" *ngIf="images.length > 1" (click)="plusSlides(1)"> <i class="fa fa-arrow-right"></i> </a>
+</div>

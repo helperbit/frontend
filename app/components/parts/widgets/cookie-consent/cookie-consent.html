@@ -1,0 +1,16 @@
+<div *ngIf="showBanner" class="alert alert-warning alert-dismissible fade in" role="alert">
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <strong><span translate>Cookies</span>:</strong>
+            <span translate>This site uses cookies to deliver its services.</span>
+            <a target="_blank" routerLink="/about/cookies" translate>Read More</a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 margin-xs-top-15">
+            <button (click)="accept()" type="button" class="btn btn-md btn-danger" data-dismiss="alert" [attr.aria-label]="'Close'|translate">
+                <i class="fa fa-check"></i>
+                <span translate>I accept</span>
+            </button>
+        </div>
+    </div>
+
+</div>

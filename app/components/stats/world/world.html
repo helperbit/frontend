@@ -1,0 +1,73 @@
+<div class="stats">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 details" *ngIf="stats">
+			<h1 class="margin-top-10" style="font-size: 200%;">{{selectedCountryName}}</h1>
+			<h2>
+				<span translate>users</span> <span class="value">{{stats[selectedCountry].users}}</span></h2>
+			<h2 style="float: right">online <span class="value">{{stats[selectedCountry].onlineusers}}</span></h2>
+			<br>
+			<h2 translate>top five nations</h2>
+			<br>
+			<h3>{{'name'|money}}
+				<span translate>Donated To</span>
+			</h3>
+			<p *ngFor="let c of stats[selectedCountry].topfivedonated">
+				{{c.country|country}} <span class="value">{{c.volume|money:'short':true}}</span>
+			</p>
+			<br>
+			<h3>{{'name'|money}}
+				<span translate>Received From</span>
+			</h3>
+			<p *ngFor="let c of stats[selectedCountry].topfivereceived">
+				<a [routerLink]="'/event/list?country='+c.country">{{c.country|country}}</a>
+				<span class="value">{{c.volume|money:'short':true}}</span>
+			</p>
+			<hr>
+			<p>
+				<span translate>Donated</span> <span
+					class="value">{{stats[selectedCountry].donated|money:'short'}}</span></p>
+			<mv-slider class="red" [value]="stats[selectedCountry].donated" [max]="stats['WRL'].donated" [step]="0.001"
+				[enabled]="false" readonly></mv-slider>
+			<p>
+				<span translate>Number of Donations</span> <span
+					class="value">{{stats[selectedCountry].donateddonations}}</span></p>
+			<mv-slider class="red" [value]="stats[selectedCountry].donateddonations"
+				[max]="stats['WRL'].donateddonations" [step]="1" [enabled]="false" readonly></mv-slider>
+
+			<span *ngIf="selectedCountry!='WRL'">
+				<p>
+					<span translate>Received</span> <span
+						class="value">{{stats[selectedCountry].received|money:'short'}}</span></p>
+				<mv-slider [value]="stats[selectedCountry].received" [max]="stats['WRL'].donated" [step]="0.001"
+					[enabled]="false" readonly></mv-slider>
+				<p>
+					<span translate>Received donations</span> <span
+						class="value">{{stats[selectedCountry].receiveddonations}}</span></p>
+				<mv-slider [value]="stats[selectedCountry].receiveddonations" [max]="stats['WRL'].donateddonations"
+					step="1" [enabled]="false" readonly></mv-slider>
+			</span>
+			<!--<p><span translate>Events</span> <span class="value">{{stats[selectedCountry].events}}</span></p>-->
+		</div>
+		<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 hidden-xs map">
+			<div class="stats-header">
+				<a href="javascript:void(0)" class="donated" (click)="switchChart ('donated')"
+					[ngClass]="{active: activeChart=='donated'}" translate>Donated</a>
+				<a href="javascript:void(0)" class="received" (click)="switchChart ('received')"
+					[ngClass]="{active: activeChart=='received'}" translate>Received</a>
+			</div>
+
+			<div leaflet [leafletOptions]="options" [(leafletLayers)]="layers" (leafletMapReady)="onMapReady($event)"
+				[style.height]="'100%'" [style.width]="'100%'" (leafletClick)="onMapClick($event)">
+			</div>
+
+			<div class="stats-chart">
+				<chart [values]="chartConfig.values" [colors]="chartConfig.colors" [labels]="chartConfig.labels"
+					[type]="chartConfig.type" [options]="chartConfig.options">
+				</chart>
+			</div>
+			<mv-slider class="full red stats-slider" [range]="true" [tooltipType]="'always'" [tooltipPosition]="'top'"
+				(slideStop)="updateStats($event)" [value]="timeslice" [step]="2678" [min]="mintime" [max]="maxtime"
+				[formatter]="formatTimestamp"></mv-slider>
+		</div>
+	</div>
+</div>

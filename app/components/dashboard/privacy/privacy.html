@@ -1,0 +1,30 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+
+    <div class="col-md-2 page-composable-col" style="top: 0px; position: sticky;">
+        <div class="page page-composable">
+            <sidebar-component></sidebar-component>
+        </div>
+    </div>
+
+    <div class="col-md-8 page-composable-col">
+        <div class="page page-composable" style="padding: 1.5em;">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="border-bottom border-yellow margin-top-0"> {{ title.main }} </h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <form [formGroup]="form">
+                        <formly-form [form]="form" [fields]="form.fields" [model]="form.model"></formly-form>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

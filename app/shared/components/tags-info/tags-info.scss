@@ -1,0 +1,28 @@
+$iconSize: 20px;
+
+:host {
+
+    .tags {
+    
+        padding: 5px 0px;
+        height: $iconSize;
+        box-sizing: unset;
+    
+        .img {
+            float: left;
+            width: $iconSize;
+            height: $iconSize;
+    
+            svg-icon {
+                margin: 2.5px;
+                width: calc(100% - 5px);
+                height: calc(100% - 5px);
+    
+                svg {
+                    fill: #000;
+                }
+            }
+        }
+    
+    }
+}

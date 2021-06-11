@@ -1,0 +1,95 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page page-tiny signup">
+
+	<!-- Social Login Failed Modal -->
+	<modal-inner [config]="modals.socialFailed">
+		<div align="center">
+			<i class="fa fa-times-circle text-color-red" style="font-size:700%;"></i>
+			<br>
+			<br>
+			<p class="font-size-percentage-90" translate>Cannot authenticate with your social account.</p>
+		</div>
+	</modal-inner>
+
+
+	<!-- Activation Modal -->
+	<modal-inner [config]="modals.activation">
+		<div align="center">
+			<i class="fa fa-check-circle text-color-green" style="font-size:700%;"></i>
+			<br>
+			<br>
+			<p class="font-size-percentage-90" translate>Your account is active.</p>
+		</div>
+	</modal-inner>
+
+	<!-- Resend Activation Modal -->
+	<modal-inner [config]="modals.activationResend">
+		<div align="center">
+			<i class="fa fa-envelope" style="font-size:700%;"></i>
+			<br>
+			<br>
+			<p class="font-size-percentage-90">
+				<span translate>We have sent a new activation url to your mail address.</span> <br>
+				<span translate>Sometimes the mail provider will move activation mail to the Spam folder, so please check also there.</span>
+			</p>
+		</div>
+	</modal-inner>
+	<div class="row">
+		<div class="col-xs-12">
+			<response-messages [message]="form.responseMessage" *ngIf="form.responseMessage.error != 'EL3'"></response-messages>
+			<div class="alert alert-danger" role="alert" *ngIf="form.responseMessage.error == 'EL3'">
+				<span translate>Your account is not active, check your email or</span> <a (click)="resendActivation()" href="javascript:void(0)"
+				 translate>resend</a>.
+			</div>
+		</div>
+	</div>
+
+    <form [formGroup]="form" (ngSubmit)="submit(form.model)">
+        <formly-form [form]="form" [fields]="form.fields" [model]="form.model"></formly-form>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <button type="submit"
+                    [disabled]="!form.valid"
+                    class="btn btn-default btn-xs-block"
+					translate>Login</button>
+			</div>
+        </div>
+		<div class="row margin-top-15">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-xs-center">
+				<a routerLink="/recovery" translate>Forgot your password?</a>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-xs-center">
+				<a routerLink="/signup" translate>Not registered yet?</a>
+			</div>
+		</div>
+    </form>
+
+	<hr>
+
+	<div class="row margin-top-15">
+		<!--<a href="javascript:void(0)" class="btn btn-social btn-xs-block btn-facebook btn-block" (click)="socialLogin('facebook')">
+				<i class="fa fa-facebook"></i>
+				<span translate>Login with Facebook</span>
+			</a>-->
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center social-button-group">
+			<a href="javascript:void(0)" class="btn btn-social btn-xs-block btn-twitter" (click)="socialLogin('twitter')">
+				<i class="fa fa-twitter"></i>
+				<span translate>Signup with Twitter</span>
+			</a>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center social-button-group">
+			<a href="javascript:void(0)" class="btn btn-social btn-xs-block btn-linkedin" (click)="socialLogin('linkedin')">
+				<i class="fa fa-linkedin"></i>
+				<span translate>Signup with Linkedin</span>
+			</a>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center social-button-group">
+			<a href="javascript:void(0)" class="btn btn-social btn-xs-block btn-google" (click)="socialLogin('google')">
+				<i class="fa fa-google"></i>
+				<span translate>Signup with Google</span>
+			</a>
+		</div>
+	</div>
+	
+</div>

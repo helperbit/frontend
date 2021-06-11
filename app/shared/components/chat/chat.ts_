@@ -1,0 +1,78 @@
+import * as $ from 'jquery';
+import { RealtimeService } from 'app/services/realtime';
+import { ResponseMessageConfig } from '../response-messages/response-messages';
+import { Component, OnInit, Input } from '@angular/core'
+
+@Component({
+	selector: 'chat',
+	templateUrl: 'chat.html',
+	styleUrls: ['chat.scss']
+})
+export class ChatComponent implements OnInit {
+	@Input() roomType: string;
+	@Input() roomId: string;
+
+	responseMessage: ResponseMessageConfig;
+	newmessage: string;
+	visible: boolean;
+	username: string;
+	messages: any[];
+	unread: number
+
+	constructor(private realtimeService: RealtimeService) {
+		this.responseMessage = {};
+		this.newmessage = '';
+		this.visible = true;
+		this.username = getLocalStorage().getItem('username');
+	}
+
+	changeVisibility() {
+		if (!this.visible)
+			this.unread = 0;
+
+		this.visible = !this.visible;
+	}
+
+	private send() {
+		if (this.newmessage.length === 0)
+			return;
+
+		const msg = this.newmessage;
+		this.messages.push([this.username, this.newmessage]);
+		this.newmessage = '';
+		$('.chat-history').animate({ scrollTop: $('.chat-history')[0].scrollHeight });
+
+		this.realtimeService.socket.emit('chat message', this.roomType + this.roomId, msg);
+	}
+
+	ngOnInit() {
+		setTimeout(() => {
+			const room = this.roomType + this.roomId;
+			this.realtimeService.socket.emit('auth', getLocalStorage().getItem('token'));
+
+			this.realtimeService.socket.on('chat message', (user, mroom, message) => {
+				if (room != mroom || user == this.username && this.messages.length > 0)
+					return;
+
+				this.messages.push([user, message]);
+
+				if (this.messages.length > 100)
+					this.messages = this.messages.slice(3);
+
+				if (!this.visible)
+					this.unread += 1;
+
+				$('.chat-history').animate({ scrollTop: $('.chat-history')[0].scrollHeight });
+			});
+
+			this.realtimeService.socket.emit('chat message', room, 'joined the chat');
+
+			$('#chatMessage').bind('keydown keypress', (event) => {
+				if (event.which === 13) {
+					this.send();
+					event.preventDefault();
+				}
+			});
+		}, 4000);
+	}
+}

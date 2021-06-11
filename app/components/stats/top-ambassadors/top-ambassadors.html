@@ -1,0 +1,120 @@
+<!-- <modal-inner [config]="modals.merchandaising">
+	<div class="padding-15">
+		<a routerLink="/i/ambassador" target="_blank">
+			<img [src]="'/media/banners/top-ambassadors/'+lang+'/'+lang+'_1024x163.png'" width="100%">
+		</a>
+		<div class="margin-top-15 text-center">
+			<a routerLink="/i/ambassador" target="_blank" class="btn btn-success btn-xs-block" translate>Learn More</a>
+		</div>
+	</div>
+</modal-inner> -->
+
+<div class="tools-page-template main-content display-flex display-flex-row height-percentage-100 width-percentage-100">
+	<options-sidebar [options]="table.filterOptions" [openSidebar]="true" [multipleSelection]="false"
+		(optionClick)="table.changeOption($event); table.updateData({ newHttpRequest: true })"></options-sidebar>
+
+	<div class="display-flex display-flex-column display-flex-grow-1 box-content">
+		<div class="top-content">
+			<div class="row padding-top-bottom-10 margin-right-left-0">
+				<div class="col-lg-4 col-md-4 col-sm-5 col-xs-6 search-box">
+					<input type="text" class="form-control" [placeholder]="'Search ambassador'|translate"
+						[(ngModel)]="table.textFilter" (change)="table.updateData()" />
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+					<div class="custom-select"
+						*ngIf="table.selectedVisualizationButton=='grid' && table.resultsVisible.length > 0">
+						<select class="form-control" [(ngModel)]="table.activeSort" (change)="table.updateData()">
+							<option value="" disabled>Sort by</option>
+							<optgroup label="Ascendent &#11015;">
+								<option *ngFor="let sort of table.sortOptionsAsc" [hidden]="!sort.show" [ngValue]="sort"
+									[selected]="table.activeSort.sort==sort.sort && table.activeSort.sortBy==sort.sortBy">
+									{{ sort.label | stranslate }} </option>
+							</optgroup>
+							<optgroup label="Descendent &#11014;">
+								<option *ngFor="let sort of table.sortOptionsDesc" [hidden]="!sort.show"
+									[ngValue]="sort"
+									[selected]="table.activeSort.sort==sort.sort && table.activeSort.sortBy==sort.sortBy">
+									{{ sort.label | stranslate }} </option>
+							</optgroup>
+						</select>
+						<div class="arrow"></div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-3 hidden-xs text-right">
+					<buttons-group *ngIf="table.resultsVisible.length > 0" [config]="table.visualizationButtons"
+						[(ngModel)]="table.selectedVisualizationButton">
+					</buttons-group>
+				</div>
+			</div>
+		</div>
+
+		<div class="display-flex display-flex-column display-flex-grow-1 data-content">
+			<div *ngIf="table.resultsVisible.length > 0 && table.selectedVisualizationButton == 'grid'"
+				class="data-content-grid row margin-lg-right-15 margin-md-right-15 margin-sm-right-0 margin-xs-right-0 margin-left-0"
+				id="visualizationGrid">
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 ambassador-box"
+					*ngFor="let ambassador of table.resultsVisible">
+					<img [imgAttrs]="{ 'username': ambassador.user }" [imgType]="'user'" class="avatar img-circle"
+						[imgSrc]="ambassador.user | media : 'avatar'">
+					<div class="info text-center text-uppercase padding-top-10">
+						<a [routerLink]="'/user/'+ambassador.user">{{ambassador.user}}</a>
+						<br> +{{ambassador.count}} <i class="fa fa-users"></i>
+					</div>
+				</div>
+				<div class="col-xs-12 hidden-lg hidden-md hidden-sm margin-bottom-10"
+					*ngIf="table.resultsVisible.length < table.pagination.items.length">
+					<button class="btn btn-default btn-block" (click)="table.updateData();" translate>Load More</button>
+				</div>
+			</div>
+
+			<table *ngIf="table.resultsVisible.length > 0 && table.selectedVisualizationButton == 'table'"
+				class="table table-striped table-responsive display-flex display-flex-column margin-bottom-0 margin-right-left-15 hidden-xs">
+				<thead class="separator">
+					<tr class="display-flex display-flex-row">
+						<th *ngFor="let k of table.columnsList" [ngStyle]="table.columns[k].style"
+							[ngClass]="table.columns[k].class">
+							{{table.columns[k].label}}
+							<span class="sort">
+								<i (click)="table.updateData({ sort: table.columns[k].sort.desc.value })"
+									*ngIf="table.columns[k].sort.asc.show()" class="fa fa-sort-asc"></i>
+								<i (click)="table.updateData({ sort: table.columns[k].sort.asc.value })"
+									*ngIf="table.columns[k].sort.desc.show()" class="fa fa-sort-desc"></i>
+								<i (click)="table.updateData({ sort: table.columns[k].sort.ascDesc.value })"
+									*ngIf="table.columns[k].sort.ascDesc.show()" class="fa fa-sort"></i>
+							</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody class="display-flex display-flex-column display-flex-grow-1" id="visualizationTable">
+					<tr class="display-flex display-flex-row" *ngFor="let ambassador of table.resultsVisible">
+						<td [ngStyle]="table.columns['user'].style" [ngClass]="table.columns['user'].class">
+							<a [routerLink]="'/user/'+ambassador.user">{{ambassador.user}}</a> </td>
+						<td [ngStyle]="table.columns['count'].style" [ngClass]="table.columns['count'].class">
+							{{ambassador.count}} </td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div *ngIf="table.resultsVisible.length == 0">
+				<h3 class="text-center" translate>No users found</h3>
+			</div>
+		</div>
+
+		<div class="pagination-content hidden-xs" *ngIf="table.resultsVisible.length > 0">
+			<div class="row padding-top-bottom-10 margin-right-left-0">
+				<div class="col-sm-6 col-xs-12 text-left">
+					<pagination [totalItems]="table.pagination.items.length"
+						[itemsPerPage]="table.pagination.resultPerPage" [maxSize]="table.pagination.maxPages"
+						[boundaryLinks]="true" [(ngModel)]="table.pagination.currentPage"
+						(change)="table.changePage($event);">
+					</pagination>
+				</div>
+				<div class="col-sm-6 col-xs-12 text-right text-xs-left">
+					<buttons-group [config]="table.pagination" [(ngModel)]="table.pagination.resultPerPage"
+						*ngIf="table.pagination.options.length > 1" (change)="table.limitResults($event)">
+					</buttons-group>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

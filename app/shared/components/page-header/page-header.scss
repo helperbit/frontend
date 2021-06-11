@@ -1,0 +1,100 @@
+@import '../../../sass/const.scss';
+
+$headerHeight: 4.8em;
+
+:host {
+
+	.header {
+		background-color: #fff;
+		height: $headerHeight;
+	
+		&:after {
+			content: '';
+			border: 1em solid transparent;
+			border-bottom-width: 2em;
+			border-top-color: #fff;
+			display: block;
+			margin: 0 auto;
+			width: 2em;
+		}
+
+		&.header-info {
+
+			@media (max-width: #{$breakpointXsMax}) {
+				height: #{$headerHeight * 2};
+			}
+		}
+	
+		// &.header-description {
+		// 	height: $headerHeight;
+		// }
+
+		.bar {
+			width: 75%;
+			margin: 0 auto;
+			height: $headerHeight;
+
+			@media (max-width: #{$breakpointSmMax}) {
+				width: 100%;
+			}
+
+			&.bar-info {
+
+				@media (max-width: #{$breakpointXsMax}) {
+					height: #{$headerHeight * 2};
+				}
+			}
+
+			// &.bar-description {
+			// 	height: $headerHeight;
+			// }
+	
+			.info {
+				float: left;
+				height: $headerHeight;
+				width: 25%;
+
+				@media (max-width: #{$breakpointXsMax}) {
+					width: 50%;
+				}
+			}
+	
+			.title {
+				font-family: "Gobold Regular";
+				padding-top: 0.35em;
+				color: $yellow;
+				text-align: center;
+				padding-bottom: 0px;
+				margin: 0px;
+				font-size: 1.5em;
+				line-height: 1.5em;
+				height: 1.5em;
+
+				@media (max-width: #{$breakpointXsMax}) {
+					font-size: 1.2em;
+					line-height: 1.8em;
+					height: 1.8em;
+				}
+			}
+	
+			.subtitle {
+				display: block;
+				font-size: 0.9em;
+				line-height: 0.9em;
+				padding: 0px;
+				margin: 0px;
+				padding-top: 0.3em;
+				text-align: center;
+				font-family: $regularFont;
+				line-height: 2em;
+				height: 2em;
+
+				@media (max-width: #{$breakpointXsMax}) {
+					font-size: 0.75em;
+					line-height: 2.15em;
+					height: 2.15em;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,237 @@
+@import '../../../sass/const.scss';
+
+$dropzoneBorderSize: 3px;
+$dropzonePadding: 50px;
+$thumbMargin: 5px;
+$imageHeight: 150px;
+$buttonMargin: 5px;
+$buttonHeight: 27.5px;
+
+$totalThumb: $thumbMargin + $imageHeight + $buttonMargin + $buttonHeight;
+
+$height: ($dropzoneBorderSize * 2 + $dropzonePadding * 2 + $totalThumb);
+$width: $height * 1.618;
+
+// SM
+
+$dropzonePadding-sm: 25px;
+$imageHeight-sm: 100px;
+
+$totalThumb-sm: $thumbMargin + $imageHeight-sm + $buttonMargin + $buttonHeight;
+
+$height-sm: ($dropzoneBorderSize * 2 + $dropzonePadding-sm * 2 + $totalThumb-sm);
+$width-sm: $height-sm * 1.618;
+
+// XS
+
+$dropzonePadding-xs: 10px;
+$imageHeight-xs: 75px;
+
+$totalThumb-xs: $thumbMargin + $imageHeight-xs + $buttonMargin + $buttonHeight;
+
+$height-xs: ($dropzoneBorderSize * 2 + $dropzonePadding-xs * 2 + $totalThumb-xs);
+$width-xs: $height-xs * 1.618;
+
+:host {
+
+	.dropzone {
+		border: $dropzoneBorderSize dashed #555;
+		border-radius: 5px;
+		background-color: $lightGray;
+		color: #555;
+		padding: $dropzonePadding;
+		text-align: center;
+		text-transform: uppercase;
+		font-family: Verdana, sans-serif;
+		transition: all linear 0.6s;
+		display: block;
+		height: $height;
+		width: $width;
+		margin: 0 auto;
+		position: relative;
+
+		@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+			height: auto;
+			min-height: $height-sm;
+			width: $width-sm;
+			padding: $dropzonePadding-sm;
+		}
+
+		@media screen and (max-width: #{$breakpointXxsMax}) {
+			height: auto;
+			min-height: $height-xs;
+			width: $width-xs;
+			padding: $dropzonePadding-xs;
+			display: table;
+
+			ng-if {
+				display: table-cell;
+				vertical-align: middle;
+			}
+		}
+
+		.thumb-area {
+			height: $totalThumb;
+			overflow-y: auto;
+		
+			@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+				height: auto;
+			}
+		
+			@media screen and (max-width: #{$breakpointXxsMax}) {
+				height: auto;
+				width: 50%;
+				margin: 0 auto;
+			}
+		}
+
+		.text-area {
+			height: 3 * $totalThumb / 4;
+
+			@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+				height: 3 * $totalThumb-sm / 4;
+			}
+		
+			@media screen and (max-width: #{$breakpointXxsMax}) {
+				height: 100%;
+			}
+
+			.title {
+				font-size: 1.5em;
+				display: block;
+
+				@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+					font-size: 1em;
+				}
+			
+				@media (max-width: #{$breakpointXxsMax}) {
+					display: none;
+				}
+			}
+
+			.description {
+				margin-top: 3em;
+				font-size: 0.75em;
+				display: block;
+
+				@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+					margin-top: 2em;
+					font-size: 0.65em;
+				}
+			
+				@media screen and (max-width: #{$breakpointXxsMax}) {
+					display: none;
+				}
+			}
+			
+		}
+
+		.choose-file-button {
+			height: $totalThumb / 4;
+			margin-top: 32.8125px;
+		}
+
+		.choose-file-button-tiny {
+			position: absolute;
+			top: 15px;
+			left: 15px;
+
+			@media screen and (max-width: #{$breakpointXsMax}) {
+				top: 7.5px;
+				left: 7.5px;
+			}
+
+			label {
+				width: 40px !important;
+				height: 40px !important;
+			}
+		}
+
+		.thumb {
+			margin: $thumbMargin $thumbMargin auto;
+			display: inline-block;
+		
+			img, i.fa, .img {
+				width: $imageHeight;
+				height: $imageHeight;
+				border: 2px solid #555;
+				border-radius: 10px;
+
+				@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+					height: $imageHeight-sm;
+					width: $imageHeight-sm;
+				}
+
+				@media screen and (max-width: #{$breakpointXxsMax}) {
+					height: $imageHeight-xs;
+					width: $imageHeight-xs;
+				}
+			}
+
+			.img {
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
+			
+			i.fa {
+				// padding-top: 14.25%;
+				font-size: 600%;
+				line-height: 142.5%;
+
+				@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+					font-size: 425%;
+				}
+
+				@media screen and (max-width: #{$breakpointXxsMax}) {
+					font-size: 300%;
+				}
+			}
+		
+			button {
+				margin-top: $buttonMargin;
+				text-transform: uppercase;
+				font-size: 0.6em;
+			}
+		
+			p {
+				font-size: 0.2em;
+				word-wrap: break-word;
+			}
+		}
+
+		input[type=file] {
+			width: 0.1px;
+			height: 0.1px;
+			opacity: 0;
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+		}
+
+		input[type=file] + label {
+			font-size: 1em;
+			font-weight: 700;
+			color: white;
+			background-color: $yellow;
+			display: inline-block;
+			cursor: pointer;
+			padding: 10px;
+			border-radius: 10px;
+			transition: background linear 0.3s;
+		}
+
+		input[type=file]:focus + label, input[type=file] + label:hover {
+			background-color: $red;
+		}
+
+		input[type=file]:focus + label {
+			outline: 1px dotted #000;
+			outline: -webkit-focus-ring-color auto 5px;
+		}
+
+		&.dropzone-hover {
+			opacity: 0.6 !important;
+		}
+	}
+}

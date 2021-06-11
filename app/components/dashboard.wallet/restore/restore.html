@@ -1,0 +1,56 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page-modalized">
+	<div class="modal-content">
+		<aw-wizard class="modal-body">
+			<!-- Passphrase generator -->
+			<aw-wizard-step [stepTitle]="'restore'|translate">
+				<h1 class="text-center text-uppercase">{{ 'Restore your funds' | translate }}</h1>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<response-messages [message]="responseMessage"></response-messages>
+					</div>
+				</div>
+
+				<p translate>If you lose your passphrase, you can restore your funds by uploading the backup file and sending the funds to another address.</p>
+
+				<span translate>Destination address</span>:
+				<br>
+				<input type="text" class="form-control" [(ngModel)]="model.destination" />
+				<br>
+
+				<wallet-sign [config]="signConfig"></wallet-sign>
+				<br>
+
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+						<button (click)="submit()" [disabled]="loading" class="btn btn-xs-block btn-default" translate>Send</button>
+					</div>
+				</div>
+			</aw-wizard-step>
+
+			<!-- Done -->
+			<aw-wizard-step [stepTitle]="'Done'|translate">
+				<h1 class="text-center text-uppercase">{{ 'Done' | translate }}</h1>
+
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+						<img src="/media/completed-green.png">
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+						<p>
+							<span translate>Restore transaction sent</span>: <a [href]="txid|explorer" target="_blank">View transaction</a>
+							<input type="text" class="form-control" [value]="txid" />
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-top-15 text-center">
+						<a routerLink="/me/wallet" class="btn btn-danger btn-xs-block" translate>Close</a>
+					</div>
+				</div>
+			</aw-wizard-step>
+		</aw-wizard>
+	</div>
+</div>

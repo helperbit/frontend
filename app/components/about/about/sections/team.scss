@@ -1,0 +1,35 @@
+@import "~app/sass/const.scss";
+
+:host {
+  img {
+    box-shadow: 0px 0px 5px #fff;
+
+    // &:hover {
+    // 	box-shadow: 0px 0px 5px #fff;
+    // }
+  }
+
+  .us-single-desc {
+    h1 {
+      font-size: 120%;
+      color: #fff;
+    }
+
+    h2 {
+      font-size: 100%;
+      margin-top: 8px;
+      margin-bottom: 1px;
+      font-family: $regularFont;
+      color: #fff;
+    }
+
+    a {
+      font-size: 140%;
+      color: #fff;
+
+      &:hover {
+        color: $yellow;
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@import '../../../sass/const.scss';
+
+:host {
+
+	// formly-field > ng-form.formly:first-child {
+	// 	padding-top:0px;
+	// }
+
+	.login p > a {
+		color: $yellow;
+	
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	.social-button-group {
+		margin: 10px 0px;
+		
+		.btn-social {			
+			@media screen and (min-width: $breakpointLgMin) {
+				width: 100%;
+			}
+			
+			@media screen and (min-width: $breakpointMdMin) and (max-width: $breakpointMdMax) {
+				width: 50%;
+			}
+			
+			@media screen and (min-width: $breakpointSmMin) and (max-width: $breakpointSmMax) {
+				width: 50%;
+			}
+	
+			@media screen and (max-width: $breakpointXsMax) {
+				width: 100%;
+			}
+		}
+	}
+
+}

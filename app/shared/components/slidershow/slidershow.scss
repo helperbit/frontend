@@ -1,0 +1,114 @@
+@import '../../../sass/extends.scss';
+
+:host {
+	
+	/* Position the image container (needed to position the left and right arrows) */
+	.sliderContainer {
+		position: relative;
+		width: 100%;
+	
+		/* Hide the images by default */
+		.mySlides {
+			display: none;
+			height: 250px;
+			// background-repeat: no-repeat;
+			// background-position: center center;
+			// background-size: contain;
+			cursor: pointer;
+
+			&.active {
+				display: block;
+			}
+
+			img {
+				display: block;
+				margin: 0 auto;
+				max-height: 100%;
+				max-width: 100%;
+			}
+		
+			/* Number text (1/3 etc) */
+			.numbertext {
+				color: #000;
+				background-color: #f2f2f2;
+				font-size: 10px;
+				padding: 3px 8px;
+				position: absolute;
+				top: 0;
+			}
+		}
+		
+		/* Next & previous buttons */
+		.prev, .next {
+			cursor: pointer;
+			position: absolute;
+			top: 40%;
+			width: auto;
+			padding: 15px;
+			margin-top: -50px;
+			color: rgba(0, 0, 0, 0.4);
+			font-weight: bold;
+			font-size: 20px;
+			line-height: 20px;
+			border-radius: 0 3px 3px 0;
+			user-select: none;
+			-webkit-user-select: none;
+			visibility: hidden;
+		
+			/* On hover, add a black background color with a little bit see-through */
+			&:hover {
+				color: #f2f2f2;
+				background-color: rgba(0, 0, 0, 0.8);
+				text-decoration: none;
+			}
+		}
+
+		&:hover {
+
+			.prev, .next {
+				visibility: visible;
+			}
+		}
+		
+		/* Position the "next button" to the right */
+		.next {
+			right: 0;
+			border-radius: 3px 0 0 3px;
+		}
+		
+		/* Container for image text */
+		.caption-container {
+			text-align: center;
+			background-color: #222;
+			padding: 10px 15px;
+			color: white;
+		}
+
+		.thumbsContainer {
+			margin-top: 10px;
+			border-top: 3px solid #f2f2f2;
+
+			&:after {
+				content: "";
+				display: table;
+				clear: both;
+			}
+		
+			/* Six columns side by side */
+			.column {
+				@extend %clickable-opacity-inverse;
+
+				float: left;
+				height: 75px;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: cover;
+
+				&.active {
+					opacity: 1;
+				}
+			}
+		}
+		
+	}
+}

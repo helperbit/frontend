@@ -1,0 +1,86 @@
+import * as $ from 'jquery';
+import { PageHeaderConfig } from '../../../shared/components/page-header/page-header';
+import { ResponseMessageConfig } from '../../../shared/components/response-messages/response-messages';
+import { DashboardService } from '../../../models/dashboard';
+import { TranslateService } from '@ngx-translate/core';
+import { ModalsConfig } from '../../../shared/components/modal/oldModal/modal';
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+	selector: 'me-admin-component',
+	templateUrl: 'admin.html',
+})
+export class MeAdminComponent implements OnInit {
+	pageHeader: PageHeaderConfig;
+	modals: ModalsConfig;
+	responseMessage: ResponseMessageConfig;
+	admins: string[];
+	admin: { text: string };
+	error: string;
+
+	constructor(
+		private dashboardService: DashboardService, 
+		translate: TranslateService
+	) {
+		this.responseMessage = null;
+		this.pageHeader = {
+			description: {
+				title: translate.instant('administrators'),
+				subTitle: translate.instant('Manage non-profit administrators')
+			}
+		};
+
+		this.modals = {
+			admin: {
+				id: 'modalAdminAdd',
+				modalClass: 'modal-md',
+				hideCloseButton: true,
+				title: translate.instant('Admin add')
+			}
+		};
+
+		this.admin = { text: '' };
+		this.admins = [];
+	}
+
+	update() {
+		this.dashboardService.getAdminList().subscribe(admins => {
+			this.admins = admins;
+		});
+	}
+
+
+	addAdmin() {
+		if (this.admin.text == '')
+			return;
+
+		if (this.admins.indexOf(this.admin.text) != -1) {
+			this.error = 'XD';
+			return;
+		}
+		this.dashboardService.addAdmin(this.admin.text).subscribe(_ => {
+			this.admins.push(this.admin.text);
+			this.admin.text = '';
+			this.error = '';
+			$('#modalAdminAdd').modal('show');
+		}, (res) => {
+			this.error = res.error.error;
+		});
+	}
+
+	removeAdmin(adm) {
+		const index = this.admins.indexOf(adm);
+
+		if (index != -1) {
+			this.dashboardService.removeAdmin(adm).subscribe(_ => {
+				this.admins.splice(index, 1);
+			}, (res) => {
+				this.error = res.error.error;
+			});
+		}
+	}
+
+	ngOnInit() {
+		this.update();
+	}
+}

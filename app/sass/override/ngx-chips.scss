@@ -1,0 +1,62 @@
+tag-input {
+
+	//TODO
+	.host {
+		margin-bottom: 0px !important;
+		margin-top: 0px !important;
+	}
+
+	//TODO
+	.autocomplete .suggestion-item.selected {
+		background-color: $yellow !important;
+	}
+
+	tag {
+		background: $yellow !important;
+		height: 37px !important;
+
+		&:focus {
+			-webkit-box-shadow: none !important;
+			-moz-box-shadow: none !important;
+			box-shadow: none !important;
+			border: 1px solid $yellow;
+		}
+
+		& > div {
+			padding: 2.5px;
+		}
+
+		.tag-wrapper {
+			border: none !important;
+			// line-height: 26px !important;
+			color: #fff !important;
+			font-weight: bold;
+		
+			delete-icon {
+
+				span {
+
+					svg {
+
+						path {
+							fill: #fff;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//TODO
+	&.ng-invalid .tags {
+		-webkit-box-shadow: none !important;
+		-moz-box-shadow: none !important;
+		box-shadow: none !important;
+		border: 1px solid $red;
+	}
+
+}
+
+.ng2-dropdown-menu {
+	z-index: 9999 !important;
+}

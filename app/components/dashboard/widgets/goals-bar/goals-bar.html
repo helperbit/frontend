@@ -1,0 +1,36 @@
+<div class="goals-box"
+    *ngIf="config"
+    [ngStyle]="{ 'margin-top': !isTop ? '40px' : '140px', 'margin-bottom': !isBottom ? '40px' : '140px' }">
+    <div class="filling first">
+        <div [ngClass]="{ 'content': config.percentage > 0 }"></div>
+    </div>
+    <div #goalsBar class="goals-bar">
+        <div class="percentage-border">
+            <div class="percentage" [ngStyle]="{ 'width': config.percentage + '%' }"></div>
+            <div class="cursor" [ngStyle]="{ 'left': config.percentage + '%' }"
+                [tooltip]="config.cursorText || percentageIncrement">
+                <div class="line"></div>
+                <div class="count">
+                    {{percentageIncrement}}
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let goal of config.goals; let i = index;" class="box-goal"
+            [ngStyle]="styleGoal(i)"
+            [ngClass]="{ 'bottom': goal.position == 'bottom', 'top': goal.position == 'top', 'unlock': goal.unlock, 'terminated': !goal.available }"
+            [attr.data-index]="i">
+            <div class="box-line"> </div>
+            <div class="box-description" *ngIf="(goal.unlock || !goal.available) && goal.description"
+                [tooltip]="goal.description.tooltip.text"> {{ goal.description.text || 'got it' | translate }}
+            </div>
+            <div class="box-description" *ngIf="(goal.unlock || !goal.available) && !goal.description"> {{ 'got it' | translate }}</div>
+            <div class="box-circle" ng-class="{ 'cursor-pointer': (goal.href || goal.view) && goal.unlock }"
+                [tooltip]="goal.tooltip.text" (click)="goalClick(goal);">
+                <svg-icon [iconId]="goal.iconId" [iconSrc]="goal.src"> </svg-icon>
+            </div>
+        </div>
+    </div>
+    <div class="filling last">
+        <div [ngClass]="{ 'content': config.percentage == 100 }"></div>
+    </div>
+</div>

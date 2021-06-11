@@ -1,0 +1,7 @@
+<lightbox [images]="lightbox.images" [activeIndex]="0" (closed)="lightbox.show = false" [show]="lightbox.show"></lightbox>
+<span class="image" *ngIf="media.type == 'image'">
+	<img [alt]="media.alt" [src]="media.url | media" (click)="lightbox.show = true">
+</span>
+<a class="image pdf" *ngIf="media.type == 'pdf'" [href]="media.url|media" target="_blank">
+	<img [alt]="media.alt" src="media/pdf.png">
+</a>

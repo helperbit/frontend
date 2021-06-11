@@ -1,0 +1,125 @@
+<div class="row charity-header">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h2 class="text-center margin-top-15 margin-bottom-0 padding-right-left-15" translate>Lightning Charity</h2>
+		<p class="text-center margin-top-15 margin-bottom-15 padding-right-left-15" translate>Donate to your favourite charitable project via lightning network, when the round finishes the non profit that has raised more satoshi collects all the donations</p>
+	</div>
+</div>
+
+<div class="row charity-content">
+
+	<div class="prev-round" ng-click="$ctrl.changeRound(1)" ng-class="{ 'not-available': $ctrl.activeRoundIndex == $ctrl.rounds.length-1 }">
+		<i class="fa fa-chevron-left"></i>
+	</div>
+
+	<div class="main-box">
+		<div class="box"> <info-box [config]="$ctrl.infoBox"></info-box> </div>
+		<div class="padding-top-15" ng-class="{ 'active-round': $ctrl.currentRound.status == 'running', 'expired-round': $ctrl.currentRound.status == 'concluded' }">
+
+			<div class="informations padding-15 margin-lg-right-15 margin-md-right-15 margin-sm-bottom-15 margin-xs-bottom-15" ng-show="$ctrl.currentRound.status == 'running'">
+
+				<div class="round-status hidden-xs">
+					<div> <span translate>No fee!</span> <i class="fa fa-flash"></i></div>
+				</div>
+
+				<countdown class="margin-lg-top-50 margin-md-top-50 margin-sm-top-50" [config]="$ctrl.countdownConfig" (expired)="$ctrl.currentRoundExpired()"></countdown>
+
+				<h2 class="text-center round-volume margin-lg-top-50 margin-md-top-50 margin-sm-top-50 margin-xs-top-25 margin-bottom-15"> <span translate>Raised volume</span> <span class="volume">{{$ctrl.currentRound.value | currency:'msat':'sat':true:true}}</span></h2>
+					
+				<h3 class="text-center round-target margin-top-0 margin-bottom-30"> <span translate>Target</span> <span class="volume">{{$ctrl.currentRound.target | currency:'btc':'sat':true:true}}</span></h3>
+
+				<div class="donation-form">
+					<h3 class="text-center text-uppercase margin-top-0 margin-bottom-15" translate>Make a donation without fee!</h3>
+
+					<div class="project-button text-center">
+						<p ng-if="!$ctrl.selectedProject.id" class="text-italic" translate>No project selected</p>
+						<p ng-if="$ctrl.selectedProject.id"> <span translate>Project selected:</span> <b>{{ $ctrl.selectedProject.title | stranslate }}</b> </p>
+						<button class="btn btn-default btn-xs-block" ng-click="$ctrl.chooseProject()" translate>Choose a Project</button>
+					</div>
+
+					<lightning-invoice config="$ctrl.lightningConfig" on-success="$ctrl.paymentSuccess()"></lightning-invoice>
+				</div>
+
+			</div>
+			
+			<div class="informations margin-lg-right-15 margin-md-right-15 margin-sm-bottom-15 margin-xs-bottom-15" ng-show="$ctrl.currentRound.status == 'concluded'">
+
+				<div class="round-status">
+					<div translate>Closed Round</div>
+				</div>
+
+				<div class="coverflow" ng-style="{ 'background-image': 'url(' + ($ctrl.currentRound.winner.project.media[0] | media) + ')'}">
+					<div class="owner" ng-style="{ 'background-image': 'url(' + ($ctrl.currentRound.winner.project.owner.avatar | media) + ')'}"></div>
+				</div>
+				<div class="padding-15">
+					<a routerLink="/project/{{$ctrl.currentRound.winner.project._id}}" target="_blank">
+						<h1 class="margin-bottom-15 margin-top-0 text-center">{{$ctrl.currentRound.winner.project.title | stranslate}}</h1>
+					</a>
+					<h2 class="text-center round-volume margin-top-15 margin-bottom-30"> <span translate>Raised volume</span> <span class="volume">{{$ctrl.currentRound.value | currency:'msat':'sat':true:true}}</span></h2>
+					<p class="date">
+						<span translate>Start</span> <span>{{$ctrl.currentRound.start | date}}</span> - <span translate>End</span> <span>{{$ctrl.currentRound.expiration | date}}</span> <br>
+					</p>
+					<div class="text-center donation-link">
+						<!-- <button class="btn btn-default">Check donation</button> -->
+						<h4 class="margin-top-30 margin-bottom-15" translate>Transaction Link</h4>
+						<a routerLink="/donation/{{$ctrl.currentRound.winner.donation}}" target="_blank">{{$ctrl.currentRound.winner.donation}}</a>
+						<!-- <external-link ng-if="$ctrl.currentRound.winner.donation" [url]="$ctrl.currentRound.winner.donation|explorer" [text]="$ctrl.currentRound.winner.donation"></external-link> -->
+						<p ng-if="!$ctrl.currentRound.winner.donation" class="text-italic" translate>Not available yet</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="sidebar">
+				<div class="ranking">
+					<div class="text-center padding-15" ng-if="$ctrl.currentRound.results.length == 0" translate>No lightning donations yet</div>
+					<table class="table table-responsive table-striped margin-bottom-15" ng-if="$ctrl.currentRound.results.length > 0">
+						<thead class="separator">
+							<tr>
+								<th translate>Project</th>
+								<th class="text-center" translate>Volume</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="donation in $ctrl.currentRound.results">
+								<td>
+									<div class="text-ellipsis">
+										<a routerLink="/project/{{donation.project._id}}" target="_blank">{{donation.project.title | stranslate}}</a>
+									</div>
+								</td>
+								<td class="text-center">{{donation.value | currency:'msat':'sat':true:true}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="other-info">
+					<div class="wallets-info">
+						<h3 class="text-center text-color-white margin-top-0" translate>Need a wallet?</h3>
+						<ul class="padding-left-0 margin-bottom-0">
+							<li class="text-center" ng-repeat="wallet in $ctrl.wallets"> <external-link [url]="wallet.url" [text]="wallet.text"></external-link> </li>
+						</ul>
+					</div>
+					<div class="node-info text-center padding-top-30">
+						<h3 class="text-center text-color-white margin-top-0" translate>Connect to our node!</h3>
+						<button class="lightning-node-button" tooltip tooltip-content="{{ 'Click to copy' | translate }}" copy-to-clipboard="{{$ctrl.lightningNode.id}}"> <i class="fa fa-flash"></i> {{$ctrl.lightningNode.id | limitTo:18 }}...</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="next-round" ng-click="$ctrl.changeRound(-1)" ng-class="{ 'not-available': $ctrl.activeRoundIndex == 0 }">
+		<i class="fa fa-chevron-right"></i>
+	</div>
+
+</div>
+
+
+<!-- <div class="row charity-footer padding-15">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 wallets">
+		a, b , c
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 node text-right">
+		dsjes327rhx9hbtfwehry394fjy64dfo658o4
+	</div>
+</div> -->

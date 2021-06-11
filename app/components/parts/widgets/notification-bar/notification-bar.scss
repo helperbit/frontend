@@ -1,0 +1,165 @@
+@import "~app/sass/const.scss";
+
+:host {
+	.unread-notify {
+		position: absolute;
+		top: -0.3em;
+		right: -0.3em;
+		background-color: #fff;
+		border-radius: 1.2em;
+		height: 1.2em;
+		padding-left: 3px;
+		padding-right: 3px;
+		color: #333;
+
+		span {
+			font-family: $boldFont;
+			position: relative;
+			top: -0.35em;
+			left: 0.07em;
+		}
+	}
+
+	li {
+		&.divider {
+			height: 1px;
+			margin: 5px 0;
+			overflow: hidden;
+			background-color: #ffc265;
+		}
+
+		> a {
+			font-size: 90%;
+			display: block;
+			padding: 5px 15px;
+			clear: both;
+			font-weight: normal;
+			color: #fff;
+			white-space: nowrap;
+			text-transform: uppercase;
+			font-family: $extraBoldFont;
+			letter-spacing: 0.05em;
+			&:hover,
+			&:focus {
+				color: #fff;
+				text-decoration: none;
+				background-color: #eda626;
+			}
+		}
+	}
+
+	.icon-white {
+		color: $yellow;
+
+		.icon-background {
+			color: #fff;
+		}
+
+		&:not(.icon-nohover):hover > .icon-background {
+			color: $yellow;
+		}
+	}
+
+	.dropdown-notify {
+		min-width: 20em;
+		background-color: #fafafa !important;
+
+		height: 15em;
+		overflow-y: auto;
+	}
+
+	.dropdown-header {
+		color: #999;
+		height: 5em;
+		padding-top: 1em;
+		font-family: $regularFont;
+		font-size: 110%;
+
+		.fa {
+			font-size: 700%;
+		}
+	}
+
+	.notification-link {
+		height: $headerHeight;
+		color: #fff !important;
+		text-transform: uppercase;
+		font-family: $extraBoldFont;
+		font-size: 90%;
+		letter-spacing: 0.05em;
+
+		@media only screen and (max-width: #{$breakpointXsMax}) {
+			height: auto;
+		}
+
+		&:hover,
+		&:focus {
+			color: #fff !important;
+			text-decoration: none;
+			background-color: #eda626;
+		}
+	}
+
+	.notify {
+		font-family: $regularFont;
+		border-bottom: 1px solid #aaa;
+		background-color: #fafafa;
+		min-height: 5em;
+
+		&:hover {
+			background-color: #eaeaea;
+		}
+
+		&.notify-unread {
+			background-color: #eaeaea;
+
+			&:hover {
+				background-color: #fafafa;
+			}
+
+			.icon {
+				.icon-background {
+					color: $red;
+				}
+
+				&:hover > .icon-background {
+					color: $red !important;
+				}
+			}
+		}
+
+		.row {
+			margin-left: 0px;
+			margin-right: 0px;
+
+			> .col-md-2 {
+				span {
+					margin-top: 15px;
+
+					&.icon {
+						color: #fff;
+					}
+				}
+			}
+
+			> .col-md-10 {
+				> a {
+					color: #333;
+
+					&:hover {
+						color: #333;
+						text-decoration: none;
+					}
+
+					> p {
+						padding-top: 10px;
+						padding-bottom: 10px;
+						padding-left: 10px;
+						padding-right: 7px;
+						word-break: break-word;
+					}
+				}
+			}
+		}
+	}
+}

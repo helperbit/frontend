@@ -1,0 +1,11 @@
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" translate>Operating Countries</h4>
+</div>
+
+<div class="modal-body">
+	<countries-map [countries]="countries" [width]="'100%'" [height]="'22em'" [customOptions]="customOptions">
+	</countries-map>
+</div>

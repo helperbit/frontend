@@ -1,0 +1,66 @@
+@import "../../../sass/const.scss";
+
+$deselectedColor: $mediumBlack;
+$deselectedBackgroundColor: $lightGray;
+$selectedColor: $mediumBlack;
+$selectedBackgroundColor: $yellow;
+$tagSize: 2.5em;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .tags-buttons-container {
+    .tag {
+      border: 0px;
+      border-radius: 5px;
+      margin: 2.5px;
+      float: left;
+      transition: all linear 0.3s;
+      background-color: $deselectedBackgroundColor;
+      line-height: $tagSize;
+
+      &.active,
+      &:hover {
+        background-color: $selectedBackgroundColor;
+        opacity: 1;
+        cursor: pointer;
+
+        .image {
+          svg {
+            fill: $selectedColor;
+          }
+        }
+
+        .text {
+          color: $selectedColor;
+        }
+      }
+
+      .image {
+        float: left;
+        height: $tagSize;
+        width: $tagSize;
+
+        svg {
+          fill: $deselectedColor;
+        }
+      }
+    }
+
+    .tag-disabled {
+      cursor: not-allowed !important;
+      opacity: 0.85;
+      background-color: $darkGray;
+
+      &:hover {
+        background-color: $darkGray !important;
+      }
+
+      &.active:hover {
+        background-color: $selectedBackgroundColor !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+@import "../../../sass/const.scss";
+@import "../../../sass/extends.scss";
+@import "../../../sass/animation.scss";
+
+:host {
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(51, 51, 51, 0.5) !important;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    margin-bottom: 2em;
+	overflow-x: auto;
+	
+	.hidden {
+		display: none;
+		margin-bottom: 0;
+		padding: 0;
+	}
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+	  flex-grow: 11;
+	  
+      .steps-container {
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 15px;
+        min-width: 768px;
+
+        .step {
+          display: flex;
+          flex-direction: column;
+          flex-basis: 0;
+          flex-grow: 1;
+          margin: 0 15px 0 15px;
+          justify-content: center;
+          align-items: center;
+
+          .ball {
+            @extend %clickable-opacity;
+
+            display: flex;
+            flex-direction: column;
+            border-radius: 50%;
+            box-shadow: 4px 0 13px rgba(51, 51, 51, 0.5);
+            background-color: #fff;
+            width: 75px;
+            height: 75px;
+            align-items: center;
+            justify-content: center;
+
+            &.not-available {
+              background-color: $disable-color;
+            }
+
+            &.inprogress {
+              background-color: $yellow;
+            }
+
+            &.completed {
+              background-color: $green;
+            }
+
+            svg-icon {
+              fill: #fff;
+              text-align: center;
+
+              ::ng-deep svg {
+                width: 75%;
+              }
+            }
+          }
+
+          .title {
+            padding-top: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: $boldFont;
+            font-size: 13px;
+            margin: 0;
+          }
+        }
+      }
+
+      .descriptions-container {
+        // @extend %animation-height-expand;
+
+        display: flex;
+        flex-direction: row;
+        background-color: #fff;
+        min-width: 768px;
+
+        .description {
+          display: flex;
+          flex-basis: 0;
+          flex-grow: 1;
+          margin: 0 15px 0 15px;
+		  justify-content: center;
+		  text-transform: capitalize;
+        }
+      }
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      min-width: 100px;
+
+      .more-button {
+        @extend %clickable-opacity;
+
+        display: flex;
+        height: 100px;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          &.up {
+            animation: rotate-180 0.3s;
+            animation-fill-mode: forwards;
+          }
+
+          &.down {
+            animation: rotate-180-reverse 0.3s;
+            animation-fill-mode: forwards;
+          }
+        }
+      }
+    }
+  }
+}

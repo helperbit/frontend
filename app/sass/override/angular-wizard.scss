@@ -1,0 +1,228 @@
+.angular-wizard-heading-title {
+	margin-bottom: 10px;
+	color: #000;
+
+	@media screen and (max-width: #{$breakpointSmMax}) {
+		font-size: 0.9em;
+	}
+}
+
+// .steps-indicator {
+// 	height: 50px !important;
+
+// 	&:before {
+// 		background-color: $darkGray !important;
+// 		display: none;
+// 	}
+
+// 	//this part removes the little lines at the beginning and ending of circle steps line
+// 	&.steps-2:before {
+// 		left: calc(100% / 2 / 2 + 14px) !important;
+// 		right: calc(100% / 2 / 2 + 14px) !important;
+// 	}
+// 	&.steps-3:before {
+// 		left: calc(100% / 3 / 2 + 14px) !important;
+// 		right: calc(100% / 3 / 2 + 14px) !important;
+// 	}
+// 	&.steps-4:before {
+// 		left: calc(100% / 4 / 2 + 14px) !important;
+// 		right: calc(100% / 4 / 2 + 14px) !important;
+// 	}
+// 	&.steps-5:before {
+// 		left: calc(100% / 5 / 2 + 14px) !important;
+// 		right: calc(100% / 5 / 2 + 14px) !important;
+// 	}
+// 	&.steps-6:before {
+// 		left: calc(100% / 6 / 2 + 14px) !important;
+// 		right: calc(100% / 6 / 2 + 14px) !important;
+// 	}
+// 	&.steps-7:before {
+// 		left: calc(100% / 7 / 2 + 14px) !important;
+// 		right: calc(100% / 7 / 2 + 14px) !important;
+// 		}
+// 	&.steps-8:before {
+// 		left: calc(100% / 8 / 2 + 14px) !important;
+// 		right: calc(100% / 8 / 2 + 14px) !important;
+// 	}
+// 	&.steps-9:before {
+// 		left: calc(100% / 9 / 2 + 14px) !important;
+// 		right: calc(100% / 9 / 2 + 14px) !important;
+// 	}
+// 	&.steps-10:before {
+// 		left: calc(100% / 10 / 2 + 14px) !important;
+// 		right: calc(100% / 10 / 2 + 14px) !important;
+// 	}
+
+// 	li {
+// 		padding-top: 15px !important;
+
+// 		&:before {
+// 			background-color: $darkGray;
+// 			height: 1px;
+// 			width: 70%;
+// 			left: 65%;
+// 			top: 0;
+// 			position: absolute;
+// 			content: '';
+// 		}
+
+// 		&:last-child:before {
+// 			display: none
+// 		}
+
+// 		a {
+// 			color: $darkGray;
+			
+// 			&:before {
+// 				background-color: $darkGray !important;
+// 			}
+
+// 			&:hover {
+// 				color: darken($darkGray, 20%) !important;
+// 			};
+// 		}
+
+
+// 		&.default {
+
+// 			a {
+// 				&:hover {
+// 				  color: $darkGray !important;
+// 				}
+// 			}
+// 		}
+
+// 		&.current a:before {
+// 			background-color: $yellow !important;
+// 		}
+	
+// 		&.done a:before {
+// 			background-color: $green !important;
+// 		}
+	
+// 		&.editing a:before {
+// 			background-color: $red !important;
+// 		}
+
+// 	}
+// }
+
+.steps-indicator {
+	height: 50px !important;
+
+	&:before {
+		background-color: $darkGray !important;
+		display: none;
+	}
+
+	//this part removes the little lines at the beginning and ending of circle steps line
+	&.steps-2:before {
+		left: calc(100% / 2 / 2 + 14px) !important;
+		right: calc(100% / 2 / 2 + 14px) !important;
+	}
+	&.steps-3:before {
+		left: calc(100% / 3 / 2 + 14px) !important;
+		right: calc(100% / 3 / 2 + 14px) !important;
+	}
+	&.steps-4:before {
+		left: calc(100% / 4 / 2 + 14px) !important;
+		right: calc(100% / 4 / 2 + 14px) !important;
+	}
+	&.steps-5:before {
+		left: calc(100% / 5 / 2 + 14px) !important;
+		right: calc(100% / 5 / 2 + 14px) !important;
+	}
+	&.steps-6:before {
+		left: calc(100% / 6 / 2 + 14px) !important;
+		right: calc(100% / 6 / 2 + 14px) !important;
+	}
+	&.steps-7:before {
+		left: calc(100% / 7 / 2 + 14px) !important;
+		right: calc(100% / 7 / 2 + 14px) !important;
+		}
+	&.steps-8:before {
+		left: calc(100% / 8 / 2 + 14px) !important;
+		right: calc(100% / 8 / 2 + 14px) !important;
+	}
+	&.steps-9:before {
+		left: calc(100% / 9 / 2 + 14px) !important;
+		right: calc(100% / 9 / 2 + 14px) !important;
+	}
+	&.steps-10:before {
+		left: calc(100% / 10 / 2 + 14px) !important;
+		right: calc(100% / 10 / 2 + 14px) !important;
+	}
+
+	li {
+
+		&:before {
+			background-color: $darkGray !important;
+			// height: 1px;
+			width: 70% !important;
+			left: 65% !important;
+			// top: 0;
+			// position: absolute;
+			// content: '';
+		}
+
+		&:last-child:before {
+			display: none
+		}
+
+		a {
+			color: $darkGray;
+
+			&:before { display: none; }
+			
+			.step-indicator {
+				background-color: $darkGray !important;
+
+				&:hover {
+					color: darken($darkGray, 20%) !important;
+				};
+			}
+		}
+
+
+		&.default {
+
+			a {
+				&:hover {
+				  color: $darkGray !important;
+				}
+			}
+		}
+			
+		&.current .step-indicator {
+			background-color: $yellow !important;
+		}
+			
+		&.done .step-indicator {
+			background-color: $green !important;
+		}
+			
+		&.editing .step-indicator {
+			background-color: $red !important;
+		}
+
+	}
+}
+
+//LAST STEP WIZARD
+
+.completed-img {
+		
+	img {
+		height: 150px;
+		-webkit-animation: complete-img-scale 2s, rotate-360 2s;
+		animation: complete-img-scale 2s, rotate-360 2s;
+	}
+}
+
+.completed-text {
+
+	h4 {
+		-webkit-animation: fadein 2s;
+		animation: fadein 2s;	
+	}
+}

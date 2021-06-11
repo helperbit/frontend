@@ -1,0 +1,77 @@
+@import "~app/sass/const.scss";
+
+//FAQ
+:host {
+  .faq-section {
+    background-color: #fff;
+    padding: 1.5em 5em;
+    min-height: 100%;
+
+    @media screen and (max-width: #{$breakpointXsMax}) {
+      padding: 1.5em 10px;
+    }
+
+    .panel {
+      margin-bottom: 30px !important;
+
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+
+      a {
+        &,
+        &:hover {
+          text-decoration: none !important;
+        }
+
+        .panel-heading {
+          background-color: #eee;
+          color: #000;
+          overflow: auto;
+
+          &:hover {
+            background-color: $yellow !important;
+            opacity: 1 !important;
+          }
+
+          .panel-title {
+            float: left;
+            width: 100%;
+          }
+        }
+      }
+
+      .panel-collapse {
+        padding: 0px !important;
+
+        .panel-body {
+          border-top: 0;
+        }
+      }
+    }
+  }
+
+  //OTHER TODO - sistemare meglio
+
+  h1 {
+    font-family: "GoBold Regular";
+    color: #000;
+    font-size: 150%;
+  }
+
+  h2 {
+    font-family: $boldFont;
+    font-size: 150%;
+    color: #fff;
+  }
+
+  .title {
+    font-family: "GoBold Regular";
+    color: #000 !important;
+    font-size: 200%;
+  }
+
+  .title span {
+    // margin-left: -2px;
+  }
+}

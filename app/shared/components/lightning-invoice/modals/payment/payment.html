@@ -1,0 +1,57 @@
+<div class="invoice-content">
+
+	<div class="offline-node" *ngIf="!config.nodeOnline">
+		<div class="status-image text-color-warning">
+			<i class="fa fa-clock-o"></i>
+		</div>
+		<div class="status-description">
+			<h3 translate>Offline Node</h3>
+			<h5 translate>Our lightning server is unavailable at the moment, please try again later</h5>
+		</div>
+	</div>
+
+	<div class="online-node" *ngIf="config.nodeOnline">
+		<div class="spinner-box" *ngIf="!config.invoice.status">
+			<spinner [color]="'yellow'"></spinner>
+		</div>
+
+		<div class="status-unpaid" *ngIf="config.invoice.status == 'unpaid'">
+			<div class="invoice-values">
+				{{config.amountBTC | currency:'btc':'sat':true:true}} ({{config.amountBTC | currency:'btc':'btc':false:true}}) <br>
+			</div>
+			<div class="invoice-info">
+				<countdown [config]="countdownConfig" [destroy]="countdownConfig.destroy" (expired)="countdownExpired()"></countdown>
+
+				<div class="qrcode" *ngIf="config.invoice.payreq">
+					<qrcode [qrdata]="config.invoice.payreq" [size]="150"></qrcode>
+				</div>
+			</div>
+			<div class="payreq padding-top-15 text-ellipsis" tooltip tooltip-content="{{ 'Click to copy' | translate }}" copy-to-clipboard="{{config.invoice.payreq}}">
+				{{config.invoice.payreq}}
+			</div>
+		</div>
+
+		<div class="status-paid" *ngIf="config.invoice.status == 'paid'">
+			<div class="status-image text-color-green">
+				<i class="fa fa-check-circle-o"></i>
+			</div>
+			<div class="status-description">
+				<h3 translate>Payment sent!</h3>
+				<h5>{{config.invoice.metadata.type + ' ' + config.invoice.metadata.vote}}</h5>
+				<h4 class="margin-top-30" translate>Tell your friends about your donation!</h4>
+				<social-share [social-config]="socialShare.config" [social-style]="socialShare.style" [hideLink]="true"></social-share>
+			</div>
+		</div>
+
+		<div class="status-expired" *ngIf="config.invoice.status == 'expired'">
+			<div class="status-image text-color-warning">
+				<i class="fa fa-clock-o"></i>
+			</div>
+			<div class="status-description">
+				<h3 translate>Time expired!</h3>
+				<button class="btn btn-default" (click)="newRequestCode()" translate>Create new request code</button>
+			</div>
+		</div>
+	</div>
+
+</div>

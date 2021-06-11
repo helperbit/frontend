@@ -1,0 +1,9 @@
+<div class="row stats-bar" *ngIf="values">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 metric text-center" *ngFor="let v of values">
+        <div class="icon"><i class="fa {{v.icon}}"></i></div>
+        <div class="description">{{ v.text }}</div>
+        <div class="divisor"></div>
+        <div *ngIf="v.icon == 'fa-btc'" class="count"> {{ v.amount.start | money : 'short' : false | numberFormatter }} {{ null | money }} </div>
+        <div *ngIf="v.icon != 'fa-btc'" class="count"> {{ v.amount.start | number : '1.0-0' | numberFormatter }} </div>
+    </div>
+</div>

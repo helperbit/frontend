@@ -1,0 +1,16 @@
+:host {
+	display: block;
+
+	.arrow-up, .arrow-down {
+		position: absolute;
+		right: 10px;
+	}
+
+	.arrow-up {
+		top: 10px;
+	}
+
+	.arrow-down {
+		bottom: 10px;
+	}
+}

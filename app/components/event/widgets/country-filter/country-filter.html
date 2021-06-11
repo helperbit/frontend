@@ -1,0 +1,8 @@
+<div class="display-flex display-flex-grow-1">
+	<input type="text" class="form-control auto-complete-input" placeholder="{{'Search event by country'|translate}}"
+		[ngbTypeahead]="search" (selectItem)="do($event)" [(ngModel)]="countryFilter"
+		[resultFormatter]="formatter" [inputFormatter]="formatter" />
+</div>
+<div *ngIf="countryFilter">
+	<button class="btn btn-danger margin-left-15" (click)="do(null)"><i class="fa fa-times"></i></button>
+</div>

@@ -1,0 +1,8 @@
+<div leaflet
+    [leafletOptions]="options"
+    [(leafletLayers)]="layers"
+    (leafletMapReady)="onMapReady($event)"
+    [style.height]="height"
+    [style.width]="width"
+    [style.max-heigth]="height">
+</div>

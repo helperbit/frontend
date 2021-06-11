@@ -1,0 +1,10 @@
+:host {
+	.field-tooltip {
+		margin-right: 5px;
+		color: black;
+
+		&:focus, &:active {
+			color: black;
+		}
+	}
+}

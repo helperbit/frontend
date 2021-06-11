@@ -1,0 +1,19 @@
+<div class="chat-modal">
+    <div class="chat-head" ng-click="$ctrl.changeVisibility()">
+        {{$ctrl.roomType|translate}} {{'chat'|translate}} 
+        
+        <span ng-if="$ctrl.unread > 0" class="label label-danger">{{$ctrl.unread}}</span>
+
+        <i ng-show="$ctrl.visible" class="fa fa-angle-down"></i>
+        <i ng-show="!$ctrl.visible" class="fa fa-angle-up"></i>
+    </div>
+
+    <div class="chat-history" ng-show="$ctrl.visible == true">
+        <span ng-repeat="message in $ctrl.messages">
+            <b>{{message[0]}}</b>: {{message[1]}}<br>
+        </span>
+    </div>
+    
+    <input maxlength="512" size="512" id="chatMessage" ng-show="$ctrl.username" ng-show="$ctrl.visible == true" placeholder="{{'Type a message...'|translate}}" type="text" class="form-control" ng-model="$ctrl.newmessage" />
+    <input maxlength="512" size="512" ng-disabled="true" ng-show="!$ctrl.username" ng-show="$ctrl.visible == true" tooltip tooltip-content="{{'Sign-in to use this chat'|translate}}" placeholder="{{'Type a message...'|translate}}" type="text" class="form-control" ng-model="$ctrl.newmessage" />
+</div>

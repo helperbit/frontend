@@ -1,0 +1,38 @@
+<div class="modal-header">
+	<button type="button" class="close" (click)="activeModal.close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title" id="myModalLabel" translate>Feedback</h4>
+</div>
+<div class="modal-body text-color-black">
+	<aw-wizard>
+		<aw-wizard-step [stepTitle]="wizard.step0.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step0.responseMessage"></response-messages>
+				</div>
+			</div>
+		
+			<form [formGroup]="wizard.step0">
+				<formly-form [form]="wizard.step0" [fields]="wizard.step0.fields" [model]="wizard.step0.model">
+				</formly-form>
+				<div class="row margin-top-15">
+					<div
+						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-center text-md-center text-sm-center text-xs-center margin-xs-top-15">
+						<button (click)="submit(wizard.step0.model)" [disabled]="!wizard.step0.valid"
+							class="btn btn-default btn-xs-block" translate>Send feedback</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p translate>Your feedback has been sent.</p>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+</div>

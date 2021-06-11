@@ -1,0 +1,59 @@
+<a class="search-bar" role="button" aria-expanded="false" data-toggle="dropdown"
+	data-target="settingsMenu">
+	<div class="input-group">
+		<span class="input-group-addon"><i class="fa fa-search"></i></span>
+		<input (input)="search($event.target.value)" (focusout)="searchReset(true)" [(ngModel)]="searchQuery" 
+			id="search" type="text" autocomplete="off" class="form-control" name="search"
+			[placeholder]="'Search on Helperbit...'|translate">
+	</div>
+</a>
+<ul class="dropdown-menu dropdown-search open" role="menu" [style.display]="searchQuery.length >= MIN_QUERY_SIZE ? 'block' : 'none'">
+	<li class="dropdown-header" *ngIf="searchResults.length == 0">
+		<div class="text-center no-result">
+			<i class="fa fa-check"></i>
+			<br>
+			<br>
+			<span translate>No search results</span>
+			<br>
+		</div>
+	</li>
+	<li *ngFor="let s of searchResults" role="presentation" class="result" [ngSwitch]="s.type">
+		<div class="row" *ngSwitchCase="'user'" [routerLink]="'/user/' + s.id">
+			<div class="col-md-3" align="center">
+				<img [src]="s.id|avatar">
+			</div>
+			<div class="col-md-9">
+				<span class="main-info">{{s.mainInfo|crop:36}}</span>
+				<span class="secondary-info">
+					<span *ngIf="s.secondaryInfo != 'singleuser'">{{s.secondaryInfo|usertype}}</span>
+					&nbsp;
+				</span>
+				<span class="tertiary-info" *ngIf="s.tertiaryInfo.length > 0">{{s.tertiaryInfo|country}}</span>
+				<span class="search-type">user</span>
+			</div>
+		</div>
+		<div class="row" *ngSwitchCase="'project'" [routerLink]="'/project/' + s.id">
+			<div class="col-md-3" align="center">
+				<img *ngIf="s.media" [src]="s.media|media">
+				<img *ngIf="!s.media" src="/media/staticpages/project.png">
+			</div>
+			<div class="col-md-9">
+				<span class="main-info">{{s.mainInfo|stranslate|crop:36}}</span>
+				<span class="secondary-info">{{s.secondaryInfo}}</span>
+				<span class="tertiary-info">{{s.tertiaryInfo|country}}</span>
+				<span class="search-type">project</span>
+			</div>
+		</div>
+		<div class="row" *ngSwitchCase="'donation'" [routerLink]="'/donation/' + s.id">
+			<div class="col-md-3" align="center">
+				<img src="/media/landing/bitcoin.png">
+			</div>
+			<div class="col-md-9">
+				<span class="main-info">{{s.mainInfo|crop:36}}</span>
+				<span class="secondary-info"><span translate>to</span> {{s.secondaryInfo}}</span>
+				<span class="tertiary-info"><span translate>value</span> {{s.tertiaryInfo|money}}</span>
+				<span class="search-type">donation</span>
+			</div>
+		</div>
+	</li>
+</ul>

@@ -1,0 +1,30 @@
+<div class="modal-header">
+	<button type="button" class="close" (click)="activeModal.close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title" id="myModalLabel" translate>Subscribe to Newsletter</h4>
+</div>
+<div class="modal-body text-color-black">
+	
+	<div class="subscribe-box">
+	
+
+		<div class="row">
+			<div class="col-xs-12">
+				<response-messages [message]="form.responseMessage"></response-messages>
+			</div>
+		</div>
+		
+		<p class="text-center" translate>Sign up to receive update from the Helperbit Team.</p>
+	
+		<form [formGroup]="form" (ngSubmit)="submit(form.model)">
+			<formly-form [form]="form" [fields]="form.fields" [model]="form.model"></formly-form>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+					<button type="submit"
+						[disabled]="!form.valid"
+						class="btn btn-default btn-block"
+						translate>Subscribe now!</button>
+				</div>
+			</div>
+		</form>	
+	</div>
+</div>

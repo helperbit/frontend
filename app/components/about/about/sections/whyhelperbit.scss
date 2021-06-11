@@ -1,0 +1,39 @@
+@import "~app/sass/const.scss";
+
+:host {
+  .whyhelperbit-box {
+    width: calc(30% - 20px);
+    float: left;
+
+    @media screen and (max-width: #{$breakpointSmMax}) {
+      width: 100%;
+      float: unset;
+    }
+
+    h2 {
+      color: #fff;
+      font-family: "GoBold Regular";
+      font-size: 160%;
+    }
+
+    p {
+      font-family: $regularFont;
+      color: #fff;
+      font-size: 120%;
+    }
+  }
+
+  .whyhelperbit-arrow {
+    width: 5%;
+    float: left;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 200%;
+
+    @media screen and (max-width: #{$breakpointSmMax}) {
+      width: 100%;
+      float: unset;
+    }
+  }
+}

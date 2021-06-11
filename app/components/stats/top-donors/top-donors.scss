@@ -1,0 +1,30 @@
+@import "~app/sass/const.scss";
+
+.modal-header {
+    border-bottom: 0;
+}
+
+.modal-body {
+    background-color: $yellow;
+    padding: 0;
+}
+
+.donor-box {
+    height: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    .avatar {
+        margin: 0 auto;
+        height: 150px;
+        width: 150px;
+        display: block;
+    }
+
+    .info {
+    }
+
+    @media screen and (max-width: #{$breakpointXxsMax}) {
+        width: 100%;
+    }
+}

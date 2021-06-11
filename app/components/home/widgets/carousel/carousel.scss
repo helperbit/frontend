@@ -1,0 +1,121 @@
+@import "~app/sass/const.scss";
+@import "~app/sass/extends.scss";
+
+.carousel {
+	display: block;
+	height: 250px;
+	position: relative;
+	overflow: hidden;
+
+	.next, .prev {
+		cursor: pointer;
+		position: absolute;
+		top: 40%;
+		width: auto;
+		padding: 15px;
+		margin-top: -50px;
+		color: rgba(0,0,0,0.4);
+		font-weight: bold;
+		font-size: 20px;
+		line-height: 20px;
+		z-index: 1;
+
+		&:hover {
+			color: #f2f2f2;
+			background-color: rgba(0,0,0,0.8);
+			cursor: pointer;
+		}
+	}
+
+	.prev {
+		left: 0;
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+
+	.next {
+		right: 0;
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
+	}
+
+	.element {
+		height: inherit;
+		float: left;
+		position: absolute;
+		transition: left linear 0.2s;
+
+		@media screen and (min-width: #{$breakpointLgMin}) {
+			width: calc(100%/5);
+		}
+
+		@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+			width: calc(100%/4);
+		}
+
+		@media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+			width: calc(100%/2);
+		}
+
+		@media screen and (max-width: #{$breakpointXsMax}) {
+			width: calc(100%/1);
+		}
+
+		img {
+			display: block;
+			margin: 0 auto;
+
+			&.clickable {
+				@extend %clickable-opacity;
+			}
+
+			@media screen and (min-width: 1351px) {
+				width: 250px;
+			}
+
+			@media screen and (min-width: 1251px) and (max-width: 1350px) {
+				width: 225px;
+			}
+
+			@media screen and (min-width: #{$breakpointLgMin}) and (max-width: 1250px) {
+				width: 200px;
+			}
+	
+			@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+				width: 225px;
+			}
+	
+			@media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+				width: 250px;
+			}
+	
+			@media screen and (max-width: #{$breakpointXsMax}) {
+				width: 250px;
+			}
+		}
+
+		p.text {
+			text-align: center;
+			font-size: 1.5em;
+			margin-bottom: 0;
+			height: 20%;
+
+			.top {
+				font-family: 'Gobold Regular';
+			}
+
+			.link {
+
+			}
+
+			.bottom {
+				font-style: italic;
+				font-size: 0.75em;
+			}
+
+		}
+	}
+
+
+
+}

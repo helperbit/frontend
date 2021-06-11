@@ -1,0 +1,366 @@
+import { ResponseMessageConfig, buildErrorResponseMessage } from '../response-messages/response-messages';
+import { CurrencyService } from '../../../services/currency';
+import { LightningService } from '../../../models/lightning';
+import { UtilsService } from 'app/services/utils';
+import { ModalConfig } from '../modal/oldModal/modal';
+import { Input, Output, Component } from '@angular/core';
+import { EventEmitter } from 'events';
+import { TranslateService } from '@ngx-translate/core';
+import { FormGroupEx } from 'app/shared/ngx-formly/form-group-ex';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPaymentComponent } from './modals/payment/payment';
+
+export interface LightingInvoiceConfig {
+	min: number;
+	max: number;
+	metadata: {
+		//TODO use correct types
+		type: any;
+		round: any;
+		vote: any;
+	};
+	description: string;
+	otherInputs: {
+		btc: string[];
+	};
+};
+
+export interface LightingInvoiceConfigInternal extends LightingInvoiceConfig {
+	form: {
+		msat: {
+			min: number;
+			max: number;
+		};
+		sat: {
+			min: number;
+			max: number;
+		};
+		btc: {
+			min: number;
+			max: number;
+		};
+		eur: {
+			min: number;
+			max: number;
+		};
+		usd: {
+			min: number;
+			max: number;
+		};
+	};
+};
+
+@Component({
+	selector: 'lightning-invoice-component',
+	templateUrl: 'lightning-invoice.html',
+	styleUrls: ['lightning-invoice.scss']
+})
+export class LightningInvoiceComponent {
+	@Input() config: LightingInvoiceConfigInternal;
+	@Output() onSuccess: EventEmitter;
+
+	responseMessage: ResponseMessageConfig;
+	modals: { [key: string]: ModalConfig & { nodeOnline: boolean; paymentValue: number } };
+	popover: any;
+	invoice: any;
+	otherAmount: any;
+	availableInputs: any;
+	form: FormGroupEx<{
+		lightningAmountCurrencyBTC: string;
+		lightningAmountCurrencyFIAT: string;
+		lightningAmountMSAT: number;
+		lightningAmountSAT: number;
+		lightningAmountBTC: number;
+		lightningAmountEUR: number;
+		lightningAmountUSD: number;
+	}>;
+
+	constructor(
+		private translate: TranslateService,
+		private currencyService: CurrencyService,
+		private lightningService: LightningService,
+		private utilsService: UtilsService,
+		private modalService: NgbModal) {
+		//TODO a che serviva?
+		this.popover = {
+			otherAmount: {
+				content: 'Hello, World!',
+				templateUrl: 'popoverOtherAmount.html',
+				title: 'Other Amount',
+				trigger: 'outsideClick clickover',
+				model: null,
+				open: null
+			}
+		};
+
+		this.otherAmount = {
+			text: null
+		};
+
+		this.availableInputs = {
+			btc: ['BTC'],
+			fiat: ['EUR', 'USD']
+		};
+	}
+
+	//update the currencies inputs and set the value parsed object
+	private checkAndSetCurrencyInputs(btc, currency) {
+		if (currency.btc)
+			this.form.model.lightningAmountBTC = btc;
+		if (currency.sat)
+			this.form.model.lightningAmountSAT = this.currencyService.convertCurrency(this.form.model.lightningAmountBTC, 'btc', 'sat');
+		if (currency.msat)
+			this.form.model.lightningAmountMSAT = this.currencyService.convertCurrency(this.form.model.lightningAmountBTC, 'btc', 'msat');
+		if (currency.eur)
+			this.form.model.lightningAmountEUR = this.currencyService.convertCurrency(this.form.model.lightningAmountBTC, 'btc', 'eur');
+		if (currency.usd)
+			this.form.model.lightningAmountUSD = this.currencyService.convertCurrency(this.form.model.lightningAmountBTC, 'btc', 'usd');
+	}
+
+	$onChanges(changes) {
+		if (changes.config && changes.config.currentValue) {
+			this.availableInputs.btc = this.availableInputs.btc.concat(this.config.otherInputs.btc);
+
+			//config.max e config.min sono in MILLISATOSHI INTERI (4000 che sarebbero 0.00000004 btc)
+			const btcMin = parseFloat(this.currencyService.convertCurrency(this.config.min, 'msat', 'btc'));
+			const btcMax = parseFloat(this.currencyService.convertCurrency(this.config.max, 'msat', 'btc'));
+
+			const satMin = this.currencyService.convertCurrency(btcMin, 'btc', 'sat');
+			const satMax = this.currencyService.convertCurrency(btcMax, 'btc', 'sat');
+
+			const eurMin = this.currencyService.convertCurrency(btcMin, 'btc', 'eur');
+			let eurMax = this.currencyService.convertCurrency(btcMax, 'btc', 'eur');
+
+			// if(eurMin < 0.01) eurMin = 0.01
+			if (eurMax < 0.01) eurMax = (eurMax + 0.01)
+
+			const usdMin = this.currencyService.convertCurrency(btcMin, 'btc', 'usd');
+			let usdMax = this.currencyService.convertCurrency(btcMax, 'btc', 'usd');
+
+			// if(usdMin < 0.01) usdMin = 0.01
+			if (usdMax < 0.01) usdMax = (usdMax + 0.01)
+
+			this.config.form = {
+				msat: {
+					min: this.config.min,
+					max: this.config.max
+				},
+				sat: {
+					min: satMin,
+					max: satMax
+				},
+				btc: {
+					min: btcMin,
+					max: btcMax
+				},
+				eur: {
+					min: eurMin,
+					max: eurMax
+				},
+				usd: {
+					min: usdMin,
+					max: usdMax
+				}
+			};
+
+			/* FORMS */
+
+			this.form = new FormGroupEx();
+
+			//LIGHTNING 1
+
+			//lightningAmountCurrencyBTC
+
+			const optionsCurrencyBTC = [];
+			const buttonsGroupOptions = this.utilsService.buttonsGroupOptions();
+
+			if (this.availableInputs.btc.indexOf('MSAT') != -1)
+				optionsCurrencyBTC.push(buttonsGroupOptions.btcCurrency[2]);
+
+			if (this.availableInputs.btc.indexOf('SAT') != -1)
+				optionsCurrencyBTC.push(buttonsGroupOptions.btcCurrency[1]);
+
+			if (this.availableInputs.btc.indexOf('btc') != -1)
+				optionsCurrencyBTC.push(buttonsGroupOptions.btcCurrency[0]);
+
+			this.form.addField({
+				type: 'buttonsGroup',
+				key: 'lightningAmountCurrencyBTC',
+				className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
+				templateOptions: {
+					// label: translate.instant('Currency'),
+					required: true,
+					hideAsterisk: true,
+					config: {
+						options: optionsCurrencyBTC,
+						fullSize: true
+					}
+				}
+			});
+
+			//lightningAmountCurrencyFIAT
+
+			const optionsCurrencyFiat = [];
+
+			if (this.availableInputs.fiat.indexOf('EUR') != -1)
+				optionsCurrencyBTC.push(buttonsGroupOptions.fiatCurrency[0]);
+
+			if (this.availableInputs.fiat.indexOf('USD') != -1)
+				optionsCurrencyBTC.push(buttonsGroupOptions.fiatCurrency[1]);
+
+			this.form.addField({
+				type: 'buttonsGroup',
+				key: 'lightningAmountCurrencyFIAT',
+				className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
+				templateOptions: {
+					// label: translate.instant('Currency'),
+					required: true,
+					hideAsterisk: true,
+					config: {
+						options: optionsCurrencyFiat,
+						fullSize: true
+					},
+					onChange: function (value) {
+					}
+				},
+				hideExpression: ($viewValue, $modelValue, scope) => {
+					return this.form.model.lightningAmountCurrencyBTC != 'MSAT';
+				}
+			});
+
+			//lightningAmountSAT
+			this.form.addField({
+				type: 'number',
+				key: 'lightningAmountSAT',
+				className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
+				templateOptions: {
+					label: this.translate.instant('Satoshi'),
+					required: this.form.model.lightningAmountCurrencyBTC == 'SAT',
+					min: this.config.form.sat.min,
+					max: this.config.form.sat.max,
+					step: 1,
+					onChange: ($viewValue, $modelValue, $scope) => {
+						const btc = this.currencyService.convertCurrency($viewValue, 'sat', 'btc');
+						this.checkAndSetCurrencyInputs(btc, { btc: true, sat: false, msat: true, eur: true, usd: true });
+					}
+				},
+				hideExpression: ($viewValue, $modelValue, scope) => {
+					return this.form.model.lightningAmountCurrencyBTC != 'SAT';
+				}
+			});
+
+			//lightningAmountBTC
+			this.form.addField({
+				type: 'numberDecimal',
+				key: 'lightningAmountBTC',
+				className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
+				templateOptions: {
+					label: 'Bitcoin',
+					required: this.form.model.lightningAmountCurrencyBTC == 'BTC',
+					min: this.config.form.btc.min,
+					max: this.config.form.btc.max,
+					step: 0.00000000001,
+					maxDigits: 11,
+					onChange: ($viewValue, $modelValue, $scope) => {
+						this.checkAndSetCurrencyInputs($viewValue, { btc: false, sat: true, msat: true, eur: true, usd: true });
+					}
+				},
+				hideExpression: function ($viewValue, $modelValue, scope) {
+					return this.form.model.lightningAmountCurrencyBTC != 'SAT';
+				}
+			});
+
+			//lightningAmountEUR
+			this.form.addField({
+				type: 'number',
+				key: 'lightningAmountEUR',
+				className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
+				templateOptions: {
+					label: this.translate.instant('Euro'),
+					// required: this.form.model.lightningAmountCurrencyFIAT == 'EUR',
+					// min: this.config.form.eur.min,
+					// max: this.config.form.eur.max,
+					step: 0.01,
+					onChange: ($viewValue, $modelValue, $scope) => {
+						const btc = this.currencyService.convertCurrency($viewValue, 'eur', 'btc');
+						this.checkAndSetCurrencyInputs(btc, { btc: true, sat: true, msat: true, eur: false, usd: true });
+					}
+				},
+				hideExpression: ($viewValue, $modelValue, scope) => {
+					return this.form.model.lightningAmountCurrencyFIAT != 'EUR';
+				}
+			});
+
+			//lightningAmountUSD
+			this.form.addField({
+				type: 'number',
+				key: 'lightningAmountUSD',
+				className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12',
+				templateOptions: {
+					label: this.translate.instant('American Dollars'),
+					// required: this.form.model.lightningAmountCurrencyFIAT == 'USD',
+					// min: this.config.form.usd.min,
+					// max: this.config.form.usd.max,
+					step: 0.01,
+					onChange: ($viewValue, $modelValue, $scope) => {
+						const btc = this.currencyService.convertCurrency($viewValue, 'usd', 'btc');
+						this.checkAndSetCurrencyInputs(btc, { btc: true, sat: true, msat: true, eur: true, usd: false });
+					}
+				},
+				hideExpression: ($viewValue, $modelValue, scope) => {
+					return this.form.model.lightningAmountCurrencyFIAT != 'USD';
+				}
+			});
+
+			this.form.initializeModel({
+				lightningAmountCurrencyBTC: 'SAT',
+				lightningAmountCurrencyFIAT: 'EUR',
+				lightningAmountMSAT: this.config.form.msat.min,
+				lightningAmountSAT: this.config.form.sat.min,
+				lightningAmountBTC: this.config.form.btc.min,
+				lightningAmountEUR: this.config.form.eur.min,
+				lightningAmountUSD: this.config.form.usd.min
+			});
+		}
+	}
+
+	submit() {
+		this.lightningService.getInfo().subscribe(data => {
+			if (data.online) {
+				const json = {
+					msat: this.form.model.lightningAmountMSAT,
+					metadata: {
+						type: this.config.metadata.type,
+						round: this.config.metadata.round,
+						vote: this.config.metadata.vote
+					}
+				};
+
+				this.lightningService.createInvoice(json).subscribe(invoice => {
+					this.invoice = invoice;
+
+					const modalRef = this.modalService.open(ModalPaymentComponent, {
+						size: 'lg'
+					});
+
+					modalRef.componentInstance.config = {
+						id: 'modalPayment',
+						modalClass: 'modal-md',
+						hideCloseButton: true,
+						title: this.translate.instant('Lightning Invoice'),
+						nodeOnline: data.online,
+						paymentValue: 0,
+						invoice: this.invoice,
+						amountBTC: this.form.model.lightningAmountBTC
+					};
+
+					modalRef.result.then((v) => { /* close */ }, () => { /* dismiss */ });
+				}, res => {
+					this.responseMessage = buildErrorResponseMessage(res.error);
+				});
+			}
+		}, res => {
+			this.responseMessage = buildErrorResponseMessage(res.error);
+		});
+	}
+}

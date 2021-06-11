@@ -1,0 +1,15 @@
+@import "~app/sass/const.scss";
+
+:host {
+    background-color: $yellow;
+
+   	h1 {
+      font-size: 250%;
+    }
+
+    p {
+      font-family: $regularFont;
+      color: #fff;
+      font-size: 120%;
+    }
+}

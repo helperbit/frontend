@@ -1,0 +1,136 @@
+@import '../../../sass/const.scss';
+
+:host {
+	display: block;
+	z-index: 1;
+
+	//var
+	$deselectedColor: #fff;
+	$deselectedBackgroundColor: #000;
+	$selectedColor: #000;
+	$selectedBackgroundColor: $yellow;
+	$tagsBoxWidth: 2.5em;
+
+	.options-sidebar {
+		width: $tagsBoxWidth;
+		background-color: #000;
+		transition: .3s ease-in-out 0s;
+		box-shadow: 3px 0px 5px rgba(51,51,51,0.5);
+
+		&.open {
+			width: 15em !important;
+		}
+
+		background-color: $deselectedBackgroundColor;
+
+		ul {
+			display: inline-block;
+			padding-left: 0px;
+			width: inherit;
+			font-family: $regularFont;
+
+			li {
+				background-color: $deselectedBackgroundColor;
+				line-height: $tagsBoxWidth;
+				float: none;
+				overflow: hidden;
+				width: inherit;
+				height: $tagsBoxWidth;
+				white-space: nowrap;
+
+				&:hover {
+					cursor: pointer;
+				}
+				
+				//TODO ho rimosso &:hover da questi valori perché dava problemi grafici in risoluzione mobile
+				&.active  {
+					background-color: $selectedBackgroundColor;
+					opacity: 1;
+			
+					.image {
+			
+						::ng-deep svg {
+							fill: $selectedColor;
+							stroke: $selectedColor;
+						}
+					}
+			
+					.text {
+						color: $selectedColor;
+					}
+				}
+			
+				.image {
+					float: left;
+					height: $tagsBoxWidth;
+					width: $tagsBoxWidth;
+					opacity: .6;
+			
+					::ng-deep svg {
+						fill: $deselectedColor;
+						stroke: $deselectedColor;
+					}
+				}
+			
+				.text {
+					color: $deselectedColor;
+					float: left;
+					padding-right: 0.5em;
+					overflow: clip;
+					decoration: none;
+					opacity: .6;
+					text: {
+						transform: uppercase;
+					}
+					font: {
+						size: 0.7em;
+						weight: bold;
+					}
+				}
+
+				&.open-button {
+
+					i {
+						width: 100%;
+						text-align: center;
+						font-size: 120%;
+					}
+				}
+
+			}
+
+		}
+	}
+
+	.tooltip-yellow {
+
+		& > .tooltip-inner {
+			min-width: 15em;
+			padding: 1.5em;
+			background-color: $yellow;
+			border-color: $yellow;
+			border: 2px solid #000;
+			color: #000;
+			text-transform: uppercase;
+			font-family: $regularFont;
+			font-weight: bold;
+			font-size: 1.25em;
+		}
+		
+		&.top > .tooltip-arrow{
+			border-top: 5px solid #000;
+		}
+		
+		&.bottom > .tooltip-arrow{
+			border-bottom: 5px solid #000;
+		}
+		
+		&.right > .tooltip-arrow{
+			border-right: 5px solid #000;
+		}
+		
+		&.left > .tooltip-arrow{
+			border-left: 5px solid #000;
+		}
+	}
+}

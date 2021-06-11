@@ -1,0 +1,24 @@
+<!-- MONEY COLLECTED -->
+<div class="amount">
+    <div class="money text-left">
+		<!-- PROJECTRECEIVED: Il primo mostra il quantitativo in bitcoin ricevuto, il secondo il totale usato + non usato -->
+		<span [tooltip]="'Amount collected' | translate">{{ progressConfig.received | money:'short' }}</span>
+		<!-- <span [tooltip]="'Amount collected' | translate">{{ progressConfig.current | money:'short' }}</span> -->
+    </div>
+    <div class="percentage text-right">
+        <span>{{ progressConfig.percentage | number:'1.1-1' }} %</span>
+    </div>
+</div>
+
+<!-- PERCENTAGE MONEY COLLECTED -->
+<div *ngIf="progressConfig.percentage < 100" class="progress" [tooltip]="progressConfig.remainstext">
+    <div class="progress-bar progress-bar-green" role="progressbar" [attr.aria-valuenow]="progressConfig.percentage"
+        aria-valuemin="0" aria-valuemax="100"
+        [ngStyle]="{ 'width': (progressConfig.percentage > 100 ? 100 : progressConfig.percentage) + '%' }"></div>
+</div>
+<div *ngIf="progressConfig.percentage >= 100" class="progress"
+    [tooltip]="'This project has been fully funded'|translate">
+    <div class="progress-bar progress-bar-green" role="progressbar" [attr.aria-valuenow]="progressConfig.percentage"
+        aria-valuemin="0" aria-valuemax="100"
+        [ngStyle]="{ 'width': (progressConfig.percentage > 100 ? 100 : progressConfig.percentage) + '%' }"></div>
+</div>

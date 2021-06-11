@@ -1,0 +1,25 @@
+:host {
+	@media screen {
+		#printSectionFeedMultisig {
+			display: none;
+		}
+
+	}
+
+	@media print {
+		* {
+			visibility:hidden;
+		}
+
+		#printSectionFeedMultisig, #printSectionFeedMultisig * {
+			visibility:visible;
+		}
+
+		#printSectionFeedMultisig {
+			font-family: "Times New Roman", Times, serif !important;
+			position:absolute;
+			left:0;
+			top:0;
+		}
+	}
+}

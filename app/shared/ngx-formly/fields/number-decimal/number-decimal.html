@@ -1,0 +1,5 @@
+<number-decimal [formControl]="formControl" [field]="field" [config]="field.templateOptions.config"></number-decimal>
+<div *ngIf="showErrorNumberDeciamal && (field.templateOptions.required || field.model[field.key] && field.model[field.key].length > 0)" class="invalid-feedback" [style.display]="'block'">
+	<formly-validation-message class="tooltip-formly tooltip-formly-error" [field]="field"></formly-validation-message>
+</div>
+<small *ngIf="field.templateOptions.description" class="form-text text-muted">{{ field.templateOptions.description }}</small>

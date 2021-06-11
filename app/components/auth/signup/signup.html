@@ -1,0 +1,142 @@
+<page-header [config]="pageHeader" *ngIf="!landing"></page-header>
+
+<!-- TODO must be component <div *ngIf="landing" class="home" ng-include="'components/home/home/top.html'"></div> -->
+<home-top *ngIf="landing"></home-top>
+
+<div class="page page-medium signup">
+	<div class="row">
+		<div class="col-xs-12">
+			<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+		</div>
+	</div>
+
+	<aw-wizard>
+		<aw-wizard-step [stepId]="0" [stepTitle]="wizard.step0.titles.main">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h1 class="text-center">{{ wizard.step0.titles.description }}</h1>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center usertype-button-group">
+						<a href="javascript:void(0)" (click)="startSignup('singleuser');" class="btn btn-default btn-xs-block usertype-button">
+							<i class="fa fa-user"></i> <span translate>Single User</span>
+						</a>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center usertype-button-group">
+						<a href="javascript:void(0)" (click)="startSignup('npo');" class="btn btn-default btn-xs-block usertype-button">
+							<i class="fa fa-users"></i> <span translate>non-profit</span>
+						</a>
+					</div>
+					<!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center usertype-button-group">
+						<a href="javascript:void(0)" (click)="startSignup('municipality');" class="btn btn-default btn-xs-block usertype-button">
+							<i class="fa fa-bank"></i> <span translate>Muncipality</span>
+						</a>
+					</div> -->
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center usertype-button-group">
+						<a href="javascript:void(0)" (click)="startSignup('company');" class="btn btn-default btn-xs-block usertype-button">
+							<i class="fa fa-industry"></i> <span translate>Company</span>
+						</a>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<!--<a href="javascript:void(0)" class="btn btn-social btn-xs-block btn-facebook btn-block" (click)="socialLogin('facebook')">
+							<i class="fa fa-facebook"></i>
+							<span translate>Login with Facebook</span>
+						</a>-->
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center social-button-group">
+						<a href="javascript:void(0)" class="btn btn-social btn-xs-block btn-twitter" (click)="socialLogin('twitter')">
+							<i class="fa fa-twitter"></i>
+							<span translate>Signup with Twitter</span>
+						</a>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center social-button-group">
+						<a href="javascript:void(0)" class="btn btn-social btn-xs-block btn-linkedin" (click)="socialLogin('linkedin')">
+							<i class="fa fa-linkedin"></i>
+							<span translate>Signup with Linkedin</span>
+						</a>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center social-button-group">
+						<a href="javascript:void(0)" class="btn btn-social btn-xs-block btn-google" (click)="socialLogin('google')">
+							<i class="fa fa-google"></i>
+							<span translate>Signup with Google</span>
+						</a>
+					</div>
+				</div>
+				<div class="row margin-top-15">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+						<a routerLink="/login" translate>Already registered?</a>
+					</div>
+				</div>
+		</aw-wizard-step>
+
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+					<a class="why-signup-link" (click)="showModal()" href="javascript:void(0)">{{ wizard.step1.titles.link}}</a>
+				</div>
+			</div>
+
+			<div *ngIf="wizard.step0.model.userType == 'singleuser'">
+				<br>
+				<div class="row">
+					<!--<a href="javascript:void(0)" class="btn btn-social btn-social-inline btn-xs-block btn-facebook btn-block" (click)="socialLogin('facebook')">
+							<i class="fa fa-facebook"></i>
+							<span translate>Login with Facebook</span>
+						</a>-->
+					<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 social-button-group text-center">
+						<a href="javascript:void(0)" class="btn btn-social btn-social-inline btn-xs-block btn-twitter" (click)="socialLogin('twitter')">
+							<i class="fa fa-twitter"></i>
+							<span translate>Signup with Twitter</span>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 social-button-group text-center">
+						<a href="javascript:void(0)" class="btn btn-social btn-social-inline btn-xs-block btn-linkedin" (click)="socialLogin('linkedin')">
+							<i class="fa fa-linkedin"></i>
+							<span translate>Signup with Linkedin</span>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 social-button-group text-center">
+						<a href="javascript:void(0)" class="btn btn-social btn-social-inline btn-xs-block btn-google" (click)="socialLogin('google')">
+							<i class="fa fa-google"></i>
+							<span translate>Signup with Google</span>
+						</a>
+					</div>
+				</div>
+				
+				<hr class="no-margin">
+			</div>
+
+			<form [formGroup]="wizard.step1">
+				<formly-form [form]="wizard.step1" [fields]="wizard.step1.fields" [model]="wizard.step1.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-left text-md-left text-sm-left text-xs-center">
+						<button (click)="landing = false; wizard.step1.previous()" class="btn btn-default btn-xs-block" translate>Previous</button>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+						<button (click)="signup()" [disabled]="!wizard.step1.valid" class="btn btn-default btn-xs-block"
+						 translate>Signup Now!</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step2.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p>
+						<span><b style="font-size: 110%;" translate>Please Activate Your Account.</b></span> <br>
+						<span translate>Before you can login, you have to activate your account with the code sent to your email address.</span>
+						<br>
+						<span translate>If you did not receive this email, please check your junk/spam folder.</span> <br>
+						<span translate>If you entered an incorrect email address, you will need to re-register with the correct email address.</span>
+					</p>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+</div>
+
+<!-- <seo-footer-component></seo-footer-component> -->

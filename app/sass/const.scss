@@ -1,0 +1,118 @@
+/* COLORS */
+
+//TODO colori scritti nei vari file (cercarli col search)
+//quelli sostati a destra sono salvati su questo file
+// #ccc
+// #333
+    // #222 
+// #999
+// #fafafa
+// #000
+// #2196F3
+// #eee
+// #555
+    // #eceeed
+// #bb0000
+// #ddd
+// #f35765
+// #f5f5f5
+// #2c3e50
+// #fe8b37
+// #d01f2f
+// #cf202e
+// #ff0800
+// 255, 8, 0
+// 06f
+//	#B47400
+
+// #1a242f era il background color di btn default   :hover
+// #161f29 era il border color di btn default       :hover
+// #d6e9f8 era il background color di btn default   :active
+
+$primary-color: 	#feb737;	// Yellow
+$secondary-color:	#d01f2f;	// Red
+$tertiary-color:	#05a852;	// Green
+$alt-color:         #EE7601;    // Orange
+
+//input
+$disable-color:     #b0b0b0;    // Dark Gray
+$input-background:  #eceeed;    // Light Gray
+$input-text:        #222;       // Medium Black
+
+//social
+$facebookColor:     #3b5998;	// Facebook
+$twitterColor:      #55acee;	// Twitter
+$linkedinColor:     #007bb6;	// Linkedin
+$googleColor:       #dd4b39;	// Google
+
+//link
+$link:				#428bca;
+$linkHover:			#2a6496;
+
+/*
+	selected		$buttonBackgroundSelected
+	hover			$buttonBackgroundHover
+	active			$buttonBackgroundSelected
+	focus			bordo blu intorno 5px auto -webkit-focus-ring-color
+	focus-within	?
+	disabled		$darkGray
+	visited			default
+
+*/
+
+//button
+$buttonBackground:          $primary-color;
+$buttonBackgroundHover:     rgba(8, 8, 8, 0.85);
+$buttonBackgroundSelected:  #333;
+$buttonText:                #fff;
+
+
+//color name
+$red:				$secondary-color;
+$green:				$tertiary-color;
+$yellow:			$primary-color;
+$orange:            $alt-color;
+$lightblue:			#428BCA;
+$blue:				#225fa9;
+$purple:			#605ca8;
+$maroon:			#D81B60;
+$indigo:  			#6610f2;
+$cyan:    			#17a2b8;
+
+$darkGray:          $disable-color;
+$mediumGray:        #c6c8c7;
+$lightGray:         $input-background;
+$mediumBlack:       $input-text;
+
+//others
+$firstTimeFrom:		#B47400;
+
+/* FONTS */
+
+$lightFont:     'Circe Light';
+$regularFont:   'Circe Book';
+$boldFont:      'Circe Bold';
+$extraBoldFont: 'Circe Extrabold';
+
+// $lightFont:     'Roboto Light';
+// $regularFont:   'Roboto Regular';
+// $boldFont:      'Roboto Bold';
+// $extraBoldFont: 'Roboto ExtraBold';
+
+/* SIZES */
+
+$headerHeight:      50px;
+$footerHeight:      46px;
+$footerHeightXs:    83px;
+
+/* BREAKPOINTS */
+
+$breakpointLgMin:   1200px;
+$breakpointMdMax:   1199px;
+$breakpointMdMin:   992px;
+$breakpointSmMax:   991px;
+$breakpointSmMin:   768px;
+$breakpointXsMax:   767px;
+$breakpointXsMin:   480px;
+$breakpointXxsMax:  479px;
+

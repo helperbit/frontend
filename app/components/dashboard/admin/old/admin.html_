@@ -1,0 +1,64 @@
+<modal-inner [config]="modals.admin">
+	<div align="center">
+		<i class="fa fa-check-circle text-color-green" style="font-size:700%;"></i>
+		<br><br>
+		<p style="font-size: 90%">The new admin is succesfully inserted.</p>
+	</div>
+</modal-inner>
+
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+	<div class="col-md-3 page-composable-col" style="top: 0px; position: sticky;">
+		<div class="page page-composable">
+			<sidebar-component></sidebar-component>
+		</div>
+	</div>
+	<div class="col-md-6 page-composable-col">
+		<div class="page page-composable" style="padding: 1.5em;">
+			<!--TODO - Response Messages-->
+			<div *ngIf="error == 'XD'" class="alert alert-danger" role="alert" translate>Already present.</div>
+			<div *ngIf="error == 'E'" class="alert alert-danger" role="alert" translate>Invalid user.</div>
+			<div *ngIf="error == 'E2'" class="alert alert-danger" role="alert" translate>Invalid user.</div>
+			<div *ngIf="error == 'EA4' || error == 'E6'" class="alert alert-danger" role="alert" translate>This user is not in the allowed admin list you submitted during verification.</div>
+			<div *ngIf="error == 'EA3'" class="alert alert-danger" role="alert" translate>Account not active.</div>
+			<div *ngIf="error == 'E3'" class="alert alert-danger" role="alert" translate>Invalid email.</div>
+			<div *ngIf="error == 'EW13'" class="alert alert-danger" role="alert" translate>This admin belongs to a multisig wallet.</div>
+
+			<p translate>Handle your administrators. To insert a new admin, you should provide the email address of a registered and
+				verified account in Helperbit.</p>
+			<br>
+			<table class="table">
+				<tr *ngFor="let act of admins">
+					<td>{{act}}</td>
+					<td>
+							<!-- request-confirmation text="{{'Are you sure to remove this?'|translate}}"  -->
+						<a class="table-btn btn-del" src="#" (click)="removeAdmin (act)"><i class="fa fa-minus-circle"></i></a>
+					</td>
+				</tr>
+				<tr *ngIf="admins.length == 0">
+					<td> No admins yet</td>
+				</tr>
+			</table>
+
+			<div class="row" align="left">
+				<div class="col-md-9">
+					<input type="text" class="form-control" [placeholder]="'Email'|translate" [(ngModel)]="admin.text" [value]="admin.text"
+					/>
+				</div>
+				<div class="col-md-3">
+					<a class="btn btn-sm btn-default btn-block" src="#" (click)="addAdmin ()" translate>Add</a>
+				</div>
+			</div>
+
+			<br>
+			<div class="row" align="center">
+				<div class="col-md-6">
+				</div>
+				<div class="col-md-6">
+					<a class="btn btn-danger btn-block" routerLink="/me/edit" translate>Done</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

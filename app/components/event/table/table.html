@@ -1,0 +1,142 @@
+<div class="tools-page-template main-content display-flex display-flex-row height-percentage-100 width-percentage-100">
+
+	<options-sidebar [options]="table.filterOptions" [multipleSelection]="true"
+		(optionClick)="table.optionChange($event)"></options-sidebar>
+
+	<div class="display-flex display-flex-column display-flex-grow-1 box-content">
+		<div class="top-content">
+			<div class="row padding-top-bottom-10 margin-right-left-0">
+				<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12 search-box">
+					<country-filter class="display-flex display-flex-row" [table]="table"></country-filter>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 margin-xs-top-15">
+					<div class="custom-select"
+						*ngIf="table.selectedVisualizationButton == 'grid' && table.results.length > 0">
+						<select class="form-control" [(ngModel)]="table.activeSort" (change)="table.sortResults()">
+							<option value="" disabled>Sort by</option>
+							<optgroup label="Ascendent &#11015;">
+								<option *ngFor="let sort of table.sortOptionsAsc" [hidden]="!sort.show" [ngValue]="sort"
+									[selected]="table.activeSort.sort==sort.sort && table.activeSort.sortBy==sort.sortBy">
+									{{ sort.label | stranslate }} </option>
+							</optgroup>
+							<optgroup label="Descendent &#11014;">
+								<option *ngFor="let sort of table.sortOptionsDesc" [hidden]="!sort.show"
+									[ngValue]="sort"
+									[selected]="table.activeSort.sort==sort.sort && table.activeSort.sortBy==sort.sortBy">
+									{{ sort.label | stranslate }} </option>
+							</optgroup>
+						</select>
+						<div class="arrow"></div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-3 hidden-xs text-right">
+					<buttons-group *ngIf="table.results.length > 0" [config]="table.visualizationButtons"
+						[(ngModel)]="table.selectedVisualizationButton"></buttons-group>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="display-flex display-flex-column display-flex-grow-1 data-content">
+			<div *ngIf="table.results.length > 0 && table.selectedVisualizationButton == 'grid'"
+				class="data-content-grid row margin-lg-right-15 margin-md-right-15 margin-sm-right-0 margin-xs-right-0 margin-left-0"
+				id="visualizationGrid">
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 panel-container event-box"
+					*ngFor="let event of table.results">
+					<event [event]="event" [visualizeAs]="'image'"></event>
+				</div>
+				<div class="col-xs-12 hidden-lg hidden-md hidden-sm margin-bottom-10"
+					*ngIf="table.results.length < table.pagination.itemsCount">
+					<button class="btn btn-default btn-block" (click)="table.updateData()" translate>Load More</button>
+				</div>
+			</div>
+
+			<table *ngIf="table.results.length > 0 && table.selectedVisualizationButton == 'table'"
+				class="table table-striped table-responsive display-flex display-flex-column margin-bottom-0 margin-right-left-15 hidden-xs">
+				<thead class="separator">
+					<tr class="display-flex display-flex-row">
+						<th *ngFor="let k of table.columnsList" [ngStyle]="table.columns[k].style"
+							[ngClass]="table.columns[k].class">
+							{{table.columns[k].label}}
+							<span *ngIf="k == 'donation'">[{{null|money}}]</span>
+							<span class="sort">
+								<i (click)="table.sortResults(table.columns[k].sort.desc.value);"
+									*ngIf="table.columns[k].sort.asc.show()" class="fa fa-sort-asc"></i>
+								<i (click)="table.sortResults(table.columns[k].sort.asc.value);"
+									*ngIf="table.columns[k].sort.desc.show()" class="fa fa-sort-desc"></i>
+								<i (click)="table.sortResults(table.columns[k].sort.ascDesc.value);"
+									*ngIf="table.columns[k].sort.ascDesc.show()" class="fa fa-sort"></i>
+							</span>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody class="display-flex display-flex-column display-flex-grow-1" id="visualizationTable">
+					<tr class="display-flex display-flex-row" *ngFor="let event of table.results">
+						<td [ngStyle]="table.columns['countries'].style" [ngClass]="table.columns['countries'].class"
+							class="display-flex display-flex-horizontal-center display-flex-vertical-center">
+							<div class="event-image">
+								<img
+									[src]="'media/country/'+(event.type == 'earthquake' ? '' : event.type + '/') + (event.issea ? 'SEA' : event.affectedcountries[0]) + '.svg'" />
+							</div>
+							<div class="event-countries text-center text-break-all">
+								{{ (event.affectedcountries[0] | country) || '-' }}
+							</div>
+						</td>
+						<td [ngStyle]="table.columns['magnitude'].style" [ngClass]="table.columns['magnitude'].class"
+							class="display-flex display-flex-horizontal-center display-flex-vertical-center display-flex-column">
+							<p> <b class="text-capitalize">{{event.type|translate}}</b> -
+								{{event.earthquakes.magnitude|magnitude:event.type}} </p>
+							<mv-slider style="width: 100%;" class="red" [value]="event.earthquakes.magnitude"
+								[tooltipType]="'hide'" [step]="0.1" [min]="5.5" [max]="9.5" [enabled]="false" readonly>
+							</mv-slider>
+						</td>
+						<td [ngStyle]="table.columns['population'].style" [ngClass]="table.columns['population'].class"
+							class="display-flex display-flex-horizontal-center display-flex-vertical-center display-flex-column">
+							<p> {{event.population.affected}} ({{event.affectedusers.length}} <span
+									translate>users</span>) </p>
+							<mv-slider style="width: 100%;" class="red" [max]="500000"
+								[value]="event.population.affected" [step]="10" [scale]="'logarithmic'" [tooltipType]="'hide'"
+								[enabled]="false" readonly></mv-slider>
+						</td>
+						<td [ngStyle]="table.columns['donation'].style" [ngClass]="table.columns['donation'].class"
+							class="display-flex display-flex-horizontal-center display-flex-vertical-center display-flex-column">
+							<p> {{event.donationsvolume|money:'auto':false}} </p>
+							<mv-slider style="width: 100%;" [value]="event.donationsvolume" [tooltipType]="'hide'"
+								[max]="0.1" [step]="0.001" [scale]="'logarithmic'" [enabled]="false" readonly>
+							</mv-slider>
+						</td>
+						<td [ngStyle]="table.columns['date'].style" [ngClass]="table.columns['date'].class"
+							class="display-flex display-flex-horizontal-center display-flex-vertical-center">
+							{{ (event.earthquakes.date | date) || '-' }} </td>
+						<td [ngStyle]="table.columns['gotoevent'].style" [ngClass]="table.columns['gotoevent'].class"
+							class="display-flex display-flex-horizontal-center display-flex-vertical-center"> <a
+								[routerLink]="event|seourl:'event'" class="btn btn-default" translate>go to event</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div *ngIf="table.results.length == 0">
+				<h3 class="text-center" translate>No events found</h3>
+			</div>
+		</div>
+
+		<div class="pagination-content hidden-xs" *ngIf="table.results.length > 0">
+			<div class="row padding-top-bottom-10 margin-right-left-0">
+				<div class="col-sm-6 col-xs-12 text-left">
+					<pagination [totalItems]="table.pagination.itemsCount"
+						[itemsPerPage]="table.pagination.resultPerPage" [maxSize]="table.pagination.maxPages"
+						[boundaryLinks]="true" [(ngModel)]="table.pagination.currentPage"
+						(change)="table.changePage($event);">
+					</pagination>
+				</div>
+				<div class="col-sm-6 col-xs-12 text-right text-xs-left">
+					<buttons-group [config]="table.pagination"
+						[(ngModel)]="table.pagination.resultPerPage" *ngIf="table.pagination.options.length > 1"
+						(change)="table.limitResults($event)"></buttons-group>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

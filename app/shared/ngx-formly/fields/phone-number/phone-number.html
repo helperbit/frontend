@@ -1,0 +1,8 @@
+<input
+	class="form-control"
+	type="text"
+	[formControl]="formControl"
+	ng2TelInput
+	[ng2TelInputOptions]="{ initialCountry: field.templateOptions.config.country | slice : 0 : 2 | lowercase }" 
+	(isInputValid)="checkValidity($event)"
+	(ng2TelOutput)="getNumber($event)"/>

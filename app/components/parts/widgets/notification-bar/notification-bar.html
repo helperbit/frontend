@@ -1,0 +1,40 @@
+<a routerLink="/me/notifications" role="button" aria-expanded="false" class="notification-link">
+	<!--span class="margin-top-0" style="font-size: 70%; style: float;">-->
+	<span class="fa-stack fa-1x icon icon-nohover" [ngClass]="{'icon-red': unread > 0, 'icon-white': unread == 0}"
+		style="font-size: 70%; margin-top: -2px;">
+		<i class="fa-stack-2x fa-envelope fa icon-background"></i>
+		<i class="fa-stack-1x fa" class="hidden-sm hidden-xs" *ngIf="unread != 0">
+			<span class="unread-notify"><span>{{unread}}</span></span>
+		</i>
+	</span>
+	<span translate class="hidden-xl hidden-lg hidden-md">Notifications</span>
+	<!--<span class="hidden-md hidden-lg hidden-xl hidden-sm">{{unread}} <span translate>notifications</span></span>
+				</span>-->
+	&#x200B;
+</a>
+<ul class="dropdown-menu dropdown-notify" role="menu">
+	<li class="dropdown-header" *ngIf="notifications.length == 0">
+		<div class="text-center">
+			<i class="fa fa-check"></i>
+			<br>
+			<br>
+			<span translate>No unread notifications</span>
+		</div>
+	</li>
+	<li *ngFor="let n of notifications" role="presentation" class="notify" [ngClass]="{ 'notify-unread': n.unread }">
+		<div class="row">
+			<div class="col-md-2" align="center">
+				<span class="fa-stack fa-1x icon icon-nohover">
+					<i class="fa fa-circle fa-stack-2x icon-background"></i>
+					<i class="fa fa-{{n.icon}} fa-stack-1x"></i>
+				</span>
+			</div>
+			<div class="col-md-10">
+				<a [routerLink]="n.redirect|cropUrl:'url'" [queryParams]="n.redirect|cropUrl:'query'"
+					(click)="notificationClick (n)">
+					<p>{{n.text}}</p>
+				</a>
+			</div>
+		</div>
+	</li>
+</ul>

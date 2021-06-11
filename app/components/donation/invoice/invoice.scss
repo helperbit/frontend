@@ -1,0 +1,23 @@
+@media screen {
+    #printSectionInvoice {
+        display: none;
+    }
+
+}
+
+@media print {
+    body * {
+        visibility:hidden;
+    }
+
+    #printSectionInvoice, #printSectionInvoice * {
+        visibility:visible;
+    }
+
+    #printSectionInvoice {
+		font-family: "Times New Roman", Times, serif !important;
+        position:absolute;
+        left:0;
+        top:0;
+    }
+}

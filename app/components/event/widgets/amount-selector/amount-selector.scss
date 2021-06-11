@@ -1,0 +1,24 @@
+@import "~app/sass/const.scss";
+
+p {
+	color: #333 !important;
+	text-transform: none !important;
+	font-family: $regularFont !important;
+}
+
+a {
+	margin-right: 4px;
+	width:19.3%;
+	padding: 6px 0;
+	text-align: center;
+}
+
+input[type="text"] {
+	vertical-align: middle;
+	width: 20%;
+	margin-left: 2%;
+	text-align: center;
+	display: inline !important;
+	max-height: 30px;
+	border-bottom: 1px solid transparent;
+}

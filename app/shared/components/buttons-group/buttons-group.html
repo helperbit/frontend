@@ -1,0 +1,16 @@
+<div class="btn-group" [class.full-size]="fullSize">
+    <button
+        type="button"
+        *ngFor="let button of buttons"
+        [class.selected]="button.value == valueSelected"
+        [disabled]="disabled"
+        (click)="click(button.value)"
+        type="button"
+        class="btn btn-default"> 
+
+        <span [tooltip]="button.tooltip" [position]="button.tooltipPosition || 'top'">
+            <i *ngIf="button.icon" class="fa fa-{{button.icon}}"></i>
+            {{button.label || ''}}
+        </span>    
+    </button>
+</div>

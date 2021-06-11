@@ -1,0 +1,14 @@
+@import "~app/sass/const.scss";
+
+:host {
+  @media (max-width: #{$breakpointXsMax}) {
+    .col-sm-6, .col-xs-6 {
+      margin-bottom: 1em;
+    }
+  }
+
+  img {
+    height: 13em;
+    max-height: 13em;
+  }
+}

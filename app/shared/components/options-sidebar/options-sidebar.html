@@ -1,0 +1,15 @@
+<div class="options-sidebar height-percentage-100" [ngClass]="{ 'open': openSidebar }">
+	<ul>
+		<li class="open-button" (click)="openSidebar = !openSidebar">
+			<div class="image">
+				<i class="fa text-color-white" [ngClass]="{ 'fa-chevron-right': !openSidebar, 'fa-chevron-left': openSidebar }"></i>
+			</div>
+		</li>
+		<li *ngFor="let option of options" (click)="!option.disabled && clickOption(option)" [ngClass]="{ 'active': option.active, 'not-available': option.disabled }">
+			<div class="image" *ngIf="!openSidebar" [tooltip]="option.text" [position]="'right'"> <svg-icon [iconId]="option.icon.iconId" [iconSrc]="option.icon.src"></svg-icon> </div>
+			<div class="image" *ngIf="openSidebar"> <svg-icon [iconId]="option.icon.iconId" [iconSrc]="option.icon.src"></svg-icon> </div>
+			<div class="text"> {{option.text}} </div>
+			<div *ngIf="option.notify" class="label label-danger">{{option.notify}}</div>
+		</li>
+	</ul>
+</div>

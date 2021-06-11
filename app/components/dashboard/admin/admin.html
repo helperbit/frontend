@@ -1,0 +1,28 @@
+<page-header [config]="pageHeader"></page-header>
+
+
+<div class="row">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col" style="top: 0px; position: sticky;">
+		<div class="page page-composable">
+			<sidebar-component></sidebar-component>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 page-composable-col">
+		<div class="page page-composable" style="padding: 2em;">
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default" *ngFor="let admin of admins">
+					<a data-parent="#accordion" [tooltip]="admin.tooltip">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<h4 class="panel-title text-left"><span>{{admin.firstname}} {{admin.lastname}}</span> ({{admin.email}})</h4>
+								<span *ngIf="admin.status == 'signed'" class="label label-warning" translate>Not yet verified</span>
+								<span *ngIf="admin.status == 'none'" class="label label-danger" translate>Not yet signed up</span>
+							</div>
+							<div class="state label" [ngClass]="'state-' + admin.status"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

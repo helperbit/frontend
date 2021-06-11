@@ -1,0 +1,140 @@
+{
+    "title": [
+        { 
+            "text": {
+                "en": "An earthquake hits {{country}}",
+                "it": "Un terremoto ha colpito {{country}}"
+            },
+            "conditions": [ { "field": "mag", "max": 6.0 } ]
+        },
+        { 
+            "text": {
+                "en": "A moderate earthquake hits {{country}}",
+                "it": "Un terremoto moderato ha colpito {{country}}"
+            },
+            "conditions": [ { "field": "mag", "min": 6.0, "max": 7.0 } ]
+        },
+        { 
+            "text": {
+                "en": "A strong earthquake hits {{country}}",
+                "it": "Un forte terremoto ha colpito {{country}}"
+            },
+            "conditions": [ { "field": "mag", "min": 7.0, "max": 8.0 } ]
+        },
+        { 
+            "text": {
+                "en": "A very strong earthquake hits {{country}}",
+                "it": "Un terremoto molto forte ha colpito {{country}}"
+            },
+            "conditions": [ { "field": "mag", "min": 8.0 } ]
+        }
+    ],
+    "phrases": [
+        [
+            {
+                "text": {
+                    "en": "{{title}} with a magnitude of {{mag}} hit {{halftimetext}} at {{time}} {{ncity}} and surrounding {{acit}} municipalities",
+                    "it": "{{title}} con una magnitudine di {{mag}} ha colpito {{halftimetext}} alle {{time}} {{ncity}} e {{acit}} comuni limitrofi"
+                },
+                "conditions": [ { "field": "acit", "min": 1 } ]
+            },
+            {
+                "text": {
+                    "en": "{{title}} in {{date}} at {{time}}, measuring {{mag}} on the Richter scale hit the city of {{ncity}} and its surroundings."
+                },
+                "conditions": [ ]
+            },
+            {
+                "text": {
+                    "en": "{{ncity}} - {{title}} measuring {{mag}} on the Richter scale struck {{country}} today."
+                },
+                "conditions": [ ]
+            },
+            {
+                "text": {
+                    "en": "Today {{depthtext}} earthquake shook {{region}} region in {{country}} near the town of {{ncity}}."
+                },
+                "conditions": [ ]
+            },
+            {
+                "text": {
+                    "en": "A series of shakes hit {{region}} region in {{country}} near the city of {{ncity}}."
+                },
+                "conditions": [ ]
+            },
+            {
+                "text": {
+                    "en": "Earthquake in {{country}} ({{date}}).",
+                    "it": "Terremoto in {{country}} ({{date}})."
+                },
+                "conditions": [ ]
+            }
+        ],
+        [
+            {
+                "text": {
+                    "en": "About {{apop}} people live in the area affected by the earthquake, the last major earthquake that hit the area was {{histyeardiff}} years ago."
+                },
+                "conditions": [ { "field": "histyeardiff", "min": 1 } ]
+            },
+            {
+                "text": {
+                    "en": "About {{apop}} people live in the area affected by the earthquake, the last major earthquake that hit the area was {{histyeardiff}} years ago, {{histdeaths}} people died."
+                },
+                "conditions": [ { "field": "histyeardiff", "min": 1 }, { "field": "histdeaths", "min": 1 } ]
+            },
+            {
+                "text": {
+                    "en": "About {{apop}} people live in the area affected by the earthquake, the last major earthquake that hit the area was {{histyeardiff}} years ago, {{histdeaths}} people died  and causing over {{histcost}}$ of damage."
+                },
+                "conditions": [ { "field": "histyeardiff", "min": 1 }, { "field": "histdeaths", "min": 1 }, { "field": "histcost", "min": 1 } ]
+            },
+            {
+                "text": {
+                    "en": "The estimated depth of the earthquake is {{depth}} km, typical of earthquakes {{mountainrange}}. The effects of the earthquake were particularly destructive near the epicenter, with many dead and wounded, tens of thousands of displaced persons and damage primarily concentrated in the city of {{ncity}} and the surrounding area. The earthquake was felt clearly in {{capital}} the capital of {{country}}."
+                },
+                "conditions": [ { "field": "ncity" }, { "field": "deaths", "min": 9 } ]
+            },
+            {
+                "text": {
+                    "en": "The earthquake, whose epicenter is {{ncitydist}} km far from {{ncity}}, is the strongest ever recorded in the country in the last {{histyeardiff}} years. It is estimated that {{apop}} million people have been involved while the number of victims is still uncertain. The earthquake was felt as far as {{ncity}}."
+                },
+                "conditions": [ { "field": "histyeardiff", "min": 1 }, { "field": "deaths", "min": 9 } ]
+            },
+            {
+                "text": {
+                    "en": "The epicenter of the earthquake in {{country}} is located at {{ncitydist}} km sudest of {{ncity}} and {{capitaldist}} km from {{capital}}, the earthquake's magnitude ({{mag}} Richter) implies serious consequences, with several collapses, deaths and injuries. The earthquake in {{country}} occurred at {{time}}."
+                },
+                "conditions": [ ]
+            },
+            {
+                "text": {
+                    "en": "The earthquake happened at a depth of 10 km with a magnitude of {{mag}} Richter. An estimation of {{apop}} people and {{acit}} cities result affected by the event. The quake is part of a series started the {{date}} and hit at {{time}} in the region of {{region}}. Tremors were felt as far away as {{capital}}, the capital of {{country}}, {{capitaldist}} km far."
+                },
+                "conditions": [ ]
+            },
+            {
+                "text": {
+                    "en": "The earthquake starts at a depth of {{depth}} and reach magnitude {{mag}} Richter with the epicenter {{ncitydist}} km {{ncitydir}} of the little town of {{ncity}} causing building to topple. {{apop}} people and {{acit}} cities are estimated to be affected by the event. Shakes were felt as far as the city of {{ncity}}, {{ncitydist}} km north west."
+                },
+                "conditions": [ ]
+            }
+        ],
+        [
+            {
+                "text": {
+                    "en": "At the same time it was issued a tsunami warning for the whole {{region}} area.",
+                    "it": "Contemporaneamente è stato diramato un allarme tsunami per tutta l'area della regione {{region}}."
+                },
+                "conditions": [ { "field": "tsunami", "equal": true } ]
+            },
+            {
+                "text": {
+                    "en": "There has not yet been a dead and displaced persons evaluation, but it is estimated that it involved in various ways about {{apop}} people.",
+                    "it": "Non c'è ancora un bilancio delle vittime e degli sfollati, ma si stimano coinvolte in vario modo {{apop}} persone."
+                },
+                "conditions": [ { "field": "displaced", "equal": 0 }, { "field": "wounded", "equal": 0 } ]
+            }            
+        ]
+    ]
+}

@@ -1,0 +1,38 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col" style="top: 0px; position: sticky;">
+        <div class="page page-composable">
+            <sidebar-component></sidebar-component>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-1 col-sm-12 col-xs-12 page-composable-col"></div>
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 page-composable-col">
+        <div class="page page-composable padding-15">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="border-bottom border-yellow margin-top-0" translate>Change your password</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <response-messages [message]="form.responseMessage"></response-messages>
+                </div>
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="submit(form.model)">
+                <formly-form [form]="form" [fields]="form.fields" [model]="form.model"></formly-form>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <button type="submit"
+                            [disabled]="!form.valid"
+                            class="btn btn-default btn-xs-block"
+                            translate>Change Password</button>
+                    </div>
+                </div>
+            </form>             
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+@import '../../../sass/const.scss';
+
+:host {
+    
+    .amount {
+        float: left;
+        width: 100%;
+
+        .money, .percentage {
+            width: 50%;
+            float: left;
+        }
+
+        .money {
+            text-align: left;
+
+            span {
+
+                font: {
+                    weight: bold;
+                    size: 12px;
+                }
+                line: {
+                    height: 20px;
+                }
+            }
+        }
+
+        .percentage {
+            
+            span {
+                color: #333;
+                padding: {
+                    left: 1em;
+                }
+                font: {
+                    size: 11px;
+                }
+                line: {
+                    height: 20px;
+                }
+            }
+        }
+    }
+
+    .progress {
+        height: 10px;
+        margin-top: 7.5px;
+        margin-bottom: 0px;
+        width: 100%;
+        border: {
+            radius: 5px;
+        }
+        background: {
+            color: rgba(127,127,127,0.3);
+        }
+        box: {
+            shadow: inset 0 6px 9px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            -webkit-animation: width-expansion ease-out 2.5s forwards;
+            -moz-animation: width-expansion ease-out 2.5s forwards;
+            -o-animation: width-expansion ease-out 2.5s forwards;
+            animation: width-expansion ease-out 2.5s forwards;
+            background-color: $yellow;
+        }
+        
+        .progress-bar-green {
+            background-color: $green;
+        }
+    }
+}

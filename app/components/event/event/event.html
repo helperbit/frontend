@@ -1,0 +1,152 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col sticky-block">
+		<div class="page page-composable">
+			<ul class="nav nav-pills nav-stacked">
+				<li role="presentation" class="active"><a href="javascript:void(0)" (click)="scrollTo(homeTarget)" translate>General information</a></li>
+				<li role="presentation" class=""><a href="javascript:void(0)" (click)="scrollTo(photosTarget)" translate>Photos</a></li>
+				<li role="presentation" class=""><a href="javascript:void(0)" (click)="scrollTo(projectsTarget)" translate>Projects</a></li>
+				<li role="presentation" class=""><a href="javascript:void(0)" (click)="scrollTo(newsTarget)">News</a></li>
+				<li role="presentation" class=""><a href="javascript:void(0)" (click)="scrollTo(donationsTarget)" translate>Donations</a></li>
+			</ul>
+			<hr>
+			<div class="text-center padding-15">
+				<a *ngIf="event" [routerLink]="event|seourl:'event':'/donate'" class="btn btn-success btn-block" translate>Donate</a>
+				<!-- <div class="btn-group choose-donation" role="group" aria-label="...">
+					<a class="btn btn-success btn-block single" translate>Donate</a>
+					<a class="btn btn-default double" tooltip tooltip-position="bottom" tooltip-content="{{'Send a donation in few seconds'|translate}}"
+						ng-href="{{event|seourl:'event':'/donate?quick=true'}}" translate>Quick</a>
+					<a class="btn btn-danger double" tooltip tooltip-position="bottom"tooltip-content="{{'Get full control of your donation'|translate}}" 
+						ng-href="{{event|seourl:'event':'/donate'}}" translate>Advanced</a>
+				</div> -->
+				<br>
+				<social-share [socialConfig]="socialShare.config" [socialStyle]="socialShare.style"></social-share>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 page-composable-col">
+		<div class="page page-composable" #homeTarget>
+			<div leaflet class="hidden-xs" [leafletOptions]="options" (leafletMapReady)="onMapReady($event)"
+				[style.height]="'300px'" [style.width]="'100%'" [leafletBaseLayers]="baseLayers"
+				[(leafletCenter)]="center">
+			</div>
+	
+			<!-- <leaflet class="hidden-xs" center="map.center" layers="map.layers" geojson-nested="true" geojson="map.geojson" controls="map.controls" markers="map.markers" height="400px" width="100%"></leaflet> -->
+			
+			<div style="padding: 1.5em;">
+				<!-- Title and Description -->
+				<div class="row" *ngIf="event">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<span style="cursor:pointer; float:right" [tooltip]="'The contourn map is a Beta Helperbit elaboration'|translate" *ngIf="event.type != 'earthquake'" class="label label-danger">Beta</span>
+						<h1 class="border-bottom border-red">{{event.type|translate}} {{'in'|translate}} <span>{{event.affectedcountries|country}}</span> </h1>
+						<p style="font-family: Circe Book; font-size: 110%"  [innerHtml]="event.article.body | stranslate | linkyCompile"></p>
+					</div>
+				</div>
+				<hr>
+				<!-- Other info -->
+				<div class="row" *ngIf="event">
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<span><b class="text-capitalize">{{event.type|translate}}:</b> {{event.maxmagnitude|magnitude:event.type}}</span><br>
+						<span><b>{{'Affected population'|translate}}:</b> ~{{event.population.affected}}</span><br>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<span><b>{{'Fatalities'|translate}}:</b> <span *ngIf="event.population.deaths != null">{{event.population.deaths}}</span><span *ngIf="event.population.deaths == null">N/A</span></span><br>
+						<span><b>{{'Donations volume'|translate}}:</b> {{event.donationsvolume|money:'auto'}}</span><br>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<span><b>{{'Donations'|translate}}:</b> {{event.donations}}</span><br><br>
+					</div>
+				</div>
+				<hr>
+				<!-- Photos -->
+				<div class="row" #photosTarget>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="event && images">
+						<h1 class="border-bottom border-red" translate>photos</h1>
+						<slidershow class="shadow" *ngIf="images.length != 0" [images]="images"></slidershow>
+						<div class="text-center" *ngIf="images.length == 0">
+							<img [imgAttrs]="event" [imgType]="'event'" style="border: 1px solid #333;" [imgSrc]="event.affectedcountries[0]|country:'flag'" width="35%">
+						</div>
+					</div>
+				</div>
+				<hr>
+				<!-- Projects -->
+				<div class="row" #projectsTarget>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h1 class="border-bottom border-red" translate>projects</h1>
+					</div>
+				</div>
+				<div class="row" *ngIf="projects">
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 panel-container" *ngFor="let p of projects">
+						<project [project]="p"></project>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" *ngIf="projects.length == 0">
+						<i translate>There are no projects related to this event yet.</i>
+					</div>
+				</div>
+				<hr>
+				<!-- News -->
+				<div class="row" #newsTarget>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h1 class="border-bottom border-red" translate>news</h1>
+					</div>
+				</div>
+				<div class="row display-flex display-flex-row display-flex-wrap" *ngIf="event?.news.length > 0">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 display-flex display-flex-column margin-top-bottom-5 news" *ngFor="let f of event.news">
+						<div class="panel panel-default display-flex-grow-1">
+							<div class="panel-body padding-0">
+								<img [imgAttrs]="{ 'alt': f.title }" class="media-object" [imgSrc]="f.image">
+								<a [href]="f.url" target="_blank">
+									<h4 class="padding-top-bottom-5 padding-right-left-15">{{f.title}}</h4>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" *ngIf="event?.news.length == 0">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+						<i translate>There are no news yet.</i>
+					</div>
+				</div>
+				<hr>
+				<!-- Donations --> 
+				<div class="row" #donationsTarget>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h1 class="border-bottom border-red" translate>donations</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+						<donation-list [config]="listConfig"></donation-list>
+					</div>
+				</div>
+				
+				<!-- <hr> -->
+
+				<!-- NPO --> 
+				<!--
+				<h1 class="border-bottom border-red" translate>suggest an organization</h1>
+				<br>
+				<p translate>Do you know one organization that operates in this area? You can suggest an organization to join Helperbit.</p>
+				<button class="btn btn-default btn-sm btn-danger" (click)="propose ()">
+					<span translate>Suggest an organization</span>
+				</button>	
+				-->
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 page-composable-col sticky-block">
+		<div class="page page-composable padding-lg-5 padding-md-5 padding-sm-25 padding-xs-25">
+			<h1 class="border-bottom border-red" translate>last donations</h1>
+			<donation-list [config]="listConfigSmall"></donation-list>
+		</div>
+		<!--
+		<div class="page page-composable" style="padding: 0.5em">
+			<h1 class="border-bottom border-red" translate>tweets</h1>
+		</div>
+		-->
+	</div>
+</div>
+
+<!-- <chat class="hidden-xs" [roomType]="'event'" [roomId]="event._id"></chat> -->

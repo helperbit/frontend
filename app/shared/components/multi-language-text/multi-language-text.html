@@ -1,0 +1,18 @@
+<ul class="nav nav-tabs" role="tablist">
+	<li role="presentation" [ngClass]="{ 'active': activeLanguage == language }" *ngFor="let language of (formControl | keys);" (click)="activeLanguage = language">
+		<a href="javascript:void(0)" [attr.data-target]="'#' + id + '-' + language" [attr.aria-controls]="id + '-' + language" role="tab" data-toggle="tab">
+			<div class="formly-custom-label">
+				<span>{{languagesText[language]}}</span>
+				<i *ngIf="field.templateOptions.required || field.templateOptions.config.languages[language].required" class="fa fa-asterisk formly-custom-asterisk "></i>
+			</div>
+		</a>
+	</li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane" [ngClass]="{ 'active': activeLanguage == language }" [id]="id + '-' + language" *ngFor="let language of (formControl | keys);">
+		<textarea *ngIf="field.templateOptions.isTextarea" [formControl]="formControl[language]" [name]="field.key + language"></textarea>
+		<input *ngIf="!field.templateOptions.isTextarea" [formControl]="formControl[language]" [name]="field.key + language" type="text" class="form-control"/>
+	</div>
+</div>

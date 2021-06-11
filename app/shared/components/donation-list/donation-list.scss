@@ -1,0 +1,76 @@
+@import "~app/sass/const.scss";
+
+:host {
+	// display: block;
+
+	table.table-flex {
+		display: flex;
+		flex-direction: column;
+		max-height: 100%;
+	
+		thead {
+	
+			tr {
+				display: flex;
+				flex-direction: row;
+	
+				th {
+					display: flex;
+					flex-basis: 0;
+					position: relative !important;
+					align-items: center;
+					justify-content: center;
+	
+					&:after {
+						position: absolute !important;
+						right: -0.5px !important;
+					}
+	
+					.sort {
+						position: absolute !important;
+						right: 10px !important;
+						float: none !important;
+					}
+				}
+			}
+		}
+	
+		tbody {
+			display: flex !important;
+			flex-direction: column;
+			flex-grow: 1;
+	
+			tr {
+				display: flex;
+				flex-direction: row;
+	
+				td {
+					display: flex;
+					flex-basis: 0;
+					align-items: center;
+					justify-content: center;
+					overflow: hidden;
+	
+					&:first-child {
+						justify-content: flex-start;
+					}
+	
+					&:last-child {
+						justify-content: flex-end;
+					}
+	
+					&.projectReceipient {
+	
+						a {
+							padding-right: 5px;
+	
+							&:last-child {
+								padding-right: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

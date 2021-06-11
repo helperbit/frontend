@@ -1,0 +1,14 @@
+<div class="btn-group" style="width: 100%;">
+	<button class="btn btn-default margin-0" style="width: 33.33333333%;" [style.border]="borderStyle"
+		[class.active]="currency=='BTC'" (click)="changeCurrency ('BTC');">
+		<i class="fa fa-bitcoin"></i>
+	</button>
+	<button class="btn btn-default margin-0" style="width: 33.33333333%;" [style.border]="borderStyle"
+		[class.active]="currency=='EUR'" (click)="changeCurrency ('EUR');">
+		<i class="fa fa-euro"></i>
+	</button>
+	<button class="btn btn-default margin-0" style="width: 33.33333333%;" [style.border]="borderStyle"
+		[class.active]="currency=='USD'" (click)="changeCurrency ('USD');">
+		<i class="fa fa-dollar"></i>
+	</button>
+</div>

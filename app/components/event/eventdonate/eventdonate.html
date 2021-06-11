@@ -1,0 +1,281 @@
+<!-- No users -->
+<modal-inner [config]="modals.noUsers">
+	<br>
+	<span translate>No users selected</span>.<br><br>
+</modal-inner>
+
+<!-- No users -->
+<modal-inner [config]="modals.notSingle">
+	<br>
+	<span translate>Event donations are not allowed for your user type</span>.<br><br>
+</modal-inner>
+
+<!-- Not logged -->
+<modal-inner [config]="modals.notLogged">
+	<br>
+	<span translate>You need to be logged in to make a donation through Helperbit</span>.<br>
+	<hr>
+	<div align="center">
+		<a routerLink="/signup" class="btn btn-block btn-md btn-danger" translate>Signup now</a>
+		<br>
+		<a routerLink="/login" class="btn btn-block btn-md btn-danger" translate>Login</a>
+	</div>
+</modal-inner>
+
+
+<!-- No wallet -->
+<modal-inner [config]="modals.noWallet">
+	<br>
+	<span translate>You need to have a wallet to make a donation through Helperbit</span>.<br>
+	<hr>
+	<div align="center">
+		<a routerLink="/me/wallet" class="btn btn-danger" translate>Create a wallet</a>
+	</div>
+</modal-inner>
+
+
+
+
+<div class="event fluid-container">
+	<div class="col-md-4 donation" *ngIf="event">
+		<div class="wrapper">
+			<span style="cursor:pointer; float:right"
+				[tooltip]="'The contourn map is a Beta Helperbit elaboration'|translate"
+				*ngIf="event.type != 'earthquake'" class="label label-danger">Beta</span>
+			<span>
+				<span class="date">{{event.startdate|date}}</span> &middot; <span
+					class="category">{{event.type|translate}} in {{event.affectedcountries[0]|country}}
+				</span>
+			</span>
+			<br>
+			<div class="row">
+				<div class="col-md-8">
+					<h1 translate>Donation form</h1>
+				</div>
+				<div class="col-md-4" style="padding-top: 7px" align="right"><a class="btn btn-black btn-sm"
+					[routerLink]="event|seourl:'event'"><i class="fa fa-undo"></i>&nbsp; <span translate>Go back</span></a></div>
+			</div>
+			<span>
+				<amount-selector (change)="updateAmount($event)"></amount-selector>
+				<br>
+				<button class="btn btn-success btn-block" (click)="donate ()" translate>Donate</button>
+			</span>
+			<br>
+		</div>
+		
+		<table class="table table-condensed event-distribution" *ngIf="totalusers > 0">
+			<thead class="separator">
+				<tr>
+					<th class="text-center col-md-3">
+						<span translate>Recipients</span>
+					</th>
+					<th style="width: 12%" class="text-center col-md-1">
+						<span translate>Donate</span>
+					</th>
+					<th style="width: 40%" class="text-center col-md-7">
+						<span translate>Donation</span> [<span style="font-size:70%">{{null|money}}</span>]
+					</th>
+				</tr>
+			</thead>
+
+			<tbody *ngFor="let utype of userTypes" class="">
+				<tr *ngIf="(affectedusers.hasOwnProperty(utype.code) && affectedusers[utype.code].length != 0) || utype.code == 'helperbit'">
+					<td>
+						<button
+							class="btn btn-link"
+							*ngIf="affectedusers[utype.code] != undefined && affectedusers[utype.code].length != 0"
+							[attr.data-target]="'.distribute-'+utype.code+'-collapse'" data-toggle="collapse" type="button">
+							<i class="fa fa-caret-down"></i></button>
+						<img [imgAttrs]="{ 'alt': (utype.name|translate) }" style="margin-top: -2px"
+							*ngIf="utype.code != 'helperbit'" [imgSrc]="'/media/marker/'+utype.code+'.png'" />
+						{{utype.name|translate}} 
+						<span *ngIf="utype.code != 'helperbit'">({{distributionMap[utype.code].usernumber}})</span>
+
+						<span *ngIf="utype.code == 'singleuser'" style="float:right;">
+							<div class="dropdown trust">
+								<a id="dLabel" data-toggle="dropdown" style="cursor: pointer" aria-haspopup="true"
+									aria-expanded="false">
+									<i class="fa fa-check-circle"></i>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dLabel" align="center">
+									<span translate>Trust level threshold</span>
+									<mv-slider id="slider-trust" class="red" [(value)]="donation.trustlevel" [min]="0"
+										[step]="5" [max]="100"
+										(slideStop)="distribution.updateTrustlevel(donation.trustlevel); updateShakemap()">
+									</mv-slider>
+								</ul>
+							</div>
+						</span>
+					</td>
+
+					<td style="padding-top: 6px;" align="center">
+						<input type="checkbox" id="checkbox-{{utype.code}}"
+							(change)="updateCheck(utype.code, distributionMap[utype.code].enabled)"
+							[(ngModel)]="distributionMap[utype.code].enabled" />
+						<label for="checkbox-{{utype.code}}"> </label>
+					</td>
+
+
+					<td>
+						<span style="font-size: 90%; margin:0;" class="row">
+							<span class="col-md-2" style="padding-top: 3px; padding-left: 2px;width: 15%;">
+								{{distributionMap[utype.code].distribution * donation.amount / 100.0|money:'auto':false}}
+							</span>
+							<span class="col-md-7 padding-right-0" style="width: 70%;">
+								<mv-slider [formatter]="sliderFormatter" [id]="'slider-'+utype.code"
+									(slideStop)="distribution.updatePercentage (utype.code, distributionMap[utype.code].distribution);"
+									[(value)]="distributionMap[utype.code].distribution"
+									min="0" max="100"></mv-slider>
+							</span>
+							<span class="col-md-1 padding-right-left-0 text-center" style="width: 15%;">
+								<div class="btn-group donation-lock">
+									<label class="btn btn-primary">
+										<input type="checkbox" [(ngModel)]="distributionMap[utype.code].locked"
+											style="display: none" ng-false-value="false" ng-true-value="true">
+										<i *ngIf="!distributionMap[utype.code].locked" class="fa fa-unlock"></i>
+										<i *ngIf="distributionMap[utype.code].locked" class="fa fa-lock"></i>
+									</label>
+								</div>
+							</span>
+						</span>
+					</td>
+				</tr>
+
+				<ng-container *ngIf="utype.code !== 'projects' && affectedusers.hasOwnProperty(utype.code)">
+					<tr *ngFor="let user of affectedusers[utype.code]"
+						class="collapse distribute-{{utype.code}}-collapse">
+						<td style="padding-left: 3em;"><a target="_blank"
+								[routerLink]="'/user/'+user.username">{{user.username}}</a></td>
+						<td style="padding-top: 6px;" *ngIf="user.username != username" align="center">
+							<input type="checkbox" [id]="'checkbox-distribution-'+user.username"
+								(change)="updateUserCheck (utype.code, user.username, distributionMap[utype.code].usersMap[user.username].enabled)"
+								[(ngModel)]="distributionMap[utype.code].usersMap[user.username].enabled" />
+							<label [for]="'checkbox-distribution-'+user.username"> </label>
+						</td>
+						<td style="padding-top: 6px;" *ngIf="user.username == username" align="center">
+						</td>
+						<td>{{distributionMap[utype.code].usersMap[user.username].donation|money:'auto':false}}</td>
+					</tr>
+				</ng-container>
+				<ng-container *ngIf="utype.code === 'projects' && affectedusers.hasOwnProperty(utype.code)">
+					<tr *ngFor="let user of affectedusers[utype.code]"
+						class="collapse distribute-{{utype.code}}-collapse">
+						<td style="padding-left: 3em;">
+							<a target="_blank" [routerLink]="user|seourl:'project'">{{user.title|stranslate}}</a>
+						</td>
+						<td style="padding-top: 6px;" align="center">
+							<input type="checkbox" [id]="'checkbox-distribution-'+user._id"
+								(change)="updateUserCheck (utype.code, user._id, distributionMap[utype.code].usersMap[user._id].enabled)"
+								[(ngModel)]="distributionMap[utype.code].usersMap[user._id].enabled" />
+							<label [for]="'checkbox-distribution-'+user._id"> </label>
+						</td>
+						<td>{{distributionMap[utype.code].usersMap[user._id].donation|money:'auto':false}}</td>
+					</tr>
+				</ng-container>
+			</tbody>
+		</table>
+
+		<table class="table table-condensed event-distribution" *ngIf="totalusers == 0">
+			<thead>
+				<tr>
+					<th class="text-center col-md-3">
+						<span translate>Recipients</span>
+					</th>
+					<th style="width: 12%" class="text-center col-md-1">
+						<span translate>Donate</span>
+					</th>
+					<th style="width: 40%" class="text-center col-md-7">
+						<span translate>Donation</span> [<span style="font-size:70%">{{null|money}}</span>]
+					</th>
+				</tr>
+			</thead>
+			<tbody class="" style="color: #999">
+				<tr>
+					<td style="padding-left: 29px; padding-top: 6px;">
+						<a href="javascript:void(0)" data-toggle="collapse"><i style="color: #999" class="fa fa-caret-down"></i></a>
+						<img style="margin-top: -2px" src="/media/marker/singleuser_grey.png" />
+						{{'Single users'|translate}} (0)
+					</td>
+					<td style="padding-top: 6px;" align="center">
+						<input [disabled]="true" type="checkbox" id="checkbox-single" />
+						<label for="checkbox-single"> </label>
+					</td>
+					<td>
+						<span class="margin-0" style="font-size: 90%;" class="row">
+							<span class="col-md-2"
+								style="padding-top: 3px; padding-left: 2px;width: 15%;">{{0.0|money:'auto':false}}</span>
+							<span class="col-md-7 padding-right-0" style="width: 70%;">
+								<mv-slider [enabled]="false" [(value)]="distributionMap.singleuser.distribution"
+									id="slider-single" [min]="0" [max]="100"></mv-slider>
+							</span>
+							<span class="col-md-1 padding-right-left-0 text-center" style="width: 15%;">
+								<div class="btn-group donation-lock"><i class="fa fa-unlock"></i></div>
+							</span>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-left: 29px; padding-top: 6px;">
+						<a href="javascript:void(0)" data-toggle="collapse"><i style="color: #999" class="fa fa-caret-down"></i></a>
+						<img style="margin-top: -2px" ng-src="/media/marker/grayout.png" /> {{'NPO'|translate}} (0)
+					</td>
+					<td style="padding-top: 6px;" align="center">
+						<input [disabled]="true" type="checkbox" id="checkbox-npo" />
+						<label for="checkbox-npo"> </label>
+					</td>
+					<td>
+						<span class="margin-0" style="font-size: 90%;" class="row">
+							<span class="col-md-2"
+								style="padding-top: 3px; padding-left: 2px;width: 15%;">{{0.0|money:'auto':false}}</span>
+							<span class="col-md-7 padding-right-0" style="width: 70%;">
+								<mv-slider [enabled]="false" [(value)]="distributionMap.npo.distribution"
+									id="slider-single" [min]="0" [max]="100"></mv-slider>
+							</span>
+							<span class="col-md-1 padding-right-left-0 text-center" style="width: 15%;">
+								<div class="btn-group donation-lock"><i class="fa fa-unlock"></i></div>
+							</span>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="wrapper padding-top-0">
+			<hr class="margin-top-0 margin-bottom-5">
+			<span>
+				<p *ngIf="totalusers == 0" translate>There are no users yet in this area but you can suggest an
+					organization to join Helperbit.</p>
+				<p *ngIf="totalusers > 0" translate>There are few users in this area but you can suggest an organization
+					to join Helperbit.</p>
+			</span>
+			<div align="center">
+				<button class="btn btn-default btn-sm btn-danger" (click)="propose ()">
+					<span translate>Suggest an organization</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Map -->
+	<div class="map" [ngClass]="{'col-md-6': donations.length != 0, 'col-md-8': donations.length == 0}">
+		<div leaflet [leafletOptions]="options"
+			(leafletMapReady)="onMapReady($event)" [style.height]="'100%'" [style.width]="'100%'"
+			[leafletBaseLayers]="baseLayers" (leafletMapZoomEnd)="onZoom($event)" [(leafletCenter)]="center">
+		</div>
+
+		<div class="slider-shakemap" *ngIf="shake.level != null" align="center">
+			<div align="center" class="slider-shakemap-legend" translate>Potential Damage</div>
+
+			<div style="width: 100px;">
+				<mv-slider class="slider-shakelevel" id="slider-shakelevel" [(value)]="shake.level" [ticks]="[5, 6, 7, 8]" [min]="5" [max]="8"
+					[ticksLabels]="shake.labels" [tooltipType]="'hide'" (slideStop)="updateShakemap ()">
+				</mv-slider>
+			</div>
+		</div>
+	</div>
+
+	<!-- Realtime donations -->
+	<div class="flow" [ngClass]="{'col-md-2': donations.length != 0, 'hidden': donations.length == 0}">
+		<donation-list [config]="listConfig"></donation-list>
+	</div>
+</div>

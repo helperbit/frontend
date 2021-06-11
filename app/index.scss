@@ -1,0 +1,29 @@
+@import 'sass/const.scss';
+
+body {
+	background-image: url('/media/back.png');
+
+	.index-main-container {
+		margin-top: #{$headerHeight};
+		margin-bottom: #{$footerHeight};
+		height: calc(100% - #{$headerHeight + $footerHeight});
+		min-height: unset;
+	
+		@media only screen and (max-width: #{$breakpointXsMax}) {
+			margin-bottom: 0;
+			height: calc(100% - #{$headerHeight});
+			min-height: unset;
+		}
+	}
+
+	.index-main-container-inner {
+		//TODO servirebbe l'altezza al 100% per permettere lo scroll con le options header fisse per la parte dei tools
+		//però fissa a 100% fa spostare la footer visibile al primo scroll su pagine non tools in modalità mbile
+
+		@media only screen and (min-width: #{$breakpointSmMin}) {
+			height: 100%;
+			min-height: 100%;
+		}
+	}
+}
+

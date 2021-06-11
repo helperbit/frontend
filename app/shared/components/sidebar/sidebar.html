@@ -1,0 +1,75 @@
+<nav class="navbar navbar-inverse" *ngIf="user && showCondition()">
+	<ul class="nav nav-pills nav-stacked">
+		<li role="presentation" *ngIf="user?.usertype == 'singleuser'" [ngClass]="{active: checkCurrentRoute('/me/controlpanel') }">
+			<a routerLink="/me/controlpanel"> <span translate>Control Panel</span> </a>
+		</li>
+
+		<li role="presentation" [ngClass]="{active: checkCurrentRoute('/me/edit')}">
+			<a routerLink="/me/edit"> <span translate>User Information</span> </a>
+			<span class="badge background-red" *ngIf="missingFields.profile.length>0">{{missingFields.profile.length}}</span>
+		</li>
+
+		<li role="presentation" [ngClass]="{active: checkCurrentRoute('/me/geoloc')}">
+			<a routerLink="/me/geoloc" translate>Geolocalization</a>
+			<span class="badge background-red" *ngIf="missingFields.geolocalization.length>0">{{missingFields.geolocalization.length}}</span>
+		</li>
+
+		<li role="presentation" [ngClass]="{active: checkCurrentRoute('/me/verify')}">
+			<a routerLink="/me/verify" translate>Verification</a>
+			<span class="badge background-red" *ngIf="missingFields.verification.length>0">{{missingFields.verification.length}}</span>
+		</li>
+
+		<li role="presentation" *ngIf="user?.usertype == 'singleuser'" [ngClass]="{active: checkCurrentRoute('/me/badges')}">
+			<a routerLink="/me/badges" translate>Badges</a>
+			<span class="badge background-red">new</span>
+		</li>
+
+		<li role="presentation" [ngClass]="{active: checkCurrentRoute('/me/wallet')}">
+			<a routerLink="/me/wallet" translate>Bitcoin wallet</a>
+			<span class="badge background-red" *ngIf="!user?.receiveaddress">1</span>
+		</li>
+
+		<!-- <li role="presentation" [ngClass]="{active: checkCurrentRoute('/me/wallet/verify')}">
+			<a routerLink="/me/wallet/verify" translate>Wallet Verify</a>
+		</li> -->
+
+		<li role="presentation" [ngClass]="{active: checkCurrentRoute('/me/ambassador')}">
+			<a routerLink="/me/ambassador" translate>Ambassador</a>
+		</li>
+
+		<li role="presentation" *ngIf="user?.usertype == 'singleuser' || user?.usertype == 'company' || user?.username == 'blockchainedu' || user?.username == 'helperbit'" [ngClass]="{active: checkCurrentRoute('/campaign/create')}">
+			<a routerLink="/campaign/create" translate>Fundraising Campaign</a>
+		</li>
+		
+		<li role="presentation" *ngIf="user?.usertype != 'singleuser' && user?.trustlevel >= 40" [ngClass]="{active: checkCurrentRoute('/project/create')}">
+			<a routerLink="/project/create" translate>Projects</a>
+		</li>
+		
+		<li role="presentation" *ngIf="user?.trustlevel >= 50" [ngClass]="{active: checkCurrentRoute('/me/invoiceable')}">
+			<a routerLink="/me/invoiceable" translate>Invoiceable donations</a>
+		</li>
+		
+		<li role="presentation" *ngIf="user?.usertype == 'company' || user?.usertype == 'npo'" [ngClass]="{active: checkCurrentRoute('/me/rors')}">
+			<a routerLink="/me/rors" translate>Request Of Refunds</a>
+		</li>
+
+		<li role="presentation" *ngIf="user?.usertype=='singleuser'" [ngClass]="{active: checkCurrentRoute('/me/privacy')}">
+			<a routerLink="/me/privacy" translate>Privacy</a>
+		</li>
+
+		<li role="presentation" [ngClass]="{active: checkCurrentRoute('/me/security')}">
+			<a routerLink="/me/security" translate>Security</a>
+		</li>
+		
+		<!--<li role="presentation" ng-show="user?.trustlevel < 50" tooltip 
+			tooltip-content="{{'This feature is available only for verified users'|translate}}" 
+			[ngClass]="{active: checkCurrentRoute('/me/invoiceable')}">
+			<a routerLink="/me/invoiceable" translate>Invoiceable donations</a>
+		</li>-->
+
+		<!-- <li role="presentation" ng-hide="user?.usertype != 'npo'" [ngClass]="{active: checkCurrentRoute('/me/admin')}">
+			<a routerLink="/me/admin" translate>Admin</a>
+		</li> -->
+		
+	</ul>
+</nav>

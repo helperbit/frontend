@@ -1,0 +1,20 @@
+<div class="project-button text-center">
+	<div
+		*ngIf="formControl.value && formControl.value.id"
+		class="margin-bottom-0 form-control text-ellipsis">
+		<a *ngIf="!field.templateOptions.disabled" href="javascript:void(0)" (click)="formControl.setValue(null);">(cancel)</a>
+		{{field.templateOptions.config.selectedText}}
+		<span class="text-bold">{{ formControl.value.title | stranslate }}</span>
+	</div>
+	<button
+		*ngIf="!formControl.value || !formControl.value.id"
+		class="btn btn-default"
+		[ngClass]="{ 'btn-block': field.templateOptions.config.fullScreen, 'btn-xs-block': !field.templateOptions.config.fullScreen }" 
+		[disabled]="field.templateOptions.disabled"
+		(click)="openModal()">{{field.templateOptions.config.buttonText}}</button>
+	<input type="hidden" [formControl]="formControl">
+</div>
+<div *ngIf="formControl.errors != null && !formControl.pristine && (field.templateOptions.required || field.model[field.key] && field.model[field.key].length > 0)" class="invalid-feedback" [style.display]="'block'">
+	<formly-validation-message class="tooltip-formly tooltip-formly-error" [field]="field"></formly-validation-message>
+</div>
+<small *ngIf="field.templateOptions.description" class="form-text text-muted">{{ field.templateOptions.description }}</small>

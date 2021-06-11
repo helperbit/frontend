@@ -1,0 +1,11 @@
+@import "../../../../sass/const.scss";
+
+:host {
+    tag-input {
+        margin-bottom: 10px;
+    }
+
+    ::ng-deep .ng2-tag-input--focused {
+        border-bottom: 2px solid $yellow;
+    }
+}

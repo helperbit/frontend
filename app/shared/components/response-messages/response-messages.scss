@@ -1,0 +1,49 @@
+@import '../../../sass/const.scss';
+
+:host {
+
+	.box-fixed {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: rgba(0,0,0,0.8);
+		z-index: 99999;
+
+		.alert {
+			position: absolute;
+
+			@media screen and (min-width: #{$breakpointLgMin}) {
+				left: 30%;
+				right: 30%;
+				top: 40%;
+			}
+
+			@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+				left: 20%;
+				right: 20%;
+				top: 40%;
+			}
+
+			@media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+				left: 15%;
+				right: 15%;
+				top: 35%;
+			}
+
+			@media screen and (min-width: #{$breakpointXsMin}) and (max-width: #{$breakpointXsMax}) {
+				left: 10%;
+				right: 10%;
+				top: 35%;
+			}
+
+			@media screen and (max-width: #{$breakpointXxsMax}) {
+				left: 5%;
+				right: 5%;
+				top: 25%;
+			}
+		}
+	}
+
+}

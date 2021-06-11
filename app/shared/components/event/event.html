@@ -1,0 +1,67 @@
+<div class="panel panel-default">
+	<!-- load-fad" [ngClass]="{'animation-delay-two': event._id == events.main[1]._id, 'animation-delay-three': event._id == events.main[2]._id, 'animation-delay-four': event._id == events.main[3]._id}">-->
+	<div class="panel-body row">
+		<div class="col-md-12 home-item-map" style="cursor: pointer;" (click)="go()" >
+			<div leaflet *ngIf="!visualizeAs || visualizeAs == 'map'" [id]="'eventmap' + event._id" class="map" 
+				[leafletOptions]="mapOptions" [(leafletLayers)]="markers" style="height: 13em" height="100%" width="100%"></div>
+				<!-- [(leafletCenter)]="center" [(leafletLayers)]="markers" -->
+			<div *ngIf="!visualizeAs || visualizeAs != 'image'" class="pan"></div>
+			<img [imgAttrs]="event" [imgType]="'event'" *ngIf="event.images.length == 0 || (visualizeAs && visualizeAs == 'image')" [ngClass]="{'visualize-as-image': visualizeAs == 'image'}" class="coverflow-image" [imgSrc]="event.affectedcountries[0]|country:'flag'">
+			<img [imgAttrs]="event" [imgType]="'event'" *ngIf="event.images.length > 0 && (visualizeAs && visualizeAs == 'image')" [ngClass]="{'visualize-as-image': visualizeAs == 'image'}" class="coverflow-image"  [imgSrc]="event.images[0]|media">
+
+			<div class="pan-black row">
+				<div class="col-md-4 col-xs-4" style="padding-top: 2.5em;">
+					<img [src]="'media/event-types/quad/'+event.type+'_quad.svg'" style="height: 5em;" />
+				</div>
+				<div class="col-md-8  col-xs-8">
+					<br>
+					<p translate>magnitude</p>
+					<div class="dslider red" [style.width.%]="event.maxmagnitude * 10"></div>
+					<!-- <mv-slider class="red" [(value)]="event.maxmagnitude" [min]="5.5" [max]="9.5" [step]="0.1" [enabled]="false"></mv-slider> -->
+					<br><br>
+					<p translate>affected population</p>
+					<div class="dslider" [style.width.%]="(event.population.affected / 10000) < 5 ? 5 : (event.population.affected / 10000)"></div>
+					<!-- <mv-slider [(value)]="event.population.affected" [scale]="'logarithmic'" [max]="500000" [step]="10" [enabled]="false"></mv-slider> -->
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 home-item-info">
+			<h2>{{event.lastshakedate|date}}
+				<span *ngIf="event.t">-</span>
+				<span class="cat">
+					<a routerLink="/event/list" translate *ngIf="event.t == 'main'">main event</a>
+					<a routerLink="/event/list" translate *ngIf="event.t == 'close'">event near you</a>
+				</span>
+			</h2>
+			<h1>
+				<a [routerLink]="event|seourl:'event'">{{event.article.title}}</a>
+			</h1>
+			<p>{{event.article.body|crop: 80}}</p>
+
+			<div class="row">
+				<div class="col-xs-6 text-left">
+					<span class="count-affected-users" [tooltip]="'Helperbit affected users' | translate">
+						<span class="fa fa-users"></span> {{ event.affectedusers.length }}
+					</span>
+				</div>
+		
+				<div class="col-xs-6 text-right">
+					<a class="event-link" [routerLink]="event | seourl:'event'"> <span translate>go to event</span> </a>
+				</div>
+			</div>
+		</div>
+		<!-- Fallbackdonate -->
+		<button [tooltip]="'Get full control of your donation'|translate" [position]="'bottom'" type="button"
+		(click)="advancedDonate(event)" class="btn btn-info btn-block" translate>Donate</button>
+		<!-- <div class="btn-group choose-donation hidden-sm hidden-xs" role="group" aria-label="...">
+			<a type="button" class="btn btn-info btn-block single" translate>Donate</a>
+			<a tooltip tooltip-position="bottom" tooltip-content="{{'Send a donation in few seconds'|translate}}" type="button" 
+			(click)="quickDonate(event)" href="javascript:void(0)" class="btn btn-default double" translate>Quick</a>
+			<a tooltip tooltip-position="bottom" tooltip-content="{{'Get full control of your donation'|translate}}" type="button"
+			(click)="advancedDonate(event)" href="javascript:void(0)" class="btn btn-danger double" translate>Advanced</a>
+		</div> -->
+		<!-- <div class="btn-group hidden-lg hidden-md hidden-xl" role="group" aria-label="...">
+			<a href="javascript:void(0)" (click)="quickDonate(event)" class="btn btn-default single" translate>Donate</a>
+		</div> -->
+	</div>
+</div>

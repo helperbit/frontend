@@ -1,0 +1,204 @@
+@import "~app/sass/const.scss";
+
+.goals-box {
+	height: 40px;
+	// margin-top: 120px; //modalità con parte superiore
+	// margin-top: 40px; //modalità senza parte superiore
+	// margin-bottom: 120px; //modalità con parte inferiore
+	// margin-bottom: 40px; //modalità con senza inferiore
+
+	$fillingWidth: 20px;
+
+	$goalsBarHeight: 40px;
+	$goalsBarBorderSize: 2px;
+
+	.filling {
+		float: left;
+		width: $fillingWidth;
+		height: $goalsBarHeight;
+		border-top: $goalsBarBorderSize solid $yellow;
+		border-bottom: $goalsBarBorderSize solid $yellow;
+		background-color: rgba(127,127,127,0.3);
+		
+		&.first {
+			border-left: $goalsBarBorderSize solid $yellow;
+			border-top-left-radius: 20px;
+			border-bottom-left-radius: 20px;
+
+			.content {
+				height: 100%;
+				width: 100%;
+				border-top-left-radius: 17px;
+				border-bottom-left-radius: 17px;
+				background-color: $green;
+			}
+		}
+		
+		&.last {
+			border-right: $goalsBarBorderSize solid $yellow;
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px;
+
+			.content {
+				height: 100%;
+				width: 0;
+				border-top-right-radius: 17px;
+				border-bottom-right-radius: 17px;
+				background-color: $green;
+				animation: width-expansion-full 1.9s 1.9s;
+				animation-fill-mode: forwards; //mantiene l'ultimo valore css impostato dall'animazione
+
+			}
+		}
+	}
+	
+	.goals-bar {
+		width: calc(100% - #{$fillingWidth * 2});
+		height: $goalsBarHeight;
+		background-color: rgba(127,127,127,0.3);
+		position: relative;
+		float:left;
+		border-top: $goalsBarBorderSize solid $yellow;
+		border-bottom: $goalsBarBorderSize solid $yellow;
+
+		.cursor {
+			position: absolute;
+			transform: translateX(-50%);
+			animation: left-to-right 2.5s;
+			height: 100%;
+			width: #{$goalsBarHeight - $goalsBarBorderSize * 2};
+
+			.line {
+				width: $goalsBarBorderSize;
+				background-color: $yellow;
+				margin: 0 auto;
+				height: 100%;
+			}
+
+			.count {
+				margin: 0 auto;
+				line-height: 27px;
+				text-align: center;
+				font-family: "Circe Extrabold";
+				transform: translateY(-31.5px);
+				background-color: $yellow;
+				font-size: .9em;
+				color: #fff;
+				border-radius: 50%;
+				width: 75%;
+				height: 75%;
+			}
+			
+		}
+
+		.percentage-border {
+			height: 100%;
+
+			.percentage {
+				position: absolute;
+				height: 100%;
+				background-color: $green;
+				animation: width-expansion 2.5s;
+			}
+
+		}
+
+		.box-goal {
+			height: 120px;
+			width: 60px;
+			transform: translateX(calc(-50% - 0.5px));
+			position: absolute;
+			display: flex;
+
+			.box-line {
+				height: 60px;
+				margin: 0 auto;
+				border: 1px dashed $disable-color
+			}
+
+			.box-description {
+				height: 20px;
+				width: 75%;
+				margin: 5px auto;
+				border: 2px solid $disable-color;
+				font-size: .55em;
+				text-align: center;
+				line-height: 16px;
+				text-transform: uppercase;
+				font-weight: bold;
+			}
+
+			.box-circle {
+				border: $goalsBarBorderSize solid $disable-color;
+				border-radius: 50%;
+				height: 60px;
+				width: 60px;
+				text-align: center;
+				line-height: 54px;
+				font-size: 200%;
+				overflow: hidden;
+
+				::ng-deep svg-icon svg {
+					fill: $disable-color;
+					stroke: $disable-color;
+				}
+			}
+
+			&.top {
+				bottom: 37.5px;
+				flex-direction: column-reverse;
+			}
+
+			&.bottom {
+				top: 37.5px;
+				flex-direction: column;
+			}
+
+			&.unlock {
+
+				.box-line {
+					height: 30px;
+					border-color: $yellow;
+					border-style: solid;
+				}
+
+				.box-description {
+					border-color: $yellow;
+					color: $yellow;
+				}
+
+				.box-circle {
+					border-color: $yellow;
+
+					::ng-deep svg-icon svg {
+						fill: $yellow;
+						stroke: $yellow;
+					}
+				}
+			}
+
+			&.terminated {
+
+				.box-line {
+					height: 30px;
+					border-color: $red;
+					border-style: solid;
+				}
+
+				.box-description {
+					border-color: $red;
+					color: $red;
+				}
+
+				.box-circle {
+					border-color: $red;
+
+					::ng-deep svg-icon svg {
+						fill: $red;
+						stroke: $red;
+					}
+				}
+			}
+		}
+	}	
+}

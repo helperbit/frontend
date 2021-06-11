@@ -1,0 +1,5 @@
+<div class="btn-group" style="width: 100%;">
+	<button style="width: 33.33333333%;" class="btn btn-default margin-0 padding-right-left-0" *ngFor="let l of languages | keyvalue" [ngStyle]="style.button" [ngClass]="{active: activeLanguage.lang==l.value.lang}" (click)="changeLanguage(l.value)">
+		<img [ngStyle]="style.image" [alt]="l.value.lang" src="{{l.value.img}}">
+	</button>
+</div>

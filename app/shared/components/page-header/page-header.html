@@ -1,0 +1,28 @@
+<wizard-procedure *ngIf="wizardProcedureEnable"></wizard-procedure>
+
+<div *ngIf="config" class="header" [ngClass]="{ 'header-info': config.info, 'header-description': config.description }">
+	<div class="bar" [ngClass]="{ 'bar-info': config.info, 'bar-description': config.description }">
+		<span *ngIf="config.info && config.info.boxes.length == 4">
+			<div class="info">
+				<h3 class="title">{{config.info.boxes[0].title}}</h3>
+				<span class="subtitle text-uppercase">{{config.info.boxes[0].subTitle}}</span>
+			</div>
+			<div class="info">
+				<h3 class="title">{{config.info.boxes[1].title}}</h3>
+				<span class="subtitle text-uppercase">{{config.info.boxes[1].subTitle}}</span>
+			</div>
+			<div class="info">
+				<h3 class="title">{{config.info.boxes[2].title}}</h3>
+				<span class="subtitle text-uppercase">{{config.info.boxes[2].subTitle}}</span>
+			</div>
+			<div class="info">
+				<h3 class="title">{{config.info.boxes[3].title}}</h3>
+				<span class="subtitle text-uppercase">{{config.info.boxes[3].subTitle}}</span>
+			</div>
+		</span>
+		<span *ngIf="config.description">
+			<h3 class="title">{{config.description.title}}</h3>
+			<p class="subtitle">{{config.description.subTitle}}</p>
+		</span>
+	</div>
+</div>

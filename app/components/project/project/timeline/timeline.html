@@ -1,0 +1,33 @@
+<ul class="timeline">
+	<li *ngFor="let e of entries; let i = index; let expanded = false" [hidden]="i >= loaded">
+		<i [class]="e.icon"></i>
+		<div class="timeline-item">
+			<span class="time"><i class="fa fa-clock-o"></i> {{e.date|date:'medium'}}</span>
+
+			<h3 class="timeline-header">{{e.title}}</h3>
+			  
+			<div class="timeline-body" *ngIf="e.type == 'activity'">
+				<h1>{{e.activity.title|stranslate}}</h1>
+
+				<p *ngIf="onlyPreview && isCropped(e.activity.description) && !expanded">{{e.activity.description|stranslate|textLimit:250}}</p>
+				<p *ngIf="!onlyPreview || !isCropped(e.activity.description) || expanded" [innerHtml]="e.activity.description|stranslate|linkyCompile"></p>
+
+				<div  *ngIf="e.activity.media.length > 0">
+					<file-thumb2 *ngFor="let m of e.activity.media" [mediaId]="m"></file-thumb2>
+				</div>
+			</div>
+
+			<div class="timeline-footer" *ngIf="onlyPreview && e.type == 'activity' && !expanded && isCropped(e.activity.description)">
+				<button class="btn btn-primary btn-xs" (click)="expanded=true" translate>Read more</button>
+			</div>
+		</div>
+	</li>
+
+	<li *ngIf="loaded == entries.length"><i class="fa fa-clock-o"></i></li>
+	<li *ngIf="loaded < entries.length">
+		<button (click)="loadMore()" class="btn btn-sm loadmore">
+			<i class="fa fa-refresh"></i> &nbsp;
+			<span translate>Load more</span>
+		</button>
+	</li>
+</ul>

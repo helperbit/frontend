@@ -1,0 +1,45 @@
+@import 'font';
+@import 'inputs';
+@import 'other';
+@import 'tags';
+
+//ICONS
+//USATO IN SOCIAL SHARE, FOOTER, (USATA PRINCIPALMENTE CON I FA FA-name E ALTRI POSTI)
+@import 'custom/icons.scss';
+
+
+.field-title {
+	font-family: $boldFont;
+	text-transform: uppercase;
+	font-size: 90%;
+}
+
+
+.fullwidth {
+	width: 100%;
+	margin-left: 0;
+	margin-right: 0;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.policy-agree-modal {
+	z-index: 1052 !important;
+
+	& + .modal-backdrop {
+		z-index: 1051 !important;
+	}
+}
+
+.aligned-row {
+	display: flex;
+	flex-flow: row wrap;
+
+	&::before {
+		display: block;
+	}
+}
+
+.not-available {
+	opacity: 0.4;
+}

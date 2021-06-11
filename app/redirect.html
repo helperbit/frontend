@@ -1,0 +1,14 @@
+<html>
+<head>
+</head>
+<body>
+    <script>   
+    var uri = window.location.href.split ('?uri=');
+
+	if (uri.length > 0)
+		window.location = uri[1].replace (/%2F/g, '/').replace (/%3F/g, '?').replace (/%3D/g, '=').replace (/%2f/g, '/').replace (/%3f/g, '?').replace (/%3d/g, '=');
+	else
+        window.location = 'https://helperbit.com';
+    </script>
+</body>
+</html>

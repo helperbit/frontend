@@ -1,0 +1,112 @@
+@import "../../../sass/const.scss";
+
+$iconNewSize: 1.75em;
+
+:host {
+  .icon-new {
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+
+    $i: 1;
+    $name: "";
+
+    @while $i < 5 {
+      @if round($i) == $i {
+        $name: $i;
+      } @else {
+        $name: floor($i) + "-5";
+      }
+
+      &.icon-#{$name}x {
+        width: calc(#{$iconNewSize}*#{$i});
+        height: calc(#{$iconNewSize}*#{$i});
+
+        .fa {
+          line-height: calc(#{$iconNewSize}*#{$i});
+          transform: scale(#{$i});
+        }
+      }
+
+      $i: $i + 0.5;
+    }
+
+    &.icon-block {
+      height: 31px !important;
+      border-radius: 4px;
+      width: calc(33.33333% - 3px) !important;
+      margin-right: 3px;
+
+      i {
+        line-height: 31px !important;
+        transform: scale(1.25) !important;
+      }
+    }
+
+    &.icon-block:last-child {
+      margin-left: 0;
+    }
+
+    &.icon-block-2 {
+      height: 31px !important;
+      border-radius: 4px;
+      width: calc(50% - 2px - 3px) !important;
+      margin-right: 3px;
+
+      i {
+        line-height: 31px !important;
+        transform: scale(1.25) !important;
+      }
+    }
+
+    &.icon-block-2:last-child {
+      margin-left: 0;
+    }
+
+    &.icon-circle {
+      border-radius: 50%;
+    }
+
+    &.icon-spaced {
+      margin-right: 4px;
+      margin-left: 4px;
+    }
+
+    &.icon-default,
+    &.icon-black,
+    &.icon-facebook,
+    &.icon-twitter,
+    &.icon-linkedin,
+    &.icon-google {
+      color: #fff;
+
+      &:hover {
+        background-color: $yellow;
+      }
+    }
+
+    &.icon-default {
+      background-color: #666;
+    }
+
+    &.icon-black {
+      background-color: #000;
+    }
+
+    &.icon-facebook {
+      background-color: $facebookColor;
+    }
+
+    &.icon-twitter {
+      background-color: $twitterColor;
+    }
+
+    &.icon-linkedin {
+      background-color: $linkedinColor;
+    }
+
+    &.icon-google {
+      background-color: $googleColor;
+    }
+  }
+}

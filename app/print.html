@@ -1,0 +1,48 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script>   
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+
+        var what = getUrlParameter('what');
+        var auto = getUrlParameter('auto');
+
+        switch (what) {
+            case 'otc':
+                var token = getUrlParameter('token');
+                var address = getUrlParameter('address');
+
+                page = '<div align="center" style="height: 100%"><img src="/media/logo_200.png" /><br><br>Your code is:<br>';
+                page += '<h2>' + token + '</h2><br>';
+                page += '<p>Go to helperbit.com in the Verification page of your profile, and insert the code of this letter to complete the verification.</p>';
+                page += '</div><br><br><b>To:</b><p>' + address + '</p>'
+                document.getElementById('container').innerHTML = page;
+                break;
+        }
+
+        if (auto == 'true') {
+            document.title = getUrlParameter('title');
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

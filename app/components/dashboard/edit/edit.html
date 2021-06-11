@@ -1,0 +1,85 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="row">
+	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 page-composable-col" style="top: 0px; position: sticky;">
+		<div class="page page-composable">
+			<sidebar-component></sidebar-component>
+		</div>
+	</div>
+	<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 page-composable-col">
+		<div class="page page-composable" style="padding: 1.5em;">
+
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="responseMessage"></response-messages>
+				</div>
+			</div>
+
+			<!-- AVATAR, ADMINS, INFO VERIFICATION-->
+			<div class="row" *ngIf="user">
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="min-height: 30px;">
+					<div class="hidden-xs user-avatar-upload">
+						<label for="imageProfile">
+							<span class="fa-stack fa-1x icon" [ngClass]="{ 'icon-green': user.avatar, 'icon-red': !user.avatar }">
+								<i class="fa fa-circle fa-stack-2x icon-background"></i>
+								<i class="fa fa-camera fa-stack-1x photo-change">
+									<input id="imageProfile" class="upload" type="file" accept="image/*" (change)="uploadAvatar($event)">
+								</i>
+							</span>
+						</label>
+					</div>
+					<div class="hidden-xs user-avatar-delete" *ngIf="user.avatar">
+						<span class="fa-stack fa-1x icon icon-red">
+							<i class="fa fa-circle fa-stack-2x icon-background"></i>
+							<i class="fa fa-trash fa-stack-1x" (click)="openModalConfirmDeleteAvatar()"></i>
+						</span>
+					</div>
+					<img class="img-circle user-avatar" [src]="user | avatar">					
+				</div>
+
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" align="center" style="min-height: 30px;">
+					<!--<span class="fa-stack fa-1x icon icon-green" *ngIf="user.locked" [tooltip]="'Your account is in locked state because you are verified. Remove the verification if you want to edit your account.' | translate" [position]="'bottom'">
+						<i class="fa fa-circle fa-stack-2x icon-background"></i>
+						<i class="fa fa-lock fa-stack-1x"></i>
+					</span> -->
+				</div>
+				
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-center margin-sm-top-bottom-15 margin-xs-top-bottom-15">
+					<div *ngIf="user.premium && user.premium.enabled"> <span class="badge background-blue padding-top-bottom-10 padding-right-left-15">Premium <i class="fa fa-star"></i></span> </div>
+					<h5 class="padding-right-left-5" *ngIf="user.usertype == 'npo' && user.admins.length > 0" translate>The admins of this organization are: </h5>
+					<span class="label label-success margin-5" style="display: inline-block;" *ngFor="let admin of user.admins"> {{admin}} </span>
+					<h5 class="padding-right-left-5" *ngIf="user.usertype == 'singleuser' && user.adminof.length > 0" translate>You're admin of: </h5>
+					<span class="label label-success margin-5" style="display: inline-block;" *ngFor="let adminof of user.adminof"> {{adminof}} </span>
+				</div>
+			</div>
+
+			<!-- FORM -->
+
+			<form [formGroup]="form">
+				<formly-form [form]="form" [fields]="form.fields" [model]="form.model"></formly-form>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center padding-top-15">
+						<button (click)="updateUserInformation()" class="btn btn-default btn-xs-block"
+						 translate>Update Profile</button>
+					</div>
+				</div>
+			</form>
+
+			<!-- <span *ngIf="user.usertype != 'singleuser' && (user.receiveaddress != '' && user.receiveaddress != null)">
+
+				<div feature="alert" class="row">
+					<div class="col-md-12">
+						<alert></alert>
+						<br>
+					</div>
+				</div>
+
+				<div feature="conversion" class="col-md-6" *ngIf="user.usertype != 'singleuser' && user.usertype != 'company'">
+					<a routerLink="/me/convert" class="btn btn-default btn-block" translate>Money conversion</a>
+				</div>
+
+			</span> -->
+
+		</div>
+	</div>
+</div>

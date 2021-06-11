@@ -1,0 +1,68 @@
+<modal [config]="modals.alert">
+	<div class="modal-content" *ngIf="phase == 0">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel" translate>Send an event alert</h4>
+		</div>
+		<div class="modal-body text-color-black">
+			<!--TODO - Response Messages-->
+			<div *ngIf="error == 'E'" class="alert alert-danger" role="alert" translate>There was a problem, try again later</div>
+			<div *ngIf="error == 'EAL1'" class="alert alert-danger" role="alert" translate>This week you have already sent an alert</div>
+			<div *ngIf="error == 'EAL2'" class="alert alert-danger" role="alert" translate>You are not geolocalized</div>
+
+			<p translate>You can send an event alert to report a problem in your living position; if a certain number of users signal the same problem in an area, an event will be created. You can send only one alert per week.</p>
+
+			<textarea [(ngModel)]="alert.description" placeholder="Write an optional description of the alert..."></textarea>
+			<br>
+			<select [(ngModel)]="alert.type" style="width: 100%">
+				<option value="earthquake" translate>Earthquake</option>
+				<option value="flood" translate>Flood</option>
+				<option value="eruption" translate>Eruption</option>
+				<option value="hurricane" translate>Hurricane</option>
+				<option value="tsunami" translate>Tsunami</option>
+				<option value="drought" translate>Drought</option>
+				<option value="wildfire" translate>Wildfire</option>
+				<option value="slide" translate>Slide</option>
+				<option value="frost" translate>Frost</option>
+				<option value="other" translate>Other</option>
+			</select>
+			<br>
+			<input style="width: 100%" placeholder="{{'Describe the event in one word' | translate}}"
+					type="text" [(ngModel)]="alert.typetext" *ngIf="alert.type == 'other'" />
+			<br>
+		</div>
+		<div class="modal-footer">
+			<div class="row">
+				<div class="col-md-4">
+					<button type="button" class="btn btn-block btn-danger" data-dismiss="modal" translate>Close</button>
+				</div>
+				<div class="col-md-8">
+					<button type="button" class="btn btn-block btn-default" (click)="sendAlert ()" loading="loading"><i class="fa fa-send"></i> <span translate>Send alert</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-content" *ngIf="phase >= 1">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel" translate>Send an alert</h4>
+		</div>
+		<div class="modal-body text-color-black" align="center">
+			<div align="center"><i class="fa fa-check-circle text-color-green" style="font-size:700%;"></i></div>
+			<br>
+			<p translate>Your alert has been sent.</p>
+			<div *ngIf="phase == 1" align="left">
+				<hr>
+				<p translate>You can also attach a photo of the event:</p>
+				<input style="width: 100%" type="file" accept="image/*" class="upload" fileSelect (select)="uploadAlertMedia($event);">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal" translate>Close</button>
+		</div>
+	</div>
+</modal>
+
+
+<button (click)="modalAlert ()" class="btn btn-block btn-danger" translate>Send an alert</button>

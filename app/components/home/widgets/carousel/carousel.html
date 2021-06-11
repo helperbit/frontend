@@ -1,0 +1,17 @@
+<div class="carousel">
+	<div class="prev" (click)="movementIndex = movementIndex + 1; checkMovementIndex()" [hidden]="hidePrev"><i
+			class="fa fa-arrow-left"></i></div>
+	<div class="next" (click)="movementIndex = movementIndex - 1; checkMovementIndex()" [hidden]="hideNext"><i
+			class="fa fa-arrow-right"></i></div>
+	<div class="element" *ngFor="let element of config; let i = index;" [ngStyle]="{ 'left': elementLeftValue(i) }">
+		<img *ngIf="element.type == 'image'" (click)="elementClick(element)" [ngClass]="{ 'clickable': element.link }"
+			[src]="element.src" [alt]="element.alt">
+		<svg-icon *ngIf="element.type == 'svg'" [iconId]="element.id"></svg-icon>
+		<p class="text">
+			<span *ngIf="element.text.top" class="top">{{element.text.top}}</span> <br
+				*ngIf="element.text.top && element.text.bottom">
+			<a *ngIf="element.text.link" class="link" [href]="element.url">{{element.text.link}}</a> <span
+				*ngIf="element.text.bottom" class="bottom">{{element.text.bottom}}</span>
+		</p>
+	</div>
+</div>

@@ -1,0 +1,7 @@
+<label class="control-label" *ngIf="field.templateOptions.label"> 
+	{{field.templateOptions.label}} 
+
+	<a class="field-tooltip" *ngIf="field.templateOptions.helperTooltip && field.templateOptions.helperTooltip.content" [position]="'top'" [tooltip]="field.templateOptions.helperTooltip.content">
+		<i class="fa fa-question-circle"></i>
+	</a>
+</label>

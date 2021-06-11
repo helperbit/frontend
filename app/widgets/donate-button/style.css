@@ -1,0 +1,65 @@
+.hbdonatebutton {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#feb737),to(#f0b030)) !important;
+	background-image: -webkit-linear-gradient(#feb737,#f0b030) !important;
+	background-image: linear-gradient(#feb737,#f0b030) !important;
+	background-color: #feb737 !important;
+	color: #fff !important;
+	border-color: #feb737 !important;
+	border-radius: 3px !important;
+	padding: 0.7em 1.4em !important;
+	margin-bottom: 0.5em !important;
+	line-height: 1.3 !important;
+	font-size: 15px !important;
+	cursor: pointer !important;
+	font-weight: bold !important;
+}
+
+.hbdonatebutton:hover {
+	opacity: 0.85 !important;
+	color: #fff !important;
+	text-decoration: none !important;
+}
+
+.hbdonateclose {
+	display: none;
+}
+
+
+.hbdonateframe {
+	overflow-y: auto !important; 
+	background-color: transparent !important; 
+	border: 0px none transparent !important; 
+	visibility: visible !important; 
+	margin: 0px !important; 
+	padding: 0px !important; 
+	margin-left: auto !important; 
+	margin-right: auto !important; 
+	width: 470px !important; 
+	height: 100% !important; 
+	z-index: 9998 !important; 
+	display: none;
+}
+
+@media (max-width: 500px) {
+	.hbdonateframe {
+		width: 100% !important; 
+	}
+}
+
+.hbcontainer {
+	background-color: transparent !important; 
+	top: 0 !important; 
+	left: 0 !important; 
+	position: fixed !important; 
+  width: 100% !important; 
+  height: 100% !important; 
+  z-index: -9999 !important;
+  transition: background .5s, z-index .2s linear .5s;
+}
+
+.hbcontainer.active {
+  transition: background .5s;
+  z-index: 9999 !important;
+	background: rgba(0, 0, 0, 0.6) !important;
+}

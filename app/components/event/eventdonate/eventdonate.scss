@@ -1,0 +1,289 @@
+@import "~app/sass/const.scss";
+
+.btn-link {
+	color: #feb737;
+	padding: 0;
+	display: inline;
+	margin-right: 4px;
+}
+
+.slider-shakemap {
+	width: 8.5em;
+	position: absolute;
+	top: 0.8em;
+	right: 6.2em;
+	z-index: 999;
+
+	.slider-shakemap-legend {
+		margin-bottom: 2px;
+		font-family: $boldFont;
+		text-transform: uppercase;
+		font-size: 75%;
+		color: #fff;
+	}
+
+	::ng-deep mv-slider {
+		.slider {
+			margin-top: 5px;
+		}
+
+		.slider-selection {
+			background: $red !important;
+		}
+		.slider-track {
+			height: 6px !important;
+		}
+		.slider-track-high {
+			background-color: $yellow;
+			height: 100%;
+			max-height: 100%;
+			min-height: 100%;
+			margin-top: 0px;
+			border-top: 0;
+		}
+		.round {
+			background-image: none;
+			opacity: 100;
+			background: $yellow !important;
+		}
+		.slider-tick {
+			width: 10px;
+			height: 10px;
+			margin-top: -2px !important;
+			margin-left: -4px !important;
+		}
+		.slider-tick-label-container {
+			margin-top: 10px !important;
+			font-size: 90%;
+
+			.slider-tick-label {
+				// font-family: $regularFont;
+				color: #fff;
+				font-family: $boldFont;
+			}
+		}
+		.in-selection {
+			background-image: none;
+			background: $red !important;
+		}
+	}
+}
+
+.event {
+	overflow-x: hidden;
+	overflow-y: hidden;
+	background-color: #fff;
+	height: 100%;
+	min-height: 100%;
+
+	//eventdonate
+	.date {
+		font-family: $regularFont;
+		font-size: 80% !important;
+	}
+
+	//eventdonate
+	.category {
+		color: $yellow;
+		font-size: 80%;
+		text-transform: uppercase;
+		font-family: $boldFont;
+	}
+
+	//eventdonate
+	.donation {
+		padding: 0px;
+		height: 100%;
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		h1 {
+			font-size: 180%;
+			margin-bottom: 0.5em;
+		}
+		a.advanced {
+			color: #333;
+			&:focus {
+				color: #333;
+			}
+		}
+		.wrapper {
+			padding: 10px;
+			overflow-y: hidden;
+			overflow-x: hidden;
+			padding-bottom: 3px;
+			> {
+				h1 {
+					font-family: "Gobold Regular";
+					margin-top: 0px;
+				}
+				h2 {
+					font-family: $regularFont;
+					font-size: 80%;
+					margin: 0px;
+				}
+			}
+		}
+		.donation-lock > label {
+			font-size: 12px;
+			padding: 0;
+			background-color: #fff;
+			border-color: #fff;
+			box-shadow: none !important;
+			-webkit-box-shadow: none;
+			> input {
+				&:checked {
+					+ i:hover {
+						color: #999;
+					}
+					+ i {
+						color: #333;
+					}
+				}
+				+ i {
+					color: #999;
+					&:hover {
+						color: #333;
+					}
+				}
+			}
+		}
+		.trust > {
+			ul {
+				padding-left: 5px;
+				padding-right: 5px;
+				text-align: center;
+				background-color: #fff;
+				> span {
+					font-family: $boldFont;
+					text-transform: uppercase;
+					font-size: 85%;
+				}
+			}
+			a {
+				color: $yellow;
+				font-family: $boldFont;
+				text-transform: uppercase;
+				text-decoration: none;
+				&:hover {
+					color: $yellow;
+					font-family: $boldFont;
+					text-transform: uppercase;
+					text-decoration: none;
+				}
+			}
+		}
+		.wrapper {
+			& > p {
+				color: $yellow;
+				font-family: $boldFont;
+				text-transform: uppercase;
+				text-decoration: none;
+				> a {
+					color: $yellow;
+					font-family: $boldFont;
+					text-transform: uppercase;
+					text-decoration: none;
+					&:hover {
+						color: $yellow;
+						font-family: $boldFont;
+						text-transform: uppercase;
+						text-decoration: none;
+					}
+				}
+			}
+			.radiolabel {
+				margin-right: 30px;
+				display: inline;
+			}
+		}
+		.event-distribution {
+			margin-left: 0px;
+			font-family: $regularFont;
+			thead {
+				font-size: 85%;
+			}
+			td {
+				padding-left: 10px;
+			}
+			tbody tr {
+				background-color: #fff;
+				height: 10px;
+				overflow-y: hidden;
+
+				&.collapse {
+					background-color: #eee !important;
+					padding-left: 15px;
+					font-family: $regularFont;
+
+					& > td {
+						height: 10px;
+						overflow-y: hidden;
+					}
+					
+					a {
+						color: #333;
+						
+						&:hover {
+							color: #333;
+						}
+					}
+				}
+
+				&.collapse.in {
+					display: table-row !important;
+				}
+
+				td > a {
+					margin-left: -13px;
+					float: left;
+					color: $yellow;
+				}
+			}
+		}
+	}
+
+	//eventdonate
+	//simulation
+	.map {
+		overflow-x: hidden;
+		overflow-y: hidden;
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+		height: 100%;
+		min-height: 100%;
+	}
+
+	//eventdonate
+	.flow {
+		overflow-x: hidden;
+		overflow-y: auto;
+		font-family: $regularFont;
+		padding-right: 8px !important;
+		padding-left: 0 !important;
+		height: 100%;
+		min-height: 100%;
+		.list-group {
+			min-height: 100%;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		.list-group-item {
+			h4 {
+				color: $yellow;
+				font-size: 100%;
+				font-family: $boldFont;
+			}
+			&:hover {
+				h4 {
+					color: $red;
+				}
+				background-color: $yellow;
+				color: #fff;
+			}
+			border-radius: 0;
+			border: 0;
+			border-bottom: 1px solid #ddd;
+		}
+	}
+}

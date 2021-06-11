@@ -1,0 +1,557 @@
+//PADDING
+
+@for $i from 0 through 20 {
+
+	.padding-top-#{5*$i} {
+		padding-top: 1px * 5*$i !important;
+	}
+
+	.padding-right-#{5*$i} {
+		padding-right: 1px * 5*$i !important;
+	}
+
+	.padding-bottom-#{5*$i} {
+		padding-bottom: 1px * 5*$i !important;
+	}
+
+	.padding-left-#{5*$i} {
+		padding-left: 1px * 5*$i !important;
+	}
+
+	.padding-top-bottom-#{5*$i} {
+		padding-top: 1px * 5*$i !important;
+		padding-bottom: 1px * 5*$i !important;
+	}
+
+	.padding-right-left-#{5*$i} {
+		padding-right: 1px * 5*$i !important;
+		padding-left: 1px * 5*$i !important;
+	}
+
+	.padding-#{5*$i} {
+		padding: 1px * 5*$i !important;
+	}
+
+	//BOOTSTRAP BREAKPOINTS
+
+	//LARGE - LAPTOPS & DESKTOPS
+
+	@media screen and (min-width: #{$breakpointLgMin}) {
+
+		.padding-lg-top-#{5*$i} {
+			padding-top: 1px * 5*$i !important;
+		}
+	
+		.padding-lg-right-#{5*$i} {
+			padding-right: 1px * 5*$i !important;
+		}
+	
+		.padding-lg-bottom-#{5*$i} {
+			padding-bottom: 1px * 5*$i !important;
+		}
+	
+		.padding-lg-left-#{5*$i} {
+			padding-left: 1px * 5*$i !important;
+		}
+	
+		.padding-lg-top-bottom-#{5*$i} {
+			padding-top: 1px * 5*$i !important;
+			padding-bottom: 1px * 5*$i !important;
+		}
+	
+		.padding-lg-right-left-#{5*$i} {
+			padding-right: 1px * 5*$i !important;
+			padding-left: 1px * 5*$i !important;
+		}
+	
+		.padding-lg-#{5*$i} {
+			padding: 1px * 5*$i !important;
+		}
+	}
+
+	//MEDIUM - SMALL LAPTOPS
+
+	@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+
+		.padding-md-top-#{5*$i} {
+			padding-top: 1px * 5*$i !important;
+		}
+	
+		.padding-md-right-#{5*$i} {
+			padding-right: 1px * 5*$i !important;
+		}
+	
+		.padding-md-bottom-#{5*$i} {
+			padding-bottom: 1px * 5*$i !important;
+		}
+	
+		.padding-md-left-#{5*$i} {
+			padding-left: 1px * 5*$i !important;
+		}
+	
+		.padding-md-top-bottom-#{5*$i} {
+			padding-top: 1px * 5*$i !important;
+			padding-bottom: 1px * 5*$i !important;
+		}
+	
+		.padding-md-right-left-#{5*$i} {
+			padding-right: 1px * 5*$i !important;
+			padding-left: 1px * 5*$i !important;
+		}
+	
+		.padding-md-#{5*$i} {
+			padding: 1px * 5*$i !important;
+		}
+	}
+
+	//SMALL - TABLETS
+
+	@media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+
+		.padding-sm-top-#{5*$i} {
+			padding-top: 1px * 5*$i !important;
+		}
+	
+		.padding-sm-right-#{5*$i} {
+			padding-right: 1px * 5*$i !important;
+		}
+	
+		.padding-sm-bottom-#{5*$i} {
+			padding-bottom: 1px * 5*$i !important;
+		}
+	
+		.padding-sm-left-#{5*$i} {
+			padding-left: 1px * 5*$i !important;
+		}
+	
+		.padding-sm-top-bottom-#{5*$i} {
+			padding-top: 1px * 5*$i !important;
+			padding-bottom: 1px * 5*$i !important;
+		}
+	
+		.padding-sm-right-left-#{5*$i} {
+			padding-right: 1px * 5*$i !important;
+			padding-left: 1px * 5*$i !important;
+		}
+	
+		.padding-sm-#{5*$i} {
+			padding: 1px * 5*$i !important;
+		}
+	}
+
+	//EXTRA SMALL - PHONES
+
+	@media screen and (max-width: #{$breakpointXsMax}) {
+
+		.padding-xs-top-#{5*$i} {
+			padding-top: 1px * 5*$i !important;
+		}
+	
+		.padding-xs-right-#{5*$i} {
+			padding-right: 1px * 5*$i !important;
+		}
+	
+		.padding-xs-bottom-#{5*$i} {
+			padding-bottom: 1px * 5*$i !important;
+		}
+	
+		.padding-xs-left-#{5*$i} {
+			padding-left: 1px * 5*$i !important;
+		}
+	
+		.padding-xs-top-bottom-#{5*$i} {
+			padding-top: 1px * 5*$i !important;
+			padding-bottom: 1px * 5*$i !important;
+		}
+	
+		.padding-xs-right-left-#{5*$i} {
+			padding-right: 1px * 5*$i !important;
+			padding-left: 1px * 5*$i !important;
+		}
+	
+		.padding-xs-#{5*$i} {
+			padding: 1px * 5*$i !important;
+		}
+	}
+}
+
+//MARGIN
+
+@for $i from 0 through 20 {
+
+	.margin-top-#{5*$i} {
+		margin-top: 1px * 5*$i !important;
+	}
+
+	.margin-right-#{5*$i} {
+		margin-right: 1px * 5*$i !important;
+	}
+
+	.margin-bottom-#{5*$i} {
+		margin-bottom: 1px * 5*$i !important;
+	}
+
+	.margin-left-#{5*$i} {
+		margin-left: 1px * 5*$i !important;
+	}
+
+	.margin-top-bottom-#{5*$i} {
+		margin-top: 1px * 5*$i !important;
+		margin-bottom: 1px * 5*$i !important;
+	}
+
+	.margin-right-left-#{5*$i} {
+		margin-right: 1px * 5*$i !important;
+		margin-left: 1px * 5*$i !important;
+	}
+
+	.margin-#{5*$i} {
+		margin: 1px * 5*$i !important;
+	}
+
+	//BOOTSTRAP BREAKPOINTS
+
+	//LARGE - LAPTOPS & DESKTOPS
+
+	@media screen and (min-width: #{$breakpointLgMin}) {
+	
+		.margin-lg-top-#{5*$i} {
+			margin-top: 1px * 5*$i !important;
+		}
+	
+		.margin-lg-right-#{5*$i} {
+			margin-right: 1px * 5*$i !important;
+		}
+	
+		.margin-lg-bottom-#{5*$i} {
+			margin-bottom: 1px * 5*$i !important;
+		}
+	
+		.margin-lg-left-#{5*$i} {
+			margin-left: 1px * 5*$i !important;
+		}
+	
+		.margin-lg-top-bottom-#{5*$i} {
+			margin-top: 1px * 5*$i !important;
+			margin-bottom: 1px * 5*$i !important;
+		}
+	
+		.margin-lg-right-left-#{5*$i} {
+			margin-right: 1px * 5*$i !important;
+			margin-left: 1px * 5*$i !important;
+		}
+	
+		.margin-lg-#{5*$i} {
+			margin: 1px * 5*$i !important;
+		}
+	}
+
+	//MEDIUM - SMALL LAPTOPS
+
+	@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+	
+		.margin-md-top-#{5*$i} {
+			margin-top: 1px * 5*$i !important;
+		}
+	
+		.margin-md-right-#{5*$i} {
+			margin-right: 1px * 5*$i !important;
+		}
+	
+		.margin-md-bottom-#{5*$i} {
+			margin-bottom: 1px * 5*$i !important;
+		}
+	
+		.margin-md-left-#{5*$i} {
+			margin-left: 1px * 5*$i !important;
+		}
+	
+		.margin-md-top-bottom-#{5*$i} {
+			margin-top: 1px * 5*$i !important;
+			margin-bottom: 1px * 5*$i !important;
+		}
+	
+		.margin-md-right-left-#{5*$i} {
+			margin-right: 1px * 5*$i !important;
+			margin-left: 1px * 5*$i !important;
+		}
+	
+		.margin-md-#{5*$i} {
+			margin: 1px * 5*$i !important;
+		}
+	}
+
+	//SMALL - TABLETS
+
+	@media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+	
+		.margin-sm-top-#{5*$i} {
+			margin-top: 1px * 5*$i !important;
+		}
+	
+		.margin-sm-right-#{5*$i} {
+			margin-right: 1px * 5*$i !important;
+		}
+	
+		.margin-sm-bottom-#{5*$i} {
+			margin-bottom: 1px * 5*$i !important;
+		}
+	
+		.margin-sm-left-#{5*$i} {
+			margin-left: 1px * 5*$i !important;
+		}
+	
+		.margin-sm-top-bottom-#{5*$i} {
+			margin-top: 1px * 5*$i !important;
+			margin-bottom: 1px * 5*$i !important;
+		}
+	
+		.margin-sm-right-left-#{5*$i} {
+			margin-right: 1px * 5*$i !important;
+			margin-left: 1px * 5*$i !important;
+		}
+	
+		.margin-sm-#{5*$i} {
+			margin: 1px * 5*$i !important;
+		}
+	}
+
+	//EXTRA SMALL - PHONES
+
+	@media screen and (max-width: #{$breakpointXsMax}) {
+	
+		.margin-xs-top-#{5*$i} {
+			margin-top: 1px * 5*$i !important;
+		}
+	
+		.margin-xs-right-#{5*$i} {
+			margin-right: 1px * 5*$i !important;
+		}
+	
+		.margin-xs-bottom-#{5*$i} {
+			margin-bottom: 1px * 5*$i !important;
+		}
+	
+		.margin-xs-left-#{5*$i} {
+			margin-left: 1px * 5*$i !important;
+		}
+	
+		.margin-xs-top-bottom-#{5*$i} {
+			margin-top: 1px * 5*$i !important;
+			margin-bottom: 1px * 5*$i !important;
+		}
+	
+		.margin-xs-right-left-#{5*$i} {
+			margin-right: 1px * 5*$i !important;
+			margin-left: 1px * 5*$i !important;
+		}
+	
+		.margin-xs-#{5*$i} {
+			margin: 1px * 5*$i !important;
+		}
+	}
+}
+
+//BACKGROUND
+
+.background-green {
+	background-color: $green;
+}
+
+.background-red {
+	background-color: $red;
+}
+
+.background-yellow {
+	background-color: $yellow;
+}
+
+.background-blue {
+	background-color: $blue;
+}
+
+.background-white {
+	background-color: #fff;
+}
+
+//DISPLAY
+
+.display-table {
+    display: table;    
+}
+
+.display-tr {
+    display: table-row;
+}
+
+.display-td {
+    display: table-cell;    
+}
+
+.display-flex {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.display-flex-wrap {
+	flex-wrap: wrap;
+}
+
+.display-flex-no-wrap {
+	flex-wrap: nowrap;
+}
+
+.display-flex-row {
+	-webkit-flex-direction: row; /* Safari 6.1+ */
+	flex-direction: row;
+}
+
+.display-flex-column {
+	-webkit-flex-direction: column; /* Safari 6.1+ */
+	flex-direction: column;
+}
+
+.display-flex-grow-1 {
+	flex-grow: 1;
+}
+
+.display-flex-basis-0 {
+	flex-basis: 0;
+}
+
+.display-flex-vertical-center {
+	justify-content: center;
+}
+
+.display-flex-horizontal-center {
+	align-items: center;
+}
+
+//FLOAT
+
+.float-right {
+	float: right;
+}
+
+.float-left {
+	float: left;
+}
+
+//CURSOR
+.cursor-pointer {
+	cursor: pointer;
+}
+
+//SIZE
+
+@for $i from 1 through 20 {
+
+	.width-percentage-#{5*$i} {
+		width: 1% * 5*$i !important;
+	}
+
+	.height-percentage-#{5*$i} {
+		height: 1% * 5*$i !important;
+	}
+
+	//BOOTSTRAP BREAKPOINTS
+
+	//LARGE - LAPTOPS & DESKTOPS
+
+	@media screen and (min-width: #{$breakpointLgMin}) {
+
+		.width-lg-percentage-#{5*$i} {
+			width: 1% * 5*$i !important;
+		}
+	
+		.height-lg-percentage-#{5*$i} {
+			height: 1% * 5*$i !important;
+		}
+	}
+
+	//MEDIUM - SMALL LAPTOPS
+
+	@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+
+		.width-md-percentage-#{5*$i} {
+			width: 1% * 5*$i !important;
+		}
+	
+		.height-md-percentage-#{5*$i} {
+			height: 1% * 5*$i !important;
+		}
+
+	}
+
+	//SMALL - TABLETS
+
+	@media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+
+		.width-sm-percentage-#{5*$i} {
+			width: 1% * 5*$i !important;
+		}
+	
+		.height-sm-percentage-#{5*$i} {
+			height: 1% * 5*$i !important;
+		}
+
+	}
+
+	//EXTRA SMALL - PHONES
+
+	@media screen and (max-width: #{$breakpointXsMax}) {
+
+		.width-xs-percentage-#{5*$i} {
+			width: 1% * 5*$i !important;
+		}
+	
+		.height-xs-percentage-#{5*$i} {
+			height: 1% * 5*$i !important;
+		}
+
+	}
+}
+
+//BUTTONS
+
+//lg resolutions
+@media screen and (min-width: #{$breakpointLgMin}) {
+
+	.btn-lg-block {
+		display: block;
+		width: 100%;
+	}
+
+}
+
+//md resolutions
+@media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+
+	.btn-md-block {
+		display: block;
+		width: 100%;
+	}
+
+}
+
+//sm resolutions
+@media screen and (min-width: #{$breakpointSmMin}) and (max-width: #{$breakpointSmMax}) {
+
+	.btn-sm-block {
+		display: block;
+		width: 100%;
+	}
+
+}
+
+//xs resolutions
+@media screen and (max-width: #{$breakpointXsMax}) {
+
+	.btn-xs-block {
+		display: block;
+		width: 100%;
+	}
+
+}

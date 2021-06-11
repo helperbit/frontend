@@ -1,0 +1,201 @@
+<style>
+	.vis-tooltip {
+		border: 0px solid #808074;
+		box-shadow: 0px 0px 5px #fff;
+	}
+
+	.vis-tooltip img {
+		position: relative;
+		top: -24px;
+	}
+
+	#graph-sidebar {
+		border-left: 1px solid #ccc;
+	}
+
+	#filters-table td,
+	#filters-table tr:first-child th {
+		text-align: center;
+	}
+
+	#filters-table th:first-child {
+		width: 30%;
+	}
+
+	.graph .panel-heading {
+		border-radius: 0px;
+		border: none;
+		margin-left: -15px;
+		margin-right: -15px;
+		background-color: #feb737;
+		font-family: 'Circe Extrabold';
+		text-transform: uppercase;
+		color: white;
+	}
+
+	.graph .panel-group {
+		border: none;
+		border-radius: 0px;
+	}
+
+	.graph .panel-default {
+		border: none;
+		border-radius: 0px;
+	}
+
+	.graph .panel h2:hover {
+		cursor: pointer;
+	}
+
+	.graph .panel h2 {
+		font-weight: 700;
+	}
+
+	.graph .panel-collapse>label {
+		/*padding-left: 5px;*/
+		margin-bottom: 0px;
+		margin-top: 8px;
+		font-weight: 500;
+	}
+
+	.graph .input-group-addon {
+		border-radius: 0px;
+		border: none;
+		background-color: #ccc;
+	}
+
+	.graph .slider-track {
+		cursor: pointer !important;
+	}
+</style>
+
+<!-- conf -->
+<!--
+<div class="row graph" style="min-height: 100%; height: 100%; background: #fff;"> 
+		<div class="col-md-6 padding-right-left-0" style="min-height: 100%; height: 100%;">
+			<div id="graph" style="position:fixed; top: 0; width: 100%; height: 100%; background-color: #333">
+				<div tabindex="900" style="position: relative; overflow: hidden; -moz-user-select: none; width: 100%; height: 100%;" class="vis-network">
+					<canvas height="100%" width="100%" style="position: relative; -moz-user-select: none; width: 100%; height: 100%;"></canvas>
+				</div>
+			</div>			
+		</div>
+		<div class="col-md-6" id="configure"></div>
+-->
+
+<!-- Activation resend Modal -->
+<modal-inner [config]="modals.notLogged">
+	<div align="center">
+		<i class="fa fa-user" style="font-size:700%;"></i>
+		<br><br>
+		<p translate>You need to login to use this feature.</p>
+	</div>
+</modal-inner>
+
+<div class="graph" style="min-height: 100%; height: 100%; background: #fff; overflow: hidden">
+	<div class="col-md-9 padding-right-left-0" style="min-height: 100%; height: 100%;">
+		<div id="graph" style="width: 100%; height: 100%; background-color: #222">
+			<div tabindex="900" style="position: relative; overflow: hidden; -moz-user-select: none; width: 100%; height: 100%;" class="vis-network">
+				<canvas height="100%" width="100%" style="position: relative; -moz-user-select: none; width: 100%; height: 100%;"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<div id="graph-sidebar" class="col-md-3" style="height: 100%; overflow-y: auto">
+		<div class="panel panel-default" *ngIf="!hideFilters">
+
+			<div class="panel-heading">
+				<h2 class="panel-title" data-target="#filters" data-toggle="collapse" translate>Filters</h2>
+			</div>
+
+			<div id="filters" class="panel-collapse collapse in">
+				<label for="usr" translate="">Search:</label>
+				<input placeholder="username, transaction id or address" [(ngModel)]="search" (change)="updateGraph()" (input)="updateGraph()" type="text" class="form-control"
+				 id="usr">
+
+				<label><span translate>Date from</span> {{whenMinDate}} <span translate>to</span> {{whenMaxDate}}</label>
+				<mv-slider class="yellow" [disabled]="!logged" [tooltipType]="'hide'" [range]="true" (slideStop)="logged && updateEdges()" (click)="checkLogged($event)"
+					[(ngModel)]="whenLimits" [min]="whenMin" [max]="whenMax" [step]="1"></mv-slider>
+				<br>
+
+				<label><span translate>Amount from</span> {{amountLimits[0]}}<i class="fa fa-btc"></i> <span translate>to</span> {{amountLimits[1]}}<i class="fa fa-btc"></i></label>
+				<mv-slider class="red" [tooltipType]="'hide'" [range]="true" [disabled]="!logged" (slideStop)="logged && (amountLimits = $event) && updateEdges()" (click)="checkLogged($event)"
+					[(ngModel)]="amountLimits" [min]="amountMin" [max]="amountMax" [step]="0.001"></mv-slider>
+				<br>
+
+				<table id="filters-table" class="table table-condensed table-striped table-hover">
+					<tr>
+						<th></th>
+						<th translate>Show</th>
+						<th translate>Group</th>
+					</tr>
+					<tr *ngFor="let item of filters | keyvalue">
+						<th>{{item.value.label}}</th>
+						<td><input [disabled]="item.value.group" type="checkbox" (click)="checkLogged($event)" (change)="logged && updateNodes(item.key)"
+							 [(ngModel)]="item.value.show" id="s{{item.value.label}}"><label for="s{{item.value.label}}"></label></td>
+						<td><input [disabled]="!item.value.show" type="checkbox" (click)="checkLogged($event)" (change)="logged && updateGroups(item.key)"
+							 [(ngModel)]="item.value.group" id="g{{item.value.label}}"><label for="g{{item.value.label}}"></label></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title" data-target="#details" data-toggle="collapse" translate="">Details</h2>
+			</div>
+			<div id="details" class="panel-collapse collapse in">
+				<span *ngIf="selected.stype == 'node'">
+					<h1 translate>user</h1>
+					<br>
+					<span class="field-title" translate>Type</span><br><p>{{filters[selected.group].label}}</p>
+					<span class="field-title" translate>Username</span><br><p style="font-size: 95%">{{selected.username}}</p>
+					<span class="field-title" translate>Fullname</span><br><p>{{selected.fullname}}</p>
+
+					<div *ngIf="selected.group != 'address'" align="right">
+						<a [routerLink]="'/user/'+selected.username" class="btn btn-danger" target="_blank"><span translate>Show details</span>
+							<i class="fa fa-arrow-right"></i></a>
+					</div>
+				</span>
+
+				<span *ngIf="selected.stype == 'edge'">
+					<h1>{{selected.type|translate}}</h1>
+					<br>
+					<span class="field-title" translate>From</span><br><p style="font-size: 95%">{{selected.origFrom}}</p>
+
+					<span class="field-title" translate>To</span><br>
+					<table class="table table-condensed margin-top-5">
+						<thead class="separator">
+							<tr>
+								<th class="text-center" translate>Receipt</th>
+								<th class="text-center" translate>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center">{{selected.origTo.username}}</td>
+								<td class="text-center">{{selected.origTo.value|money}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row">
+						<div class="col-md-6">
+							<span class="field-title" translate>Value</span><br><p>{{selected.value|money}}</p>
+						</div>
+						<div class="col-md-6">
+							<span class="field-title" translate>Time</span><br><p>{{selected.time|date}}</p>
+						</div>
+					</div>
+					<div align="right">
+						<a *ngIf="selected.type == 'donation'" [routerLink]="'/donation/'+selected.txid" class="btn btn-danger" target="_blank">
+							<span translate>Show details</span> 
+							<i class="fa fa-arrow-right"></i>
+						</a>
+						<a *ngIf="selected.type == 'transaction'" [routerLink]="'/transaction/'+selected.txid" class="btn btn-danger" target="_blank">
+							<span translate>Show details</span> 
+							<i class="fa fa-arrow-right"></i>
+						</a>
+					</div>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

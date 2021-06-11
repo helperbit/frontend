@@ -1,0 +1,13 @@
+<div class="modal-header">
+	<button type="button" class="close" (click)="activeModal.dismiss()" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel">{{config.title}}</h4>
+</div>
+<div class="modal-body text-color-black">
+	<ul class="row usertype-info">
+		<li *ngFor="let info of config.userTypeInfo" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<p class="symbol"> <i class="fa" [ngClass]="info.symbol"></i> {{info.text}} </p>
+		</li>
+	</ul>
+</div>

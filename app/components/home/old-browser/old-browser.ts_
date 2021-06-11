@@ -1,0 +1,30 @@
+import { BrowserHelperService } from '../../../services/browser-helper';
+import { getSessionStorage } from '../../../shared/helpers/utils';
+import {Component} from '@angular/core';
+
+@Component({
+	selector: 'old-browser-component',
+	templateUrl: 'old-browser.html',
+	styleUrls: ['old-browser.scss']
+})
+export class OldBrowserComponent {
+	sessionStorage: Storage;
+
+	constructor(private browserHelperService: BrowserHelperService) {
+		this.sessionStorage = getSessionStorage();
+	}
+
+	enterWebsite() {
+		this.browserHelperService.oldBrowser.showMainAlert = false;
+		this.browserHelperService.oldBrowser.showBannerAlert = true;
+
+		sessionStorage.setItem('oldBrowser', JSON.stringify(this.browserHelperService.oldBrowser));
+	}
+
+	exitWebsite() {
+		this.browserHelperService.oldBrowser.showMainAlert = true;
+		this.browserHelperService.oldBrowser.showBannerAlert = false;
+
+		sessionStorage.setItem('oldBrowser', JSON.stringify(this.browserHelperService.oldBrowser));
+	}
+}

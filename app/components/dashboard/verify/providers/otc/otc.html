@@ -1,0 +1,118 @@
+<div class="modal-header">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel" translate>OTC Verification</h4>
+</div>
+
+<div class="modal-body">
+	<aw-wizard [awNavigationMode] navigateBackward="deny">
+		<aw-wizard-step [stepId]="1" [stepTitle]="wizard.step1.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step1.responseMessage"></response-messages>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4 translate>Is this address correct? If not, please update your geolocalization information, otherwise click "confirm".</h4>
+					<h4> <a class="text-capitalize" routerLink="/me/geoloc" translate>geolocalization information</a> </h4>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<table class="table table-striped table-bordered table-responsive margin-bottom-0">
+						<tbody>
+							<tr>
+								<td translate>Country</td>
+								<td> <b>{{wizard.step1.model.country}}</b> </td>
+							</tr>
+							<tr>
+								<td translate>Region</td>
+								<td> <b>{{wizard.step1.model.region}}</b> </td>
+							</tr>
+							<tr>
+								<td translate>City</td>
+								<td> <b>{{wizard.step1.model.city}}</b> </td>
+							</tr>
+							<tr>
+								<td translate>ZIP Code</td>
+								<td> <b>{{wizard.step1.model.zipCode}}</b> </td>
+							</tr>
+							<tr>
+								<td translate>Street</td>
+								<td> <b>{{wizard.step1.model.street}}</b> </td>
+							</tr>
+							<tr>
+								<td translate>Street Number</td>
+								<td> <b>{{wizard.step1.model.streetNumber}}</b> </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row margin-top-15"> 
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+					<button
+						(click)="confirmAddress()"
+						class="btn btn-default btn-xs-block"
+						translate>Confirm Address</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="2" [stepTitle]="wizard.step2.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4 class="text-center" translate>Helperbit will send a mail with a code to your headquarter; when you got the code come back in the verification page and complete the procedure.</h4>
+					<br>
+					<br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="activeModal.dismiss()"
+						class="btn btn-default btn-xs-block" translate>Ok</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="3" *ngIf="wizard.step3.enabled" [stepTitle]="wizard.step3.titles.main">
+			<div class="row">
+				<div class="col-xs-12">
+					<response-messages [message]="wizard.step3.responseMessage"></response-messages>
+				</div>
+			</div>
+			<form [formGroup]="wizard.step3">
+				<formly-form [form]="wizard.step3" [fields]="wizard.step3.fields" [model]="wizard.step3.model"></formly-form>
+				<div class="row margin-top-15">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center">
+						<button
+							(click)="sendOtcCode()"
+							[disabled]="wizard.step3.invalid"
+							class="btn btn-default btn-xs-block" translate>Send Otc Code</button>
+					</div>
+				</div>
+			</form>
+		</aw-wizard-step>
+		<aw-wizard-step [stepId]="4" *ngIf="wizard.step4.enabled" [stepTitle]="wizard.step4.titles.main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center completed-img">
+					<img src="/media/completed-green.png">
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-20 completed-text">
+					<p> <span translate>Your address is now verified!</span> </p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-lg-right text-md-right text-sm-right text-xs-center margin-xs-top-15">
+					<button
+						(click)="activeModal.dismiss()"
+						class="btn btn-default btn-xs-block" translate>Done</button>
+				</div>
+			</div>
+		</aw-wizard-step>
+	</aw-wizard>
+</div>

@@ -1,0 +1,48 @@
+@import "~app/sass/const.scss";
+
+:host {
+  .whysignup-box {
+    @media screen and (min-width: #{$breakpointLgMin}) {
+      height: 300px;
+    }
+
+    @media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+      height: 350px;
+    }
+
+    @media screen and (max-width: #{$breakpointSmMax}) {
+      height: auto;
+    }
+
+    .whysignup-box-image {
+      height: 100px;
+    }
+
+    .whysignup-box-title {
+      height: 50px;
+    }
+
+    .whysignup-box-description {
+      font-family: $regularFont;
+      color: #fff;
+      font-size: 120%;
+      margin-bottom: 0;
+
+      @media screen and (min-width: #{$breakpointLgMin}) {
+        height: 100px;
+      }
+
+      @media screen and (min-width: #{$breakpointMdMin}) and (max-width: #{$breakpointMdMax}) {
+        height: 150px;
+      }
+
+      @media screen and (max-width: #{$breakpointSmMax}) {
+        height: auto;
+      }
+    }
+
+    .whysignup-box-button {
+      height: 50px;
+    }
+  }
+}

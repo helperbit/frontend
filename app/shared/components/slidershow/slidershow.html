@@ -1,0 +1,23 @@
+<div class="sliderContainer" *ngIf="images">	
+	<lightbox [images]="lightbox.images" [activeIndex]="activeIndex" (closed)="lightbox.show = false; activeIndex = $event" [show]="lightbox.show" [config]="slidershowImagesConfig"></lightbox>
+
+	<div class="mySlides text-center" (click)="fullSizeImage(image)" *ngFor="let image of images; let i = index" [ngClass]="{ 'active': i == activeIndex }">
+		<img *ngIf="!imgAttrs.active || image.type != 'image'" [alt]="image.alt" [src]="image.type == 'application/pdf' || image.type == 'pdf' ? 'media/pdf.png' : (image.mediaId | media)">
+		<img *ngIf="imgAttrs.active && image.type == 'image'" [imgAttrs]="imgAttrs.value" [imgType]="imgAttrs.type" [imgSrc]="image.mediaId | media">
+		<div class="numbertext"> {{ i+1 + '/' + images.length }} </div>
+	</div>
+		
+	<a class="prev" *ngIf="images.length > 1" (click)="plusSlides(-1)"> <i class="fa fa-arrow-left"></i> </a>
+	<a class="next" *ngIf="images.length > 1" (click)="plusSlides(1)"> <i class="fa fa-arrow-right"></i> </a>
+	
+	<!-- <div class="caption-container" *ngIf="images[activeIndex].alt">
+		<p class="margin-bottom-0"> {{images[activeIndex].alt}} </p>
+	</div> -->
+	
+	<div class="thumbsContainer" *ngIf="images.length > 1">
+		<span  *ngFor="let image of images; let i = index;">
+			<img *ngIf="!imgAttrs.active || image.type != 'image'" [alt]="image.alt" class="column" [ngClass]="{ 'active': i == activeIndex }" [ngStyle]="{ 'max-width': thumbWidth + '%' }" [src]="image.type == 'application/pdf' || image.type == 'pdf' ? 'media/pdf.png' : (image.mediaId | media)" (click)="currentSlide(i)">
+			<img *ngIf="imgAttrs.active && image.type == 'image'" [imgAttrs]="imgAttrs.value" [imgType]="imgAttrs.type" class="column" [ngClass]="{ 'active': i == activeIndex }" [ngStyle]="{ 'max-width': thumbWidth + '%' }" [imgSrc]="image.mediaId | media" (click)="currentSlide(i)">
+		</span>
+	</div>
+</div>

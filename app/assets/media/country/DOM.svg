@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="DOM.svg"
+   width="5.1586399"
+   height="3.2516925">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="480"
+     inkscape:window-height="419"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="2.36"
+     inkscape:cx="24.321937"
+     inkscape:cy="52.970931"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     d="M 0.33102316,0.24242473 0.50888216,-2.7188322e-7 1.6190662,0.00659973 l 0.842441,0.366082 0.374826,-0.0357 0.258226,0.50451 0.778132,-0.0284 -0.04582,0.42384997 0.632795,0.0514 0.698978,0.52178 -0.528175,0.57892 -0.676451,-0.30934 -0.652859,0.0596 -0.467835,-0.0677 -0.256425,0.2594 -0.545998,0.0876 -0.216407,-0.34503 -0.47026,0.20417 -0.56925804,0.97389 -0.366154,-0.22614 -0.07203,-0.40879 0.02925,-0.38636 L -1.8375672e-6,1.8033317 0.34674916,1.5636617 l 0.1087,-0.54673 -0.124428,-0.77456497 z"
+     style="fill:#cf202e"
+     id="path4"
+     inkscape:connector-curvature="0" />
+</svg>

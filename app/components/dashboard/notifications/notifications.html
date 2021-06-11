@@ -1,0 +1,38 @@
+<page-header [config]="pageHeader"></page-header>
+
+<div class="page display-flex display-flex-row" [ngClass]="pageClass()">
+	<div align="center"
+		class="display-flex display-flex-column display-flex-grow-1 display-flex-vertical-center display-flex-horizontal-center"
+		*ngIf="notifications.length == 0">
+		<br>
+		<i class="fa fa-check" style="font-size: 500%"></i>
+		<br><br>
+		<span translate>No unread notifications</span>
+	</div>
+
+	<div class="main-box display-flex display-flex-column display-flex-grow-1">
+		<div class="text-center margin-bottom-15" *ngIf="unread > 0">
+			<a href="javascript:void(0)" (click)="readAll ()" translate class="btn btn-default">Mark all as read</a>
+		</div>
+
+		<div class="display-flex display-flex-column display-flex-grow-1 notifications-box">
+			<div class="row notification" *ngFor="let n of notifications" [ngClass]="{'unread': n.unread}">
+				<div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-lg-center text-md-center text-sm-center">
+					<i class="fa fa-{{n.icon}}"></i>
+				</div>
+
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+					<a [routerLink]="n.redirect|cropUrl:'url'" [queryParams]="n.redirect|cropUrl:'query'" (click)="notificationClick (n)">
+						<p>{{n.text}}</p>
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 text-lg-center text-md-center text-sm-center padding-top-5"
+					style="font-size:80%">
+					<i>{{n.time|timediff}}</i>
+					<!--<a (click)="notificationClick (n)" href="javascript:void(0)"><i class="fa fa-remove"></i></a>-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

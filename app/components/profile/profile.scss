@@ -1,0 +1,93 @@
+@import "~app/sass/const.scss";
+
+.profile {
+	position: relative;
+
+	.settings-button {
+		position: absolute;
+		right: 1.5em;
+		top: 1.5em;
+		z-index: 1;
+	}
+
+	.user-avatar {
+		border: 3px solid $yellow;
+	}
+
+	.username-title {
+		font-family: $regularFont;
+		text-transform: 'uppercase';
+		color: $yellow;
+		font-size: 80%;
+	}
+
+	.username {
+		font-family: 'Gobold Regular';
+		font-size: 150%;
+	}
+
+	p {
+		font-size: 90%;
+	}
+
+	.image-wrapper {
+		max-height: 150px;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	//ALL
+
+	.address-button {
+		@media screen and (max-width: #{$breakpointXxsMax}) {
+			display: block;
+			width: 100%;
+		}
+	}
+
+	.table-info {
+		border-radius: 10px;
+    	overflow: hidden;
+	}
+
+	.show-all {
+		font-size: 75%;
+		padding: 2.5px 5px;
+		text-transform: capitalize;
+		float: right;
+	}
+
+	tags-info {
+
+		.tags {
+			display: inline-block;
+		}
+	}
+
+	//SINGLE
+
+	//ORGANIZATION
+
+	.user-avatar {
+
+		@media screen and (max-width: #{$breakpointXsMax}) {
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	//COMPANY
+}
+
+.modal-full {
+
+	& > .modal-dialog {
+
+		& > .modal-content {
+			height: 100%;
+		}
+	}
+}

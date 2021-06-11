@@ -1,0 +1,36 @@
+@import "~app/sass/const.scss";
+
+ul.check-list {
+	list-style: none;
+	padding-left: 15px;
+
+	li {
+		margin-left: -10px;
+		font-size: 16px;
+
+		&:before {
+			padding-right: 5px;
+		}
+
+		&.success {
+			&:before {
+				content: "\2714";
+				color: $green;
+			}
+		}
+	
+		&.fail {	
+			&:before {
+				content: "\2718";
+				color: $red;
+			}
+		}
+	
+		&.edit {	
+			&:before {
+				content: "\0270E";
+				color: $yellow;
+			}
+		}
+	}	
+}
